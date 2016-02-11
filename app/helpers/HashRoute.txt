@@ -1,0 +1,36 @@
+class HashRoute extends Nette\Application\Routers\Route
+{
+
+        public function match(Nette\Http\IRequest $httpRequest)
+        {
+                // matchnu routu
+                if (!$appRequest = parent::match($httpRequest)) {
+                        return $appRequest;
+                }
+
+                // upravím parametry
+                $params = $appRequest->getParameters();
+                if (isset($params['data'])) {
+                        $params['data'] = explode('+', $params['data']);
+                }
+                $appRequest->setParameters($params);
+
+                // vrátím
+                return $appRequest;
+        }
+
+
+        public function constructUrl(Nette\Application\Request $appRequest, Nette\Http\Url $refUrl)
+        {
+                // upravím parametry
+                $params = $appRequest->getParameters();
+                if (isset($params['data'])) {
+                        $params['data'] = implode('+', (array)$params['data']);
+                }
+                $appRequest->setParameters($params);
+
+                // vytvořím url
+                return parent::constructUrl($appRequest, $refUrl);
+        }
+
+}

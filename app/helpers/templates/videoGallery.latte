@@ -1,0 +1,60 @@
+<script>
+	$(function() {
+		$('#videoGallerySaveOrder').hide();
+		
+		{if !$disable_gallery_actions}
+			$("ul.bcVideoGallery").sortable({ 
+				opacity: 0.6, 
+				cursor: 'move',  
+				update: function(){
+					$('#videoGallerySaveOrder').show();
+					$('#videoGallerySaveMessage').html('Changes not yet saved.');
+					$('#videoGallerySaveMessage').css("color","red");
+				}
+			});
+			
+			function saveDisplayChanges()
+			{
+				var order = $("ul.bcGallery").sortable("serialize");
+				
+				$('#videoGallerySaveMessage').html('Saving');
+				
+				$.post({plink changeGalleryOrder!}, order, function(theResponse){
+					$("#videoGallerySaveMessage").html(theResponse);
+					$('#videoGallerySaveMessage').css("color","green");
+				});
+			}
+			
+			$('body').delegate("#videoGallerySaveOrder", "click", function(){
+				saveDisplayChanges();
+			});
+			
+			$('body').delegate(".deleteVideo", "click", function(e){
+				e.preventDefault();
+				var r = confirm("Do you really want to delete this attachment?");
+				if (r == true) {
+					$.nette.ajax({
+						url: $(this).attr('href')
+					});
+				}
+			});
+		{/if}
+	});
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<a id="videoGallerySaveOrder" class="btn btn-primary btnMargin">Save changes</a>
+		<div id="videoGallerySaveMessage"></div>
+	</div>
+</div>
+{if isset($videos)&&count($videos)>0}
+	{*<p n:if="!$disable_gallery_actions">By clicking on <img alt="Delete" width="16px" height="16px" src="{$basePath}/images/deleteIco.png"> you will <b style="color:red">delete</b> file.</p>*}
+	<ul class="bcVideoGallery">
+		{foreach $videos as $video}
+			<li id="imageId_{$video["attachment_id"]}"><img src="{$video["attachmentThumbUrl"]}" alt="{$video["attachmentName"]}"/> <a n:if="!$disable_gallery_actions" class="deleteVideo" href="{plink deleteVideoGalleryFile! $video["attachment_id"]}"><img src="{$basePath}/images/deleteIco.png" alt="Delete"></a></li>
+		{/foreach}
+	</ul>
+{else}
+	<p><br>No gallery media yet.</p>
+{/if}

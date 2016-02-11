@@ -1,0 +1,41 @@
+{block content}
+	<div class="row">
+		<div class="signWrapper">
+			<div id="signInForm" class="panel panel-default">
+				<div class="sign_logo">Sign logo</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						Sign in to your account
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+					{control loginForm begin}
+						{control loginForm errors}
+						{var form => $control['loginForm']}
+						<fieldset>
+							<div class="form-group">
+								{$form['username']->control}
+							</div>
+							
+							<div class="form-group">
+								{$form['password']->control}
+							</div>
+							
+							<div class="checkbox">
+								{$form['remember']->control}{$form['remember']->label}
+								<a class="forgottenPw" href="{link Sign:lostPassword}">Forgotten password?</a>
+							</div>
+
+							{$form['login']->control}
+						<fieldset>
+					{control loginForm end}
+					<p class="notRegisteredYet">
+						Not registered yet? <a href="{link Sign:register}">Sign up</a> <br> 
+						No activation email received?  <a href="{link Sign:resendActivationEmail}">Resend</a> <br>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}

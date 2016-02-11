@@ -1,0 +1,25 @@
+{block content}
+	<div class="row">
+		<div class="signWrapper">
+			<div id="resendActivationEmail" class="panel panel-default">
+				<div class="sign_logo">Sign logo</div>
+				<div class="panel-heading">Resend activation email</div>
+				<div class="panel-body">
+					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+					{control resendActivationLinkForm begin}
+						{control resendActivationLinkForm errors}
+						{var form => $control['resendActivationLinkForm']}
+						<fieldset>
+							<div class="form-group">
+								{$form['email']->control}
+							</div>
+							<div class="form-group">
+								{$form['submitter']->control}
+							</div>
+						</fieldset>
+					{control resendActivationLinkForm end}
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}

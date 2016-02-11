@@ -1,0 +1,51 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# http://nette.org/security-warning
+#
+parameters:
+	emailConstants:
+		noreplyEmail: "noreply@titanstorage.co.uk"
+		emailSignature: "Best regards, Titan Storage team"
+		website: "https://www.medicalnetworking.co.uk"
+		#za kolik dni expiruje platnost pozvanky uzivatele
+		hashExpiration: 30
+		disableEmails: true
+	security:
+		salt: ti&&&@@##
+
+database:
+	dsn:			"mysql:host=127.0.0.1;dbname=titan"
+	user:			"root"
+	password:		""
+	options:		[PDO::MYSQL_ATTR_COMPRESS = true]
+	debugger:		true	# panel v debugger baru
+	explain:		true	# explain dotazù v debugger bar
+	conventions:	discovered	# nebo static nebo jméno tøídy, výchozí je discovered
+	autowired:		true
+
+
+php:
+	date.timezone: Europe/Prague
+
+
+application:
+	mapping:
+		*: *\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	- Admin\Presenters\SignPresenter(%emailConstants%, %security%)
+	userModel: App\Model\User
+	fileModel: App\Model\File
+	messageModel: App\Model\Message
+	notificationModel: App\Model\Notification
+	authenticator: AclProj\Security\Authenticator(%security%)
+	authorizator: AclProj\Security\Acl
+	
+nette:
+	container:
+		accessors: TRUE

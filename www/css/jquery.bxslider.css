@@ -1,0 +1,14 @@
+.bx-controls-direction{
+	position:absolute;
+	top:125px;
+	right:70px;
+}
+
+.bx-controls-direction a{
+	color:#fff;
+	margin-right:15px;
+}
+
+.bx-pager-item{
+	display:none;
+}

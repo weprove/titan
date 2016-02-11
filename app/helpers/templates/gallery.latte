@@ -1,0 +1,60 @@
+<script>
+	$(function() {
+		$('#gallerySaveOrder').hide();
+		
+		{if !$disable_gallery_actions}
+			$("ul.bcGallery").sortable({ 
+				opacity: 0.6, 
+				cursor: 'move',  
+				update: function(){
+					$('#gallerySaveOrder').show();
+					$('#gallerySaveMessage').html('Changes not yet saved.');
+					$('#gallerySaveMessage').css("color","red");
+				}
+			});
+			
+			function saveDisplayChanges()
+			{
+				var order = $("ul.bcGallery").sortable("serialize");
+				
+				$('#gallerySaveMessage').html('Saving');
+				
+				$.post({plink changeGalleryOrder!}, order, function(theResponse){
+					$("#gallerySaveMessage").html(theResponse);
+					$('#gallerySaveMessage').css("color","green");
+				});
+			}
+			
+			$('body').delegate("#gallerySaveOrder", "click", function(){
+				saveDisplayChanges();
+			});
+			
+			$('body').delegate(".delete", "click", function(e){
+				e.preventDefault();
+				var r = confirm("Do you really want to delete this attachment?");
+				if (r == true) {
+					$.nette.ajax({
+						url: $(this).attr('href')
+					});
+				}
+			});
+		{/if}
+	});
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<a id="gallerySaveOrder" class="btn btn-primary btnMargin">Save changes</a>
+		<div id="gallerySaveMessage"></div>
+	</div>
+</div>
+{if isset($images)&&count($images)>0}
+	{*<p n:if="!$disable_gallery_actions">By clicking on <img alt="Delete" width="16px" height="16px" src="{$basePath}/images/deleteIco.png"> you will <b style="color:red">delete</b> file.</p>*}
+	<ul class="bcGallery">
+		{foreach $images as $image}
+			<li id="imageId_{$image["attachment_id"]}"><img src="{$basePath}{$image["path"].$image["hashName"]}" alt="{$image["originalName"]}"/> <a n:if="!$disable_gallery_actions" class="delete" href="{plink deleteGalleryFile! $image["attachment_id"]}"><img src="{$basePath}/images/deleteIco.png" alt="Delete"></a></li>
+		{/foreach}
+	</ul>
+{else}
+	<p><br>No gallery media yet.</p>
+{/if}

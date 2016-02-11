@@ -1,0 +1,46 @@
+{block content}
+	<div class="row">
+		<div class="signWrapper">
+			<div id="signUpForm" class="panel panel-default">
+				<div class="sign_logo">Sign logo</div>
+				<div class="panel-heading">Create your GP+ profile</div>
+				<div class="panel-body">
+					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+					<p>
+						Sample notice...
+					</p>
+					{control registerForm begin}
+						{control registerForm errors}
+						{var form => $control['registerForm']}
+						<fieldset>
+							<div class="form-group">
+								{$form['name']->control}
+							</div>
+							
+							<div class="form-group">
+								{$form['surname']->control}
+							</div>
+							
+							<div class="form-group">
+								{$form['email']->control}
+							</div>
+							
+							<div class="form-group">
+								{$form['password']->control}
+							</div>
+							
+							<div class="form-group">
+								{$form['passwordCheck']->control}
+							</div>
+							{$form['submitter']->control}
+						<fieldset>
+					{control registerForm end}
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}
+
+{block scripts}
+	{include parent}
+{/block}
