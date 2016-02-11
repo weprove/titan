@@ -159,7 +159,6 @@ class SignPresenter extends \Base\Presenters\BasePresenter
             ->addRule($form::FILLED, 'Please fill in your email address')
             ->addRule($form::EMAIL, 'Please fill in your correct email address')
             ->addRule($this->userModel->isEmailAvailable, "This email is already registered, did you forgot your password?")
-			->addRule($this->userModel->isItAValidGPEmail, "This email is not a valid NHS email address")
 			->setAttribute('placeholder', 'Email address')
 			->setAttribute('class', 'form-control');
 
