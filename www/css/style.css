@@ -64,7 +64,7 @@ div.flash {
 table {
     border-collapse: inherit;
     border-spacing: 14px;
-    padding: 30px 39px 26px 28px;
+padding: 13px 19px 25px 0;
     width: 100%;
 }
 
@@ -73,7 +73,7 @@ table {
 }
 
 .panel-primary {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .panel-footer {
@@ -92,6 +92,9 @@ table {
 div.backlink .btn-primary   { 
     background-color: #dadada;
     border-color: #CDCDCD;
+    margin-left: 10px;
+    margin-top: 11px;
+    padding: 4px 16px;
            
 }
 div.backlink .btn-primary:hover   { 
@@ -102,15 +105,20 @@ div.backlink .btn-primary:hover   {
     
 .quoteFormSubmit, .customerFormSubmit { 
      margin-top: 20px;
-     padding: 7px 32px; 
+     padding: 7px 47px; 
 }
 
 .storeDetails        { 
      margin-top: 15px;
      text-align: justify;
+     padding-right: 10px;
 
 }
 .storeImage          { 
-     max-width: 520px;
+     max-width: 428px;
+     margin-bottom: 10px;
 
+}
+#col-md-6-step-2 {
+    
 }
