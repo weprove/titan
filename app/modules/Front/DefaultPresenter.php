@@ -56,7 +56,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 	protected function createComponentCustomerForm($name){
         $form = new  Form($this, $name);
 		$form->getElementPrototype()->class[] = "stdForm";
-		$form->addSelect('salutation_id', '', $this->userModel->getSalutationPairs())
+		$form->addSelect('salutation_id', 'Title', $this->userModel->getSalutationPairs())
 			->getControlPrototype()->class("form-control");
 		$form->addText('customerFirstname', 'Firstname')
 			->getControlPrototype()->class("form-control");
