@@ -63,11 +63,28 @@ div.flash {
 
 table {
     border-collapse: inherit;
-    border-spacing: 8px;
+    border-spacing: 14px;
+    padding: 30px 39px 26px 28px;
+    width: 100%;
 }
 
+.panel {
+    border-radius: 6px 6px 6px 6px;
+}
 
-label.required { 
- 
+.panel-primary {
+    margin-top: 100px;
+}
+
+.panel-footer {
+
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+
+}
+
+    
+.quoteFormSubmit { 
+     margin-top: 20px;
  
 }

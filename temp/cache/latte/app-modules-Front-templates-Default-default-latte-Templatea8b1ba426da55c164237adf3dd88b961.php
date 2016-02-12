@@ -12,20 +12,23 @@ list($_b, $_g, $_l) = $template->initialize('27a401005e', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb2b2ac7fb34_content')) { function _lb2b2ac7fb34_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>			
+?><div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">    
+      <div class="panel panel-primary">
+        <div class="panel-heading"> Quick quote in 2 easy steps </div>
+        <div class="panel-body">
+        
 <?php if (isset($step2)) { ?>
 			<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Front:Default:default"), ENT_COMPAT) ?>" class="btn btn-primary"> << Back to step 1</a>
 <?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;} else { ?>
 			
-      
-<div class="row">
-  <div class="col-lg-4">
-    <div class="panel panel-primary">
-    <div class="panel-heading"> Quick quote in 2 easy steps </div>
-    <div class="panel-body">
+
 <?php $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
-    </div>
-    <div class="panel-footer"> Panel Footer </div>
+        </div>
+     
+      <div class="panel-footer">  </div>
+       </div>
     </div>
   </div>
 </div>
