@@ -14,30 +14,34 @@ list($_b, $_g, $_l) = $template->initialize('f7362ef087', 'html')
 if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { function _lb92a73d93f9_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?><div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">    
+    <div class="col-md-10 col-md-offset-1">    
       <div class="panel panel-primary">
         <div class="panel-heading"> Quick quote in 2 easy steps </div>
         <div class="panel-body">
         
 <?php if (isset($step2)) { ?>
-			<div class="backlink"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Front:Default:default"), ENT_COMPAT) ?>" class="btn btn-primary backBtn"> << Back to step 1</a></div>
+			
+      <div class="row">
+<div class="col-md-6" ><div class="backlink"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Front:Default:default"), ENT_COMPAT) ?>" class="btn btn-primary backBtn"> << Back to step 1</a></div> 
+<?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
+</div>		
+ <div class="col-md-6" > 
+
       <div class="storeDetails"><p class="lead">This is an example of shops name.</p>
-<p>
+<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg"><p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, elementum a ultricies et, volutpat sed urna. Donec id fermentum turpis. Mauris lobortis tincidunt augue quis dictum. In eu ligula at sapien volutpat consectetur. Praesent nec consectetur mi, nec lacinia augue.
 <a href="#">Show more...</a>   </p>
-<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg">
-</div>
-<?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;} else { ?>
+<<<<<<< HEAD
+
+</div></div>   
+<?php } else { ?>
 			
-		<div class="row">
-			<div class="col-md-6"> 
+          <div class="row" id="row-step-1">
+   <div class="col-md-6 col-md-offset-3">
 <?php $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
-			</div> 
-			<div class="col-md-6"> 
-			
-			</div> 
-		</div>
-		
+   </div> 
+ 
+  </div>
         </div>
      
 
