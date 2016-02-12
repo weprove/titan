@@ -12,7 +12,7 @@ list($_b, $_g, $_l) = $template->initialize('1529a13dd8', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lbf0302ab954_content')) { function _lbf0302ab954_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>	<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:addStore"), ENT_COMPAT) ?>" class="btn btn-primary"> Add new store </a>
+?>	<div class="row"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:addStore"), ENT_COMPAT) ?>" class="btn btn-primary adding"> Add new store </a></div>
 <?php $_l->tmp = $_control->getComponent("storesGrid"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;
 }}
 
