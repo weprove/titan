@@ -13,7 +13,8 @@ use Nette,
 
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-	public $mode;
+	/** @var Models\Backend */
+    protected $backendModel;
 	/** @var Models\User */
     protected $userModel;
 	/** @var Models\Message */
@@ -113,6 +114,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 		return $breadCrumb;
 	}
+	
+	public function injectBackend(\App\Model\Backend $backendModel)
+    {
+        $this->backendModel = $backendModel;
+    }
 	
 	public function injectUser(\App\Model\User $userModel)
     {

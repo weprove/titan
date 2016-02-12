@@ -39,6 +39,7 @@ session:
 
 services:
 	- Admin\Presenters\SignPresenter(%emailConstants%, %security%)
+	backendModel: App\Model\Backend
 	userModel: App\Model\User
 	fileModel: App\Model\File
 	messageModel: App\Model\Message

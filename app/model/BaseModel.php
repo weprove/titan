@@ -14,6 +14,7 @@ use Nette,
  */
 class Base extends Nette\Object
 {
+	
 	/*const
 		TABLE_NAME = 'users',
 		COLUMN_ID = 'id',

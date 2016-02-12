@@ -9,6 +9,7 @@ use Nette\Object,
  */
 class User extends Base
 { 
+	
 	public function getSalutationPairs(){
 		return $this->db->query("SELECT salutation_id, salutationName FROM salutation")->fetchPairs();
 	}

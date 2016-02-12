@@ -4,6 +4,7 @@
 /**
  * @property AclProj\Security\Authenticator $authenticator
  * @property AclProj\Security\Acl $authorizator
+ * @property App\Model\Backend $backendModel
  * @property Nette\DI\Container $container
  * @property App\Model\File $fileModel
  * @property App\Model\Message $messageModel
@@ -30,16 +31,18 @@ class Container_cbba689a86 extends Nette\DI\Container
 					'security.user',
 					'session.session',
 					'authorizator',
+					'backendModel',
 					'fileModel',
 					'messageModel',
 					'notificationModel',
 					'userModel',
 					'authenticator',
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
 					'application.3',
 					'application.4',
+					'application.5',
 					'container',
 				),
 			),
@@ -93,12 +96,14 @@ class Container_cbba689a86 extends Nette\DI\Container
 			'AclProj\Security\Acl' => array(1 => array('authorizator')),
 			'App\Model\Base' => array(
 				1 => array(
+					'backendModel',
 					'fileModel',
 					'messageModel',
 					'notificationModel',
 					'userModel',
 				),
 			),
+			'App\Model\Backend' => array(1 => array('backendModel')),
 			'App\Model\File' => array(1 => array('fileModel')),
 			'App\Model\Message' => array(1 => array('messageModel')),
 			'App\Model\Notification' => array(1 => array('notificationModel')),
@@ -107,118 +112,134 @@ class Container_cbba689a86 extends Nette\DI\Container
 			'AclProj\Security\Authenticator' => array(1 => array('authenticator')),
 			'Base\Presenters\BasePresenter' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\UI\Presenter' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\UI\Control' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\UI\PresenterComponent' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\ComponentModel\Container' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\ComponentModel\Component' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\UI\IRenderable' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\ComponentModel\IContainer' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\ComponentModel\IComponent' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\UI\ISignalReceiver' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\UI\IStatePersistent' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'ArrayAccess' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
+					'application.3',
 				),
 			),
 			'Nette\Application\IPresenter' => array(
 				array(
-					'32_Admin_Presenters_SignPresenter',
+					'33_Admin_Presenters_SignPresenter',
 					'application.1',
 					'application.2',
 					'application.3',
 					'application.4',
+					'application.5',
 				),
 			),
 			'Admin\Presenters\SignPresenter' => array(
-				array('32_Admin_Presenters_SignPresenter'),
+				array('33_Admin_Presenters_SignPresenter'),
 			),
 			'Admin\Presenters\SecuredPresenter' => array(array('application.1')),
 			'Admin\Presenters\DefaultPresenter' => array(array('application.1')),
-			'Front\Presenters\DefaultPresenter' => array(array('application.2')),
-			'NetteModule\ErrorPresenter' => array(array('application.3')),
-			'NetteModule\MicroPresenter' => array(array('application.4')),
+			'Admin\Presenters\StorePresenter' => array(array('application.2')),
+			'Front\Presenters\DefaultPresenter' => array(array('application.3')),
+			'NetteModule\ErrorPresenter' => array(array('application.4')),
+			'NetteModule\MicroPresenter' => array(array('application.5')),
 			'Nette\DI\Container' => array(1 => array('container')),
 		),
 		'services' => array(
-			'32_Admin_Presenters_SignPresenter' => 'Admin\Presenters\SignPresenter',
+			'33_Admin_Presenters_SignPresenter' => 'Admin\Presenters\SignPresenter',
 			'application.1' => 'Admin\Presenters\DefaultPresenter',
-			'application.2' => 'Front\Presenters\DefaultPresenter',
-			'application.3' => 'NetteModule\ErrorPresenter',
-			'application.4' => 'NetteModule\MicroPresenter',
+			'application.2' => 'Admin\Presenters\StorePresenter',
+			'application.3' => 'Front\Presenters\DefaultPresenter',
+			'application.4' => 'NetteModule\ErrorPresenter',
+			'application.5' => 'NetteModule\MicroPresenter',
 			'application.application' => 'Nette\Application\Application',
 			'application.linkGenerator' => 'Nette\Application\LinkGenerator',
 			'application.presenterFactory' => 'Nette\Application\IPresenterFactory',
 			'authenticator' => 'AclProj\Security\Authenticator',
 			'authorizator' => 'AclProj\Security\Acl',
+			'backendModel' => 'App\Model\Backend',
 			'cache.journal' => 'Nette\Caching\Storages\IJournal',
 			'cache.storage' => 'Nette\Caching\IStorage',
 			'container' => 'Nette\DI\Container',
@@ -249,18 +270,20 @@ class Container_cbba689a86 extends Nette\DI\Container
 		),
 		'tags' => array(
 			'inject' => array(
-				'32_Admin_Presenters_SignPresenter' => TRUE,
+				'33_Admin_Presenters_SignPresenter' => TRUE,
 				'application.1' => TRUE,
 				'application.2' => TRUE,
 				'application.3' => TRUE,
 				'application.4' => TRUE,
+				'application.5' => TRUE,
 			),
 			'nette.presenter' => array(
-				'32_Admin_Presenters_SignPresenter' => 'Admin\Presenters\SignPresenter',
+				'33_Admin_Presenters_SignPresenter' => 'Admin\Presenters\SignPresenter',
 				'application.1' => 'Admin\Presenters\DefaultPresenter',
-				'application.2' => 'Front\Presenters\DefaultPresenter',
-				'application.3' => 'NetteModule\ErrorPresenter',
-				'application.4' => 'NetteModule\MicroPresenter',
+				'application.2' => 'Admin\Presenters\StorePresenter',
+				'application.3' => 'Front\Presenters\DefaultPresenter',
+				'application.4' => 'NetteModule\ErrorPresenter',
+				'application.5' => 'NetteModule\MicroPresenter',
 			),
 		),
 		'aliases' => array(
@@ -316,7 +339,7 @@ class Container_cbba689a86 extends Nette\DI\Container
 	/**
 	 * @return Admin\Presenters\SignPresenter
 	 */
-	public function createService__32_Admin_Presenters_SignPresenter()
+	public function createService__33_Admin_Presenters_SignPresenter()
 	{
 		$service = new Admin\Presenters\SignPresenter(array(
 			'noreplyEmail' => 'noreply@titanstorage.co.uk',
@@ -330,6 +353,7 @@ class Container_cbba689a86 extends Nette\DI\Container
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
 		$service->injectMessage($this->getService('messageModel'));
 		$service->injectUser($this->getService('userModel'));
+		$service->injectBackend($this->getService('backendModel'));
 		$service->invalidLinkMode = 5;
 		return $service;
 	}
@@ -346,6 +370,24 @@ class Container_cbba689a86 extends Nette\DI\Container
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
 		$service->injectMessage($this->getService('messageModel'));
 		$service->injectUser($this->getService('userModel'));
+		$service->injectBackend($this->getService('backendModel'));
+		$service->invalidLinkMode = 5;
+		return $service;
+	}
+
+
+	/**
+	 * @return Admin\Presenters\StorePresenter
+	 */
+	public function createServiceApplication__2()
+	{
+		$service = new Admin\Presenters\StorePresenter;
+		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
+			$this->getService('http.request'), $this->getService('http.response'), $this->getService('session.session'),
+			$this->getService('security.user'), $this->getService('latte.templateFactory'));
+		$service->injectMessage($this->getService('messageModel'));
+		$service->injectUser($this->getService('userModel'));
+		$service->injectBackend($this->getService('backendModel'));
 		$service->invalidLinkMode = 5;
 		return $service;
 	}
@@ -354,7 +396,7 @@ class Container_cbba689a86 extends Nette\DI\Container
 	/**
 	 * @return Front\Presenters\DefaultPresenter
 	 */
-	public function createServiceApplication__2()
+	public function createServiceApplication__3()
 	{
 		$service = new Front\Presenters\DefaultPresenter;
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'), $this->getService('routing.router'),
@@ -362,6 +404,7 @@ class Container_cbba689a86 extends Nette\DI\Container
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
 		$service->injectMessage($this->getService('messageModel'));
 		$service->injectUser($this->getService('userModel'));
+		$service->injectBackend($this->getService('backendModel'));
 		$service->invalidLinkMode = 5;
 		return $service;
 	}
@@ -370,7 +413,7 @@ class Container_cbba689a86 extends Nette\DI\Container
 	/**
 	 * @return NetteModule\ErrorPresenter
 	 */
-	public function createServiceApplication__3()
+	public function createServiceApplication__4()
 	{
 		$service = new NetteModule\ErrorPresenter($this->getService('tracy.logger'));
 		return $service;
@@ -380,7 +423,7 @@ class Container_cbba689a86 extends Nette\DI\Container
 	/**
 	 * @return NetteModule\MicroPresenter
 	 */
-	public function createServiceApplication__4()
+	public function createServiceApplication__5()
 	{
 		$service = new NetteModule\MicroPresenter($this, $this->getService('http.request'), $this->getService('routing.router'));
 		return $service;
@@ -441,6 +484,16 @@ class Container_cbba689a86 extends Nette\DI\Container
 	public function createServiceAuthorizator()
 	{
 		$service = new AclProj\Security\Acl;
+		return $service;
+	}
+
+
+	/**
+	 * @return App\Model\Backend
+	 */
+	public function createServiceBackendModel()
+	{
+		$service = new App\Model\Backend($this->getService('database.default.context'));
 		return $service;
 	}
 
