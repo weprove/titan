@@ -114,7 +114,7 @@ class StorePresenter extends \Base\Presenters\BasePresenter
             ->setIcon('pencil');
 			
 		$grid->addActionHref('editProducts', 'Edit products', 'editProducts')
-            ->setIcon('fa-th-large');
+            ->setIcon('th-large');
 
         /*$grid->addActionHref('delete', 'Smazat', 'deleteCadastralOwner!')
             ->setIcon('trash')

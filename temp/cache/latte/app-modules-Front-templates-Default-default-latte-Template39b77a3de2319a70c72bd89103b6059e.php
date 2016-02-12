@@ -12,11 +12,26 @@ list($_b, $_g, $_l) = $template->initialize('f7362ef087', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { function _lb92a73d93f9_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>		:Front:Default:default (muzes smazat)
-			
+?>			
 <?php if (isset($step2)) { ?>
 			<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Front:Default:default"), ENT_COMPAT) ?>" class="btn btn-primary"> << Back to step 1</a>
-<?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;} else { $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;} 
+<?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;} else { ?>
+			
+      
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-primary">
+    <div class="panel-heading"> Quick quote in 2 easy steps </div>
+    <div class="panel-body">
+<?php $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
+    </div>
+    <div class="panel-footer"> Panel Footer </div>
+    </div>
+  </div>
+</div>
+        
+        
+<?php } 
 }}
 
 //
@@ -39,6 +54,14 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 //
 // main template
 //
-if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
-call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; 
+?>
+
+<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
+call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars())  ?>
+
+
+
+
+
+<?php
 }}
