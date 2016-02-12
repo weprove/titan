@@ -94,6 +94,11 @@ div.backlink .btn-primary   {
     border-color: #CDCDCD;
            
 }
+div.backlink .btn-primary:hover   { 
+    background-color: #95ADC1; 
+    border-color: #337AB7;
+           
+}
     
 .quoteFormSubmit, .customerFormSubmit { 
      margin-top: 20px;

@@ -33,14 +33,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, eleme
 <?php $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
         </div>
      
-      <div class="panel-footer">  </div>
+
+          <div class="panel-footer">  </div>
        </div>
     </div>
   </div>
-</div>
+</div>        
         
-        
-<?php } 
+<?php } ?>
+
+<?php
 }}
 
 //
