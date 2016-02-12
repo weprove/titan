@@ -80,11 +80,32 @@ table {
 
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-
 }
 
-    
-.quoteFormSubmit { 
-     margin-top: 20px;
+.panel-body {
+    background: none repeat scroll 0 0 #FAFAFA;
+    padding: 15px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+ }
  
+div.backlink .btn-primary   { 
+    background-color: #dadada;
+    border-color: #CDCDCD;
+           
+}
+    
+.quoteFormSubmit, .customerFormSubmit { 
+     margin-top: 20px;
+     padding: 7px 32px; 
+}
+
+.storeDetails        { 
+     margin-top: 15px;
+     text-align: justify;
+
+}
+.storeImage          { 
+     max-width: 520px;
+
 }
