@@ -57,13 +57,17 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
         $form = new  Form($this, $name);
 		$form->getElementPrototype()->class[] = "stdForm";
 		$form->addSelect('salutation_id', '', $this->userModel->getSalutationPairs());
-		$form->addText('customerFirstname', 'Firstname');
-		$form->addText('customerSurname', 'Surname');
+		$form->addText('customerFirstname', 'Firstname')
+			->getControlPrototype()->class("form-control");
+		$form->addText('customerSurname', 'Surname')
+			->getControlPrototype()->class("form-control");
 		$form->addText('customerEmail', 'Email')
 			->addRule($form::EMAIL, "Please fill valid email address.")
-			->addRule($form::FILLED, "Please fill your email.");
+			->addRule($form::FILLED, "Please fill your email.")
+			->getControlPrototype()->class("form-control");
 		$form->addText('customerPhone', 'Phone')
-			->addRule($form::FILLED, "Please fill your phone.");
+			->addRule($form::FILLED, "Please fill your phone.")
+			->getControlPrototype()->class("form-control");
 			
 			
         $form->onSuccess[] = array($this, 'customerFormSubmitted');
