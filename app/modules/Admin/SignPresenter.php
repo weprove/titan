@@ -122,16 +122,7 @@ class SignPresenter extends \Base\Presenters\BasePresenter
 					else
 						$this->user->setExpiration('+ 20 minutes', TRUE);
 						
-					//zkontrolujeme, zda jiz uzivatel vyplnil druhy krok registrace		
-					if($finished['finishedRegistration']){
-						if (!empty($this->backlink))
-							$this->restoreRequest($this->backlink);
-						else
-							$this->redirect('Default:default');
-					}
-					else{
-						$this->redirect('Default:completeRegistration');
-					}
+					$this->redirect(':Admin:Default:');
 				}
 
             } catch (NS\AuthenticationException $e) {

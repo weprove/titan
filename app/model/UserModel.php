@@ -9,31 +9,8 @@ use Nette\Object,
  */
 class User extends Base
 { 
-	
-	public function deleteContact($contact_id, $user_id){
-		$r = $this->db->query("DELETE FROM contact WHERE contact_id = ? AND contact_owner_id = ?", $contact_id, $user_id);
-		//$this->db->query("UPDATE contact WHERE contact_id = ? AND contact_owner_id = ?", $contact_id, $user_id);
-		
-		return (count($r)>0)?true:false;
-	}
-	
-	public function getContacts($user_id){
-		return $this->db->table("contact")->select("contact_id, contact.user_id, user_id.user_state_id.userStateName, user_id.name, user_id.surname, user_id.profileThumbnail, user_id.doctor_level_id.doctorLevelShortName")->where("contact_owner_id = ?", $user_id)->fetchAll();
-	}
-	
-	public function saveComment($values){
-		//mozna pridat jeste podminku na replyTo
-		if(!isset($values["comment_id"]))
-			$values["commentAdDate"] = new SqlLiteral("NOW()");
-		$str = "";
-		
-		forEach($values as $key => $value){
-			$str .= " $key = values($key),";
-		}
-		
-		$str = substr($str, 0, -1);
-		
-		$result = $this->db->query("INSERT INTO comment ", $values," ON DUPLICATE KEY UPDATE $str");	
+	public function getSalutationPairs(){
+		return $this->db->query("SELECT salutation_id, salutationName FROM salutation")->fetchPairs();
 	}
 	
 	public function toggleUserApproval($user_id, $activated = 1){
