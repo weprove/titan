@@ -15,12 +15,22 @@ use Nette\Application\UI\Form,
 
 class StorePresenter extends \Base\Presenters\BasePresenter
 {
+	private $store_id;
+	
 	public function renderViewStores(){
 		
 	}
 	
 	public function renderAddStore(){
 		
+	}
+	
+	public function renderEditStore($store_id){
+		$this->store_id = $store_id;
+	}
+	
+	public function renderViewProducts($store_id){
+	
 	}
 	
 	protected function createComponentAddStoreForm($name){
@@ -57,6 +67,10 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 		
 		$form->addSubmit('submit', 'Save')
 			->setAttribute('class', 'btn btn-primary addStoreFormSubmit');
+			
+		if(isset($this->store_id)){
+			$form->setDefaults($this->backendModel->getStoreData($this->store_id));
+		}
 		
 		return $form;
 	}
@@ -96,12 +110,12 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			->setSortable()
             ->setFilterText();
 			
-		$grid->addColumnText('storeAddress', 'Address')
-			->setSortable()
-            ->setFilterText();
-			
 		$grid->addActionHref('editStore', 'Edit', 'editStore')
             ->setIcon('pencil');
+			
+		$grid->addActionHref('editProducts', 'Edit products', 'editProducts')
+			->setClass('marginLeft15')
+            ->setIcon('fa-th-large');
 
         /*$grid->addActionHref('delete', 'Smazat', 'deleteCadastralOwner!')
             ->setIcon('trash')
