@@ -1,19 +1,19 @@
 <?php
-// source: C:\wamp\www\titan\app\modules\Admin/templates/Store/viewStores.latte
+// source: C:\wamp\www\titan\app\modules\Admin/templates/Default/default.latte
 
-class Template7deeacdb9baa77ff02fbddd9b648bdd9 extends Latte\Template {
+class Template1987ee6697d96a94e600883caae33c44 extends Latte\Template {
 function render() {
 foreach ($this->params as $__k => $__v) $$__k = $__v; unset($__k, $__v);
 // prolog Latte\Macros\CoreMacros
-list($_b, $_g, $_l) = $template->initialize('f821cc3a6c', 'html')
+list($_b, $_g, $_l) = $template->initialize('82072d313d', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
 // block content
 //
-if (!function_exists($_b->blocks['content'][] = '_lb39f865ea0c_content')) { function _lb39f865ea0c_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>	<div class="row"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:addStore"), ENT_COMPAT) ?>" class="btn btn-primary adding"> Add new store </a></div>
-<?php $_l->tmp = $_control->getComponent("storesGrid"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;
+if (!function_exists($_b->blocks['content'][] = '_lb73926280b9_content')) { function _lb73926280b9_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+?>		Default:default		
+<?php
 }}
 
 //

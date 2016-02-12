@@ -175,9 +175,7 @@
 .grido tbody tr td, .grido tfoot tr td {
     vertical-align: middle;
     height: 20px;
-    padding: 5px;
-	padding-top:3px;
-	padding-bottom:3px;
+    padding: 3px 8px 2px 15px;
 }
 
 .grido input.text, .grido select {
@@ -228,3 +226,46 @@ small .fa,
     top: 1px;
     position: relative;
 }
+
+.adding {
+    background-color: #519B1B;
+    border-color: #355609;
+    float: right;
+    margin-right: 30px;
+    margin-top: 20px;
+    }
+
+
+.adding:hover
+{
+    background-color: #355609;
+}
+
+.backBtn  {
+    margin-right: 12px;
+        background-color: #dadada;
+    border-color: #CDCDCD;
+}
+
+.backBtn:hover   { 
+    background-color: #95ADC1; 
+    border-color: #337AB7;
+   }  
+    
+.btn.btn-default.btn-sm.search, .btn.btn-default.btn-sm.reset,
+.grid-action-editStore.btn.btn-primary.btn-small, .marginLeft15.btn.btn-primary.btn-small  {
+    float: right;
+}
+
+.btn.btn-primary.backBtn  {
+    background-color: #dadada;
+    border-color: #CDCDCD; 
+    float: right;
+    margin-right: 51px;
+    margin-top: 20px;
+    }   
+    
+.btn.btn-primary.addStoreFormSubmit.button  {
+    padding-right: 61px;
+    padding-left: 61px;
+    }   

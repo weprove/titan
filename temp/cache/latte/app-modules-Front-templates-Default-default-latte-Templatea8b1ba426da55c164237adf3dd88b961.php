@@ -35,13 +35,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, eleme
 </div></div>   
 <?php } else { ?>
 			
-          <div class="row">
-   <div class="col-md-6"> 
+          <div class="row" id="row-step-1">
+   <div class="col-md-6 col-md-offset-3">
 <?php $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
    </div> 
-   <div class="col-md-6"> 
-   
-   </div> 
+ 
   </div>
         
         </div>
