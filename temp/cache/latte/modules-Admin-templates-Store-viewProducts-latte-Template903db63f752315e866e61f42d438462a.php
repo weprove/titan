@@ -12,14 +12,11 @@ list($_b, $_g, $_l) = $template->initialize('4ec9ac8e64', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb3a0e053ec7_content')) { function _lb3a0e053ec7_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?><<<<<<< HEAD
-<div class="row"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:addProduct"), ENT_COMPAT) ?>" class="btn btn-primary adding"> Add new product</a>	
-<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>" class="btn btn-primary backBtn adding"> << Go back</a>
-	 </div>
-=======
-	<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>" class="btn btn-primary backBtn"> << Go back</a>
-	<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:addProduct", array($store_id)), ENT_COMPAT) ?>" class="btn btn-primary"> Add new product</a>
->>>>>>> origin/master
+?>	<div class="row">
+		<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:addProduct"), ENT_COMPAT) ?>" class="btn btn-primary adding"> Add new product</a>	
+		<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>" class="btn btn-primary backBtn adding"> << Go back</a>
+	</div>
+
 <?php $_l->tmp = $_control->getComponent("productsGrid"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;
 }}
 
