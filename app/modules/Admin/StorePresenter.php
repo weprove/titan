@@ -16,25 +16,85 @@ use Nette\Application\UI\Form,
 class StorePresenter extends \Base\Presenters\BasePresenter
 {
 	private $store_id;
+	private $product_id;
 	
-	public function renderViewStores(){
+	public function actionViewStores(){
 		
 	}
 	
-	public function renderAddStore(){
+	public function actionAddStore(){
 		
 	}
 	
-	public function renderEditStore($store_id){
+	public function actionEditStore($store_id){
 		$this->store_id = $store_id;
 	}
 	
-	public function renderViewProducts($store_id){
+	public function actionViewProducts($store_id){
+		$this->store_id = $store_id;
+		$this->template->store_id = $store_id;
+	}
+	
+	public function actionAddProduct($store_id){
 		$this->store_id = $store_id;
 	}
 	
-	public function renderAddProduct(){
+	public function actionEditProduct($product_id){
+		$this->product_id = $product_id;
+	}
 	
+	protected function createComponentAddProductForm($name){
+        $form = new  Form($this, $name);
+		$form->getElementPrototype()->class[] = "stdForm";
+
+		$form->addText('productName', 'Product name')
+			->addRule($form::FILLED, "Please fill product name.")
+			->setAttribute('class', 'form-control');
+			
+		$form->addTextarea('productDescription', 'Description')
+			->addRule($form::FILLED, "Please fill product description.")
+			->setAttribute('class', 'mceEditor');
+			
+		$form->addText('productSize', 'Size')
+			->setAttribute('class', 'form-control');
+			
+		$form->addText('productVat', 'VAT')
+			->setAttribute('class', 'form-control');
+			
+		$form->addText('productPricePerDay', 'Price per day')
+			->addRule($form::FILLED, "Please fill product price per day.")
+			->setAttribute('class', 'form-control');
+			
+        $form->onSuccess[] = array($this, 'addProductFormSubmitted');
+		
+		$form->addSubmit('submit', 'Save')
+			->setAttribute('class', 'btn btn-primary addProductFormSubmit');
+			
+		if(isset($this->product_id))
+			$form->setDefaults($this->backendModel->getProductData($this->product_id));
+		
+		return $form;
+	}
+	
+	public function addProductFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			if($form['submit']->isSubmittedBy()){
+				$values = $form->values;
+				
+				if(isset($this->store_id)){
+					$values['store_id'] = $this->store_id;
+				}
+
+				$r = $this->backendModel->updateProduct($values);
+				
+				if($r)
+					$this->flashMessage('Product succesfully created/updated.', 'success');
+				else
+					$this->flashMessage('Saving of the data failed.', 'error');	
+					
+				$this->redirect("this");
+			}
+		}
 	}
 	
 	protected function createComponentAddStoreForm($name){
@@ -87,7 +147,7 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 				$r = $this->backendModel->updateStore($values);
 				
 				if($r)
-					$this->flashMessage('Store succesfully created, now you can fill additional information.', 'success');
+					$this->flashMessage('Store succesfully created/updated.', 'success');
 				else
 					$this->flashMessage('Saving of the data failed.', 'error');	
 					

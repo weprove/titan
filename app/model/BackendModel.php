@@ -10,6 +10,24 @@ use Nette\Object,
 class Backend extends Base
 { 
 	// STORE
+	public function getProductData($product_id){
+		return $this->db->table("product")->select("*")->where("product_id = ?", $product_id)->fetch();
+	}
+	
+	public function updateProduct($values){		
+		$str = "";
+		
+		forEach($values as $key => $value){
+			$str .= " $key = values($key),";
+		}
+		
+		$str = substr($str, 0, -1);
+		
+		$r = $this->db->query("INSERT INTO product ", $values," ON DUPLICATE KEY UPDATE $str");
+		
+		return ($r)?true:false;
+	}
+	
 	public function getProducts($store_id){
 		return $this->db->table("product")->select("*")->where("store_id = ?", $store_id);	
 	}
