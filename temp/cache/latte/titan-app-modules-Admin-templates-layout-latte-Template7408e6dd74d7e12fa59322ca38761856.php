@@ -15,6 +15,7 @@ if (!function_exists($_b->blocks['css'][] = '_lbea6d750fdf_css')) { function _lb
 ?>		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/jquery-ui.min.css" rel="stylesheet">	
 		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/jquery-ui.theme.min.css" rel="stylesheet">
+		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/grido.css" rel="stylesheet">
 		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/jquery.bxslider.css" rel="stylesheet">
 		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -78,6 +79,9 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb141ec3de85_scripts')) { func
 
 			});
 		</script>
+		
+<?php $_b->templates['58aecc2401']->renderChildTemplate('Grido.scripts.latte', $template->getParameters()) ?>
+		
 <?php
 }}
 

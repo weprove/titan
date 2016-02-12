@@ -30,6 +30,10 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 	}
 	
 	public function renderViewProducts($store_id){
+		$this->store_id = $store_id;
+	}
+	
+	public function renderAddProduct(){
 	
 	}
 	
@@ -113,7 +117,8 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 		$grid->addActionHref('editStore', 'Edit', 'editStore')
             ->setIcon('pencil');
 			
-		$grid->addActionHref('editProducts', 'Edit products', 'editProducts')
+		$grid->addActionHref('editProducts', 'View products', 'viewProducts')
+			->getElementPrototype()->class('marginLeft15')
             ->setIcon('th-large');
 
         /*$grid->addActionHref('delete', 'Smazat', 'deleteCadastralOwner!')
@@ -121,6 +126,38 @@ class StorePresenter extends \Base\Presenters\BasePresenter
             ->setConfirm(function($item) {
                 return "Opravdu chcete smazat položku: {$item->owner_id}?";
 			});*/
+			
+		$fName = "stores";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+
+	
+	protected function createComponentProductsGrid($name) {
+		$grid = new Grid($this, $name);
+		$grid->model = $this->backendModel->getProducts($this->store_id);
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('product_id');
+		
+		$grid->addColumnText('productName', 'Product name')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('productDescription', 'Description')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('productVat', 'VAT')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('productPricePerDay', 'Price per day')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addActionHref('editProduct', 'Edit product', 'editProduct')
+            ->setIcon('pencil');
 			
 		$fName = "stores";
 		new \Helpers\GridoExport($grid, $fName);
