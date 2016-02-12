@@ -122,3 +122,14 @@ div.backlink .btn-primary:hover   {
 #row-step-1 {
      margin-top: 15px;    
 }
+
+#logo-login {
+max-height: 40px;
+
+}
+.col-md-8.title-login
+{
+margin-top: 12px;
+text-align: center;
+
+}

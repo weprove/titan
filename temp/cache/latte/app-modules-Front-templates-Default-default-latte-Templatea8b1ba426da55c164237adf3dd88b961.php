@@ -31,6 +31,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb2b2ac7fb34_content')) { func
 <img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg"><p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, elementum a ultricies et, volutpat sed urna. Donec id fermentum turpis. Mauris lobortis tincidunt augue quis dictum. In eu ligula at sapien volutpat consectetur. Praesent nec consectetur mi, nec lacinia augue.
 <a href="#">Show more...</a>   </p>
+<<<<<<< HEAD
 
 </div></div>   
 <?php } else { ?>
@@ -42,6 +43,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, eleme
  
   </div>
         
+=======
+<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg">
+</div>
+<?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;} else { ?>
+			
+		<div class="row">
+			<div class="col-md-6"> 
+<?php $_l->tmp = $_control->getComponent("quoteForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
+			</div> 
+			<div class="col-md-6"> 
+			
+			</div> 
+		</div>
+		
+>>>>>>> origin/master
         </div>
      
 
