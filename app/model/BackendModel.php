@@ -10,6 +10,10 @@ use Nette\Object,
 class Backend extends Base
 { 
 	// STORE
+	public function getProducts($store_id){
+		return $this->db->table("product")->select("*")->where("store_id = ?", $store_id);	
+	}
+	
 	public function getStoreData($store_id){
 		return $this->db->table("store")->select("*")->where("store_id = ?", $store_id)->fetch();
 	}
