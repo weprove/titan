@@ -1,10 +1,29 @@
 {block content}
-		:Front:Default:default (muzes smazat)
+
 			
 		{ifset $step2}
 			<a href="{link :Front:Default:default}" class="btn btn-primary"> << Back to step 1</a>
-			{control customerForm}
+		{control customerForm}
 		{else}
-			{control quoteForm}
+			
+      
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-primary">
+    <div class="panel-heading"> Quick quote in 2 easy steps </div>
+    <div class="panel-body">
+    {control quoteForm}
+    </div>
+    <div class="panel-footer"> Panel Footer </div>
+    </div>
+  </div>
+</div>
+        
+        
 		{/ifset}
 {/block}
+
+
+
+
+
