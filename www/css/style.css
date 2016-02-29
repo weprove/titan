@@ -83,10 +83,10 @@ padding: 13px 19px 25px 0;
 }
 
 .panel-body {
-    background: none repeat scroll 0 0 #FAFAFA;
+    background: none repeat scroll 0 0 #E9E9E9;
     padding: 15px;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+   
+	
  }
  
 div.backlink .btn-primary   { 
@@ -122,6 +122,47 @@ div.backlink .btn-primary:hover   {
 #row-step-1 {
      margin-top: 15px;    
 }
+
+.arrow  {
+	background-image: url(../images/arrow.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+    height: 218px;
+    margin-bottom: -15px;
+    margin-top: -30px;
+	
+}
+
+.steps {
+	color: #095998;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	text-transform:uppercase
+}
+
+.form-control {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #bebebe;
+    display: block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 1.42857;
+    padding: 5px 6px;
+	margin-bottom: 10px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+}
+
+#center-step {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 
 #logo-login {
 max-height: 40px;
