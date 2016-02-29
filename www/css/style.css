@@ -84,10 +84,13 @@ padding: 13px 19px 25px 0;
 
 .panel-body {
     background: none repeat scroll 0 0 #E9E9E9;
-    padding: 15px;
-   
-	
+    padding: 15px;	
  }
+.margin15 {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
  
 div.backlink .btn-primary   { 
     background-color: #dadada;
@@ -122,6 +125,12 @@ div.backlink .btn-primary:hover   {
 #row-step-1 {
      margin-top: 15px;    
 }
+.estimator-row {
+	 margin-top: 20px;}
+
+.grey {	 
+	background: none repeat scroll 0 0 #E9E9E9;	 
+}
 
 .arrow  {
 	background-image: url(../images/arrow.png);
@@ -132,16 +141,30 @@ div.backlink .btn-primary:hover   {
     margin-top: -30px;
 	
 }
-
+#frm-quoteForm-leaseFrom, #frm-quoteForm-leaseTo  {
+	background-image: url(../images/bg-calendar.jpg);
+	background-repeat: no-repeat;
+	background-position: center right;
+	}
 .steps {
 	color: #095998;
 	font-size: 20px;
-	font-weight: bold;
 	margin-bottom: 20px;
 	text-transform:uppercase
 }
+.estimator-description {
+	font-size: 15px;
+	margin-top: 20px;
+	color: #8A8A8A;	
+}
+.estimator-img {
+	
+	text-align: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
 
-.form-control {
+.form-control, #frm-quoteForm-store_id {
     background-color: #FFFFFF;
     background-image: none;
     border: 1px solid #CCCCCC;
@@ -157,13 +180,40 @@ div.backlink .btn-primary:hover   {
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     width: 100%;
 }
+	#frm-quoteForm-store_id  {
+	margin-top: 20px;
+	
+	}
 
 .center-form {
 	padding-left: 45px;
 	padding-right: 45px;
+	padding-top: 20px;
 }
 
 
+.quoteFormSubmit {
+	
+	display: inline-block; 
+	padding: 14px 46px;
+	margin-left: 10%;
+	color: #fff;
+	font-weight: bold;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+	background-color: #2981e4; 	
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+.quoteFormSubmit:active							{ top: 1px; }
+.quoteFormSubmit:hover							{ background-color: #2575cf; }
 
 #logo-login {
 max-height: 40px;
