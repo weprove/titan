@@ -102,14 +102,16 @@ if (!function_exists($_b->blocks['_productsSnippet'][] = '_lb04c62914ce__product
 				</div>
 				<div class="arrow col-md-1">
 				</div>
-				<div id="center-step" class="col-md-4">
+				<div class="col-md-4">
 					<span class="steps">2. what size & for how long</span>
+						<div class="center-form">
 							<?php echo $_form["product_id"]->getControl() ?>
 
 							<?php echo $_form["leaseFrom"]->getControl() ?>
 
 							<?php echo $_form["leaseTo"]->getControl() ?>
 
+						</div>
 				</div>
 				<div class="arrow col-md-1">
 				</div>

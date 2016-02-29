@@ -158,10 +158,11 @@ div.backlink .btn-primary:hover   {
     width: 100%;
 }
 
-#center-step {
-	padding-left: 10px;
-	padding-right: 10px;
+.center-form {
+	padding-left: 45px;
+	padding-right: 45px;
 }
+
 
 
 #logo-login {
