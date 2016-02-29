@@ -28,8 +28,11 @@ class Backend extends Base
 		return ($r)?true:false;
 	}
 	
-	public function getProducts($store_id){
-		return $this->db->table("product")->select("*")->where("store_id = ?", $store_id);	
+	public function getProducts($store_id = NULL){
+		$selection = $this->db->table("product")->select("*")->where("store_id = ?", $store_id);	
+		if(!$store_id)
+			$selection->where("1=2");
+		return $selection;
 	}
 	
 	public function getStoreData($store_id){
@@ -52,6 +55,14 @@ class Backend extends Base
 
 	public function getStores(){
 		return $this->db->table("store")->select("*");
+	}
+	
+	public function getStorePairs(){
+		return $this->db->table("store")->select("store_id, storeName")->fetchPairs("store_id", "storeName");
+	}
+	
+	public function getProductsByStorePairs($store_id){
+		return $this->db->table("product")->select("product_id, productName")->where("store_id = ?", $store_id)->fetchPairs("product_id", "productName");
 	}
 
 }

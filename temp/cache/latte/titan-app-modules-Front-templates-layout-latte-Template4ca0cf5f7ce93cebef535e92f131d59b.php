@@ -53,11 +53,7 @@ if (!function_exists($_b->blocks['scripts'][] = '_lbe2d42ca8f7_scripts')) { func
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/jquery.bxslider.min.js"></script>
 		<script type="text/javascript" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/tinymce/tinymce.min.js"></script>		
 		<!-- Metis Menu Plugin JavaScript -->
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/metisMenu/metisMenu.min.js"></script>
-		<!-- Morris Charts JavaScript -->
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/raphael/raphael-min.js"></script>
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/morrisjs/morris.min.js"></script>
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/morris-data.js"></script>
+		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/metisMenu.min.js"></script>
 		<!-- Custom Theme JavaScript -->
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/sb-admin-2.js"></script>	
 		<script type="text/javascript">

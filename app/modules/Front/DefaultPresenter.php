@@ -19,22 +19,46 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		if(isset($values['store_id'])&&isset($values['product_id'])){
 			$this->template->step2 = true;
 		}
+		
+		\DependentSelectBox\JsonDependentSelectBox::register("addJSelect");
 	}
 	
+	public function getStoreProducts($form, $dependentSelectBoxName) {
+		$select1 = $form["store_id"]->getValue();
+		return $this->backendModel->getProductsByStorePairs($select1);
+	}
+
 	protected function createComponentQuoteForm($name){
         $form = new  Form($this, $name);
 		$form->getElementPrototype()->class[] = "stdForm";
 		
 		$form->setMethod('get');
-		$form->addSelect('store_id', 'Select your local store', array(1 => "dummy store"))
-			->setPrompt("Choose your local store")
-			->addRule($form::FILLED, "Please select your local store.")
-			->setAttribute('class', 'form-control');
+		$store = $form->addSelect('store_id', 'Select your local store', $this->backendModel->getStorePairs());
+		$store->setPrompt("Choose your local store");
+		$store->addRule($form::FILLED, "Please select your local store.");
+		$store->setAttribute('class', 'form-control');
 			
-		$form->addSelect('product_id', 'Select your size', array(1 => "dummy product"))
+		$form->addJSelect("product_id", "Select your size", $form["store_id"], array($this, "getStoreProducts"))
 			->setPrompt("Choose your size")
 			->addRule($form::FILLED, "Please choose your size.")
 			->setAttribute('class', 'form-control');
+
+		if($this->isAjax()) {
+			$form["product_id"]->addOnSubmitCallback(array($this, "invalidateControl"), "productsSnippet");
+		}
+		
+		$form->addText('leaseFrom', 'Lease from')
+			->addRule($form::FILLED, "Please select 'Lease from' field")
+			->setAttribute('class', 'form-control');
+			
+		$form->addText('leaseTo', 'Lease to')
+			->addRule($form::FILLED, "Please select 'Lease to' field")
+			->setAttribute('class', 'form-control');
+			
+		/*$form->addSelect('product_id', 'Select your size', array(1 => "dummy product"))
+			->setPrompt("Choose your size")
+			->addRule($form::FILLED, "Please choose your size.")
+			->setAttribute('class', 'form-control');*/
 			
         $form->onSuccess[] = array($this, 'quoteFormSubmitted');
 		

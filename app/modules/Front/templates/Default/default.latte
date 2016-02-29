@@ -1,43 +1,81 @@
+{block scripts}
+	{include parent}
+	<script type="text/javascript" src="{$basePath}/js/jquery.nette.dependentselectbox.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/dependentselectbox.ajax.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/jquery.ajaxform.js"></script>
+	<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=true'></script>
+	<script type='text/javascript'>
+	$(function() {
+		$( "#frm-quoteForm-leaseFrom" ).datepicker({
+			defaultDate: "+1w",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onClose: function( selectedDate ) {
+				$( "#frm-quoteForm-leaseTo" ).datepicker( "option", "minDate", selectedDate );
+			}
+		});
+		$( "#frm-quoteForm-leaseTo" ).datepicker({
+			defaultDate: "+1w",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onClose: function( selectedDate ) {
+				$( "#frm-quoteForm-leaseFrom" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		});
+	});
+	</script>
+{/block}
+
 {block content}
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">    
-      <div class="panel panel-primary">
-        <div class="panel-heading"> Quick quote in 2 easy steps </div>
-        <div class="panel-body">
-        
-		{ifset $step2}
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">    
+		  <div class="panel panel-primary">
+			<div class="panel-heading"> Quick quote in 2 easy steps </div>
+			<div class="panel-body">
 			
-      <div class="row">
-<div class="col-md-6" ><div class="backlink"><a href="{link :Front:Default:default}" class="btn btn-primary backBtn"> << Back to step 1</a></div> 
-		{control customerForm}
-</div>		
- <div class="col-md-6" > 
+		{ifset $step2}		
+			<div class="row">
+				<div class="col-md-6" ><div class="backlink"><a href="{link :Front:Default:default}" class="btn btn-primary backBtn"> << Back to step 1</a></div> 
+					{control customerForm}
+				</div>	
+				
+				<div class="col-md-6" > 
+					<div class="storeDetails"><p class="lead">This is an example of shops name.</p>
+					<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg"><p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, elementum a ultricies et, volutpat sed urna. Donec id fermentum turpis. Mauris lobortis tincidunt augue quis dictum. In eu ligula at sapien volutpat consectetur. Praesent nec consectetur mi, nec lacinia augue.
+					<a href="#">Show more...</a>   </p>
+				</div>
+			</div>   
+		{else}
+				
+			<div class="row" id="row-step-1">
+				<div class="col-md-6 col-md-offset-3">
+					{snippet productsSnippet}
+						{form quoteForm}
+							{input store_id}
+							{input product_id}
+							{input leaseFrom}
+							{input leaseTo}
+							{input submit}
+						{/form}
+					{/snippet}
+				</div> 
 
-      <div class="storeDetails"><p class="lead">This is an example of shops name.</p>
-<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg"><p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, elementum a ultricies et, volutpat sed urna. Donec id fermentum turpis. Mauris lobortis tincidunt augue quis dictum. In eu ligula at sapien volutpat consectetur. Praesent nec consectetur mi, nec lacinia augue.
-<a href="#">Show more...</a>   </p>
-</div></div>   
-    {else}
+			</div>
 			
-          <div class="row" id="row-step-1">
-   <div class="col-md-6 col-md-offset-3">
-    {control quoteForm}
-   </div> 
- 
-  </div>
-        </div>
-     
+			</div>
+		 
 
-          <div class="panel-footer">  </div>
-       </div>
-    </div>
-  </div>
+			  <div class="panel-footer">  </div>
+		   </div>
+		</div>
+		
+	</div> <!-- row end-->
 </div>        
         
-		{/ifset}
+	{/ifset}
 
 {/block}
 
