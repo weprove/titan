@@ -20,6 +20,9 @@ class Acl extends Permission
 		$this->addResource('Front:Default');
 		$this->addResource('Admin:Sign');
 		$this->addResource('Admin:Store');
+		$this->addResource('Admin:Discount');
+		$this->addResource('Admin:Order');
+		$this->addResource('Admin:Chase');
         
         //User
         $this->allow('guest', 'Front:Default', Permission::ALL);

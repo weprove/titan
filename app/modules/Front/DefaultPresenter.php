@@ -15,16 +15,26 @@ use Nette\Application\UI\Form,
 
 class DefaultPresenter extends \Base\Presenters\BasePresenter
 {
+	public function startup() {
+		parent::startup();
+		\DependentSelectBox\JsonDependentSelectBox::register('addJSelect');
+	}
+
+	public function beforeRender() {
+		parent::beforeRender();
+		\DependentSelectBox\JsonDependentSelectBox::tryJsonResponse($this /*(presenter)*/);
+	}
+
 	public function actionDefault($values = array()){
 		if(isset($values['store_id'])&&isset($values['product_id'])){
 			$this->template->step2 = true;
 		}
-		
-		\DependentSelectBox\JsonDependentSelectBox::register("addJSelect");
 	}
 	
 	public function getStoreProducts($form, $dependentSelectBoxName) {
 		$select1 = $form["store_id"]->getValue();
+		/*Debugger::log($this->backendModel->getProductsByStorePairs($select1));
+		Debugger::log($select1);*/
 		return $this->backendModel->getProductsByStorePairs($select1);
 	}
 
@@ -63,9 +73,8 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			->setAttribute('class', 'form-control');*/
 			
         $form->onSuccess[] = array($this, 'quoteFormSubmitted');
-		
 		$form->addSubmit('submit', 'Continue')
-			->setAttribute('class', 'btn btn-primary quoteFormSubmit');
+			->setAttribute('class', 'btn btn-primary quoteFormSubmit ajax');
 		
 		return $form;
 	}

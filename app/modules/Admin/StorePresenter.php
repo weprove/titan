@@ -17,6 +17,7 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 {
 	private $store_id;
 	private $product_id;
+	private $promotion_id;
 	
 	public function actionViewStores(){
 		
@@ -35,12 +36,87 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 		$this->template->store_id = $store_id;
 	}
 	
+	public function actionViewSpecialOffers($store_id){
+		$this->store_id = $store_id;
+		$this->template->store_id = $store_id;
+	}
+	
+	public function actionAddSpecialOffer($store_id){
+		$this->store_id = $store_id;
+		$this->template->store_id = $store_id;
+	}
+	
+	public function actionEditPromotion($promotion_id){
+		$this->promotion_id = $promotion_id;
+	}
+	
 	public function actionAddProduct($store_id){
 		$this->store_id = $store_id;
 	}
 	
 	public function actionEditProduct($product_id){
 		$this->product_id = $product_id;
+	}
+	
+	protected function createComponentAddSpecialOfferForm($name){
+        $form = new  Form($this, $name);
+		$form->getElementPrototype()->class[] = "stdForm";
+		
+		$form->addHidden("promotion_id");
+		$form->addHidden("store_id");
+		$form->addText('promotionName', 'Special offer name')
+			->addRule($form::FILLED, "Please fill special offer name.")
+			->setAttribute('class', 'form-control');
+			
+		$form->addTextarea('promotionDescription', 'Description')
+			->addRule($form::FILLED, "Please fill special offer description.")
+			->setAttribute('class', 'mceEditor');
+			
+		$form->addText('promotionPercentage', '% off')
+			->addRule($form::FILLED, "Please fill % off.")
+			->setAttribute('class', 'form-control');
+			
+		$form->addText('promotionMinimalRentingPeriod', 'Min. renting period (months)')
+			->addRule($form::FILLED, "Please fill Min. renting period (months).")
+			->setAttribute('class', 'form-control');
+			
+		$form->addText('promotionValidityPeriod', 'Validity period (months)')
+			->addRule($form::FILLED, "Please fill Min. renting period (months).")
+			->setAttribute('class', 'form-control');
+			
+        $form->onSuccess[] = array($this, 'addSpecialOfferFormSubmitted');
+		
+		$form->addSubmit('submit', 'Save')
+			->setAttribute('class', 'btn btn-primary addSpecialOfferFormSubmit');
+			
+		if(isset($this->product_id))
+			$form->setDefaults($this->backendModel->getProductData($this->product_id));
+			
+		if(isset($this->promotion_id))
+			$form->setDefaults($this->backendModel->getPromotionData($this->promotion_id));
+		
+		return $form;
+	}
+	
+	public function addSpecialOfferFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			if($form['submit']->isSubmittedBy()){
+				$values = $form->values;
+				
+				if(isset($this->store_id)){
+					$values['store_id'] = $this->store_id;
+				}
+
+				$r = $this->backendModel->updateSpecialOffer($values);
+				
+				if($r)
+					$this->flashMessage('Special offer succesfully created/updated.', 'success');
+				else
+					$this->flashMessage('Saving of the data failed.', 'error');	
+					
+				$this->redirect("this");
+			}
+		}
 	}
 	
 	protected function createComponentAddProductForm($name){
@@ -58,11 +134,8 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 		$form->addText('productSize', 'Size')
 			->setAttribute('class', 'form-control');
 			
-		$form->addText('productVat', 'VAT')
-			->setAttribute('class', 'form-control');
-			
-		$form->addText('productPricePerDay', 'Price per day')
-			->addRule($form::FILLED, "Please fill product price per day.")
+		$form->addText('productPricePerMonth', 'Price per month')
+			->addRule($form::FILLED, "Please fill product price per month.")
 			->setAttribute('class', 'form-control');
 			
         $form->onSuccess[] = array($this, 'addProductFormSubmitted');
@@ -178,8 +251,58 @@ class StorePresenter extends \Base\Presenters\BasePresenter
             ->setIcon('pencil');
 			
 		$grid->addActionHref('editProducts', 'View products', 'viewProducts')
-			->getElementPrototype()->class('marginLeft15')
             ->setIcon('th-large');
+			
+		$grid->addActionHref('editSpecialOffers', 'Manage special offers', 'viewSpecialOffers')
+            ->setIcon('tags');
+
+        /*$grid->addActionHref('delete', 'Smazat', 'deleteCadastralOwner!')
+            ->setIcon('trash')
+            ->setConfirm(function($item) {
+                return "Opravdu chcete smazat položku: {$item->owner_id}?";
+			});*/
+			
+		$fName = "stores";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+	
+	protected function createComponentSpecialOffersGrid($name) {
+		$grid = new Grid($this, $name);
+		$grid->model = $this->backendModel->getSpecialOffers($this->store_id);
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('promotion_id');
+		
+		$grid->addColumnText('promotionName', 'Special offer name')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('promotionDescription', 'Description')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('promotionPercentage', '% off')
+			->setSortable()
+            ->setFilterText();
+		
+		$grid->addColumnText('promotionMinimalRentingPeriod', 'Min. renting period (months)')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('promotionValidityPeriod', 'Validity period (months)')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('promotionActive', 'Active')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addActionHref('editPromotion', 'Edit', 'editPromotion')
+            ->setIcon('pencil');
+			
+		/*$grid->addActionHref('editProducts', 'View products', 'viewProducts')
+            ->setIcon('th-large');*/
 
         /*$grid->addActionHref('delete', 'Smazat', 'deleteCadastralOwner!')
             ->setIcon('trash')
