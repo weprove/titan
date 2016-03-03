@@ -122,7 +122,9 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 	protected function createComponentAddProductForm($name){
         $form = new  Form($this, $name);
 		$form->getElementPrototype()->class[] = "stdForm";
-
+		
+		$form->addHidden("store_id");
+		$form->addHidden("product_id");
 		$form->addText('productName', 'Product name')
 			->addRule($form::FILLED, "Please fill product name.")
 			->setAttribute('class', 'form-control');
@@ -316,12 +318,20 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 		return $grid;
 	}
 
+	public function actionAddProductSpecialOffer($store_id, $product_id){
+		$this->store_id = $store_id;
+		$this->product_id = $product_id;
+		$this->template->product_id = $this->product_id;
+	}
 	
 	protected function createComponentProductsGrid($name) {
+		$that = $this;
 		$grid = new Grid($this, $name);
 		$grid->model = $this->backendModel->getProducts($this->store_id);
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('product_id');
+		
+		//add store?
 		
 		$grid->addColumnText('productName', 'Product name')
 			->setSortable()
@@ -331,21 +341,64 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			->setSortable()
             ->setFilterText();
 			
-		$grid->addColumnText('productVat', 'VAT')
+		/*$grid->addColumnText('productVat', 'VAT')
+			->setSortable()
+            ->setFilterText();*/
+			
+		$grid->addColumnText('productPricePerMonth', 'Price per month')
 			->setSortable()
             ->setFilterText();
 			
-		$grid->addColumnText('productPricePerDay', 'Price per day')
+		$grid->addColumnText('promotionName', 'Special offer')
 			->setSortable()
             ->setFilterText();
 			
 		$grid->addActionHref('editProduct', 'Edit product', 'editProduct')
             ->setIcon('pencil');
 			
+		$grid->addActionHref('addPromotion', 'Add special offer', 'addProductSpecialOffer')
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link("addProductSpecialOffer", $that->store_id, $item->product_id))->class("btn btn-primary")->setHtml("<i class='fa fa-tag'></i>");
+				return $el;
+			});
+			
 		$fName = "stores";
 		new \Helpers\GridoExport($grid, $fName);
 	 
 		return $grid;
+	}
+	
+	protected function createComponentAddProductSpecialOfferForm($name){
+        $form = new  Form($this, $name);
+		$form->getElementPrototype()->class[] = "stdForm";
+		
+		$form->addSelect('promotion_id', 'Select special offer', $this->backendModel->getStoreSpecialOffers($this->store_id))
+			->addRule($form::FILLED, "Please select special offer.")
+			->setAttribute('class', 'form-control');
+			
+        $form->onSuccess[] = array($this, 'addProductSpecialOfferFormSubmitted');
+		
+		$form->addSubmit('submit', 'Save')
+			->setAttribute('class', 'btn btn-primary addProductSpecialOfferFormSubmit');
+		
+		return $form;
+	}
+	
+	public function addProductSpecialOfferFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			if($form['submit']->isSubmittedBy()){
+				$values = $form->values;
+				
+				$r = $this->backendModel->updateProductSpecialOffer($values, $this->product_id);
+				
+				if($r)
+					$this->flashMessage('Product succesfully updated.', 'success');
+				else
+					$this->flashMessage('Saving of the data failed.', 'error');	
+					
+				$this->redirect("this");
+			}
+		}
 	}
 	
 	/*public function actionDefault($values = array()){

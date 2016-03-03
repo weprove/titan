@@ -15,6 +15,9 @@ use Nette\Application\UI\Form,
 
 class DefaultPresenter extends \Base\Presenters\BasePresenter
 {
+	public $quote;
+	public $cart_id;
+	
 	public function startup() {
 		parent::startup();
 		\DependentSelectBox\JsonDependentSelectBox::register('addJSelect');
@@ -27,7 +30,22 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 
 	public function actionDefault($values = array()){
 		if(isset($values['store_id'])&&isset($values['product_id'])){
+			$this->quote = $values;
 			$this->template->step2 = true;
+			$this->template->store = $this->backendModel->getStoreData($values['store_id']);
+		}
+	}
+	
+	public function handleOrder($cart_id){
+		$this->flashMessage("Your order was successfull. Thank you for trusting us.", "success");
+		$this->redirect(":Front:Default:default");
+	}
+	
+	public function actionShowPrices($cart_id){
+		if(isset($cart_id)){
+			$this->cart_id = $cart_id;
+			$this->template->cart_id = $this->cart_id;
+			$this->template->cart = $this->backendModel->getCart($this->cart_id);
 		}
 	}
 	
@@ -114,11 +132,97 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		return $form;
 	}
 	
+	public function nb_mois($date1, $date2)
+	{
+		$begin = new \DateTime( $date1 );
+		$end = new \DateTime( $date2 );
+		//$end = $end->modify( '+1 month' );
+
+		$interval = \DateInterval::createFromDateString('1 day');
+
+		$period = new \DatePeriod($begin, $interval, $end);
+		$counter = 0;
+		foreach($period as $dt) {
+			$counter++;
+		}
+
+		return $counter/30;
+	}
+	
 	public function customerFormSubmitted($form){
         if($form->isSubmitted() && $form->isValid()){
 			if($form['submit']->isSubmittedBy()){
 				$values = $form->values;
-				$this->redirect("this");
+				$customer_id = $this->backendModel->saveCustomer($values);
+				
+				if($customer_id){
+					//mame zakaznika, ulozime kosik ale prvni spocitame ceny
+					$vals = $this->quote;
+					$productData = $this->backendModel->getProductData($vals["product_id"]);
+					
+					if(isset($vals["leaseFrom"])&&isset($vals["leaseTo"])){
+						$months = $this->nb_mois($vals["leaseFrom"], $vals["leaseTo"]);
+						if($months > 0){
+							//doba zapujceni je nenulova, muzeme spocitat cenu
+							$cartPrice = $months*$productData->productPricePerMonth;
+							if($productData->promotionActive == '1'){
+								//spocitame slevu
+								$sale = 0;
+								$salePerMonth = 0;
+								
+								//prvni ale zjistime zda jsme dodrzeli min dobu pro aktivaci slevy
+								if($months >= $productData->promotionMinimalRentingPeriod){
+									//sleva aktivovana
+									
+									//kolik bude sleva na jeden mesic
+									$salePerMonth = ($productData->promotionPercentage/100)*$productData->productPricePerMonth;
+									
+									
+									if($months >= $productData->promotionValidityPeriod){
+										//sleva bude rovna max sleve
+										$sale = $productData->promotionValidityPeriod*$salePerMonth;	
+									}
+									elseif($months < $productData->promotionValidityPeriod){
+										//sleva bude podilove mensi
+										$fullSale = $productData->promotionValidityPeriod*$salePerMonth;
+										
+										$sale = ($months/$productData->promotionValidityPeriod)*$fullSale;
+									}
+									
+									$vals["cartPrice"] = $cartPrice;
+									$vals["cartSale"] = $sale;
+									$vals["cartPriceTotal"] = $cartPrice - $sale;
+								}
+								else{
+									//cena je jiz konecna
+									$vals["cartPrice"] = $cartPrice;
+									$vals["cartPriceTotal"] = $cartPrice;								
+								}
+							}
+							else{
+								//cena je jiz konecna
+								$vals["cartPrice"] = $cartPrice;
+								$vals["cartPriceTotal"] = $cartPrice;
+							}
+						}
+						else{
+							$this->flashMessage("Error, lease period is smaller than one day, please check filled date range.", "warning");
+							$this->redirect("this");
+						}
+					}
+					else{
+						$this->flashMessage("Error, lease from and lease to date must be filled, please return to step 1.", "warning");
+						$this->redirect("this");
+					}
+										
+					//ulozime kosik
+					$vals["customer_id"] = $customer_id;
+					$vals["cartAdDate"] = date ("Y-m-d H:i:s");
+					$cart_id = $this->backendModel->saveCart($vals);
+				}
+				/*$this->backendModel->saveQuote($this->quote);
+				$this->backendModel->saveCustomer($values);*/
+				$this->redirect(":Front:Default:showPrices", $cart_id);
 			}
 		}
 	}

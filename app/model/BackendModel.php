@@ -9,6 +9,32 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	public function getCart($cart_id){
+		return $this->db->table("cart")->select("*")->where("cart_id = ?", $cart_id)->fetch();
+	}
+	
+	public function saveCart($values){
+		$r = $this->db->query("INSERT INTO cart ", $values);
+		$insId =  $this->db->getInsertId();
+		
+		return ($insId)?$insId:false;
+	}
+	
+	public function saveCustomer($values){
+		$r = $this->db->query("INSERT INTO customer ", $values);
+		$insId =  $this->db->getInsertId();
+		
+		return ($insId)?$insId:false;
+	}
+	
+	public function updateProductSpecialOffer($values, $product_id){
+		return $this->db->query("UPDATE product SET", $values, "WHERE product_id = ?", $product_id);
+	}
+	
+	public function getStoreSpecialOffers($store_id){
+		return $this->db->table("promotion")->select("promotion_id, promotionName")->where("store_id = ?", $store_id)->fetchPairs("promotion_id", "promotionName");	
+	}
+	
 	public function getPromotionData($promotion_id){
 		$selection = $this->db->table("promotion")->select("*")->where("promotion_id = ?", $promotion_id)->fetch();	
 		return $selection;			
@@ -35,7 +61,7 @@ class Backend extends Base
 	
 	// STORE
 	public function getProductData($product_id){
-		return $this->db->table("product")->select("*")->where("product_id = ?", $product_id)->fetch();
+		return $this->db->table("product")->select("*, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
 	}
 	
 	public function updateProduct($values){		
@@ -53,7 +79,7 @@ class Backend extends Base
 	}
 	
 	public function getProducts($store_id = NULL){
-		$selection = $this->db->table("product")->select("*")->where("store_id = ?", $store_id);	
+		$selection = $this->db->table("product")->select("*, promotion_id.promotionName")->where("product.store_id = ?", $store_id);	
 		if(!$store_id)
 			$selection->where("1=2");
 		return $selection;

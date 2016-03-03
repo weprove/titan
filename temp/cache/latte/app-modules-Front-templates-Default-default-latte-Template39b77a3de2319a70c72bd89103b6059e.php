@@ -57,11 +57,38 @@ if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { func
 				</div>	
 				
 				<div class="col-md-6" > 
-					<div class="storeDetails"><p class="lead">This is an example of shops name.</p>
-					<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg"><p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo diam, elementum a ultricies et, volutpat sed urna. Donec id fermentum turpis. Mauris lobortis tincidunt augue quis dictum. In eu ligula at sapien volutpat consectetur. Praesent nec consectetur mi, nec lacinia augue.
-					<a href="#">Show more...</a>   </p>
+<?php if (isset($store->storeName)) { ?>					<div class="storeDetails">
+					<h2><?php echo Latte\Runtime\Filters::escapeHtml($store->storeName, ENT_NOQUOTES) ?></h2>
+					<img class="storeImage" src="http://www.herringtonstorage.co.uk/userfiles/image/Category_Images/Storage-box-warehouse.jpg">
+					
+					<h3>Description</h3>
+<?php if (isset($store->storeDescription)) { ?>					<p>
+						<?php echo $store->storeDescription ?>
+
+					</p>
+<?php } ?>
+					
+					<h3>Contact</h3>
+<?php if (isset($store->storeAddress)) { ?>					<p>
+						<?php echo $store->storeAddress ?>
+
+					</p>
+<?php } if (isset($store->storePhone)) { ?>
+						<p><?php echo $store->storePhone ?></p>
+<?php } ?>
+					
+<?php if (isset($store->storeEmail)) { ?>
+						<p><?php echo Latte\Runtime\Filters::escapeHtml($store->storeEmail, ENT_NOQUOTES) ?></p>
+<?php } ?>
+						
+					<h3>Open hours</h3>
+<?php if (isset($store->storeOpenHours)) { ?>					<p>
+						<?php echo $store->storeOpenHours ?>
+
+					</p>
+<?php } ?>
 				</div>
+<?php } ?>
 			</div>   
 <?php } else { ?>
 				

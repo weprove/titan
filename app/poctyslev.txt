@@ -1,0 +1,43 @@
+100 pounds....100%
+x.............50%
+
+x = 50/100 * 100
+
+
+sleva na 1 mesic
+sleva plati 2 mesice
+
+objednam 2 mesice
+
+slevoObdobi >= pujcovacimuObdobiVmesicich{
+
+}
+
+nebo slevoObdobi < pujcovacimuObdobiVmesicich{
+
+}
+
+200		2mesice
+x		1mesic
+
+x = (1/2)*200
+
+
+200		2mesice
+x		1mesic
+
+sleva bude 100
+
+200		2mesice
+x		3mesice
+
+if($months >= $productData->promotionValidityPeriod){
+	//sleva bude rovna max sleve
+	$sale = $productData->promotionValidityPeriod*$salePerMonth;	
+}
+elseif($months < $productData->promotionValidityPeriod){
+	//sleva bude podilove mensi
+	$fullSale = $productData->promotionValidityPeriod*$salePerMonth;
+	
+	$sale = ($months/$productData->promotionValidityPeriod)*$fullSale;
+}
