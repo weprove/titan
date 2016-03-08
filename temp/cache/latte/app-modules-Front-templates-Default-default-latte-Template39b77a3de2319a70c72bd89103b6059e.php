@@ -149,7 +149,7 @@ if (!function_exists($_b->blocks['_productsSnippet'][] = '_lb947e7aaca6__product
 				<div class="grey col-md-4">
 					<span class="steps">2. what size & for how long</span>
 						<div class="center-form">
-							<?php echo $_form["product_id"]->getControl() ?>
+							<?php echo $_form["main_product_id"]->getControl() ?>
 
 							<?php echo $_form["leaseFrom"]->getControl() ?>
 

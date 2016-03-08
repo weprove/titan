@@ -1,0 +1,49 @@
+{block content}
+	<div class="row">
+		<div class="col-md-12">    
+			<div class="panel-primary">
+				<div class="panel-body">
+					{if isset($cart)&&count($cart)>0}
+						<h2>Offer for you</h2>
+						<div class="row">
+							<div class="col-md-12">
+								//product name offer1 <br />
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								//Promo sale off (50% etc) <br />
+								//promot valid X months
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								cartId: {$cart->cart_id} <br />
+								storeId: {$cart->store_id} <br />
+								productId: {$cart->product_id} <br />
+								leaseFrom: {$cart->leaseFrom} <br />
+								leaseTo: {$cart->leaseTo} <br />
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								CartPrice: £ {$cart->cartPrice} <br />
+								CartSale: £ {$cart->cartSale} <br />
+								CartPriceTotal: £ {$cart->cartPriceTotal}
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<a href="{link order!, $cart_id}" class="btn btn-primary">Order >></a>
+							</div>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}

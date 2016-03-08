@@ -16,46 +16,60 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 		<div class="col-md-12">    
 			<div class="panel-primary">
 				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-2">
+							<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showSmallerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" class="btn btn-normal"> << Smaller size</a>
+						</div>
+						
+						<div class="col-md-8">
 <?php if (isset($cart)&&count($cart)>0) { ?>
-						<h2>Offer for you</h2>
-						<div class="row">
-							<div class="col-md-12">
-								//product name offer1
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12">
-								//Promo sale off (50% etc)
-								//promot valid X months
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12">
-								cartId: <?php echo Latte\Runtime\Filters::escapeHtml($cart->cart_id, ENT_NOQUOTES) ?> <br>
-								storeId: <?php echo Latte\Runtime\Filters::escapeHtml($cart->store_id, ENT_NOQUOTES) ?> <br>
-								productId: <?php echo Latte\Runtime\Filters::escapeHtml($cart->product_id, ENT_NOQUOTES) ?> <br>
-								leaseFrom: <?php echo Latte\Runtime\Filters::escapeHtml($cart->leaseFrom, ENT_NOQUOTES) ?> <br>
-								leaseTo: <?php echo Latte\Runtime\Filters::escapeHtml($cart->leaseTo, ENT_NOQUOTES) ?> <br>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12">
-								CartPrice: £ <?php echo Latte\Runtime\Filters::escapeHtml($cart->cartPrice, ENT_NOQUOTES) ?> <br>
-								CartSale: £ <?php echo Latte\Runtime\Filters::escapeHtml($cart->cartSale, ENT_NOQUOTES) ?> <br>
-								CartPriceTotal: £ <?php echo Latte\Runtime\Filters::escapeHtml($cart->cartPriceTotal, ENT_NOQUOTES) ?>
-
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6">
-								<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id)), ENT_COMPAT) ?>" class="btn btn-primary">Order >></a>
-							</div>
-						</div>
+								<h2>Offers for you</h2>
+								
+<?php if (isset($products)&&count($products)>0) { $iterations = 0; foreach ($products AS $product) { ?>
+										<div class="row">
+											<div class="col-md-6">
+												<h2><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>
+												<h3><?php echo Latte\Runtime\Filters::escapeHtml($product["productDescription"], ENT_NOQUOTES) ?></h3>
+												<h4>Standart price per month: <?php echo Latte\Runtime\Filters::escapeHtml($product["productPricePerMonth"], ENT_NOQUOTES) ?></h4>
+												<p>Standart price total: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["standartTotalPrice"], ENT_NOQUOTES) ?></p>
+											</div>
+											
+											<div class="col-md-6">
+												<div class="row offer1">
+<?php if ($product['promotionName']&&$product['promotionActive']) { ?>													<div class="col-md-12">
+														<h4><?php echo Latte\Runtime\Filters::escapeHtml($product["promotionName"], ENT_NOQUOTES) ?></h4>
+													</div>
 <?php } ?>
+													
+													<div class="col-md-12">
+<?php if ($product['cartSaleActive']) { ?>														<p> Save: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartSale"], ENT_NOQUOTES) ?></p>
+<?php } ?>
+														<p>New total price: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal"], ENT_NOQUOTES) ?></p>
+														<a href="" class="btn btn-primary">Book now!</a>
+													</div>
+												</div>
+												
+<?php if ($product['cartSaleActive2']) { ?>												<div class="row offer2">
+													<div class="col-md-12">
+														Move in for £1 for the first month - minimum stay 2 months
+													</div>	
+													
+													<div class="col-md-12">
+														<p>New total price: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?></p>
+														<a href="" class="btn btn-primary">Book now!</a>
+													</div>											
+												</div>
+<?php } ?>
+											</div>
+										</div>
+<?php $iterations++; } } } ?>
+						</div> <!-- col-md-8 -->
+						
+						<div class="col-md-2">
+							<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showBiggerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" class="btn btn-normal">Bigger size >> </a>
+						</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>

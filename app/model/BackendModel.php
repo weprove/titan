@@ -9,8 +9,18 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	public function getBiggerSize($prevSize, $store_id){
+		$r = $this->db->table("main_product")->select("main_product_id")->where("mainProductSize > ? AND store_id = ?", $prevSize, $store_id)->order("mainProductSize")->limit(1)->fetch();	
+		return  (isset($r["main_product_id"]))?$r["main_product_id"]:false;
+	}
+	
+	public function getSmallerSize($prevSize, $store_id){
+		$r = $this->db->table("main_product")->select("main_product_id")->where("mainProductSize < ? AND store_id = ?", $prevSize, $store_id)->order("mainProductSize")->limit(1)->fetch();	
+		return  (isset($r["main_product_id"]))?$r["main_product_id"]:false;	
+	}
+	
 	public function getCart($cart_id){
-		return $this->db->table("cart")->select("*")->where("cart_id = ?", $cart_id)->fetch();
+		return $this->db->table("cart")->select("*, main_product_id.mainProductSize")->where("cart_id = ?", $cart_id)->fetch();
 	}
 	
 	public function saveCart($values){
@@ -111,8 +121,21 @@ class Backend extends Base
 		return $this->db->table("store")->select("store_id, storeName")->fetchPairs("store_id", "storeName");
 	}
 	
+	public function getProductsByMainProduct($main_product_id){
+		return $this->db->table("product")->select("product.*, promotion_id.promotionName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("main_product_id = ?", $main_product_id)->fetchAll();
+	}
+	
+	public function getMainProductsByStorePairs($store_id){
+		return $this->db->table("main_product")->select("main_product_id, mainProductName")->where("store_id = ?", $store_id)->fetchPairs("main_product_id", "mainProductName");
+	}
+	
 	public function getProductsByStorePairs($store_id){
 		return $this->db->table("product")->select("product_id, productName")->where("store_id = ?", $store_id)->fetchPairs("product_id", "productName");
+	}
+	
+	public function getMainProductSize($main_product_id){
+		$r = $this->db->table("main_product")->select("mainProductSize")->where("main_product_id = ?", $main_product_id)->fetch("mainProductSize");	
+		return (isset($r["mainProductSize"]))?$r["mainProductSize"]:false;	
 	}
 
 }

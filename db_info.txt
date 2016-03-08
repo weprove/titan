@@ -1,0 +1,10 @@
+Database server: wm108.wedos.net
+Database name: d124682_e0df080
+
+Database admin account (full access rights:
+Login: a124682_e0df080
+Password: S2xsdFve
+
+User with limited rights for use in your scripts:
+Login: w124682_e0df080
+Password: wJhKc7tQ

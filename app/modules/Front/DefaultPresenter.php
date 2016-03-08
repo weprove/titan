@@ -17,6 +17,8 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 {
 	public $quote;
 	public $cart_id;
+	public $cart;
+	public $store_id;
 	
 	public function startup() {
 		parent::startup();
@@ -27,9 +29,21 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		parent::beforeRender();
 		\DependentSelectBox\JsonDependentSelectBox::tryJsonResponse($this /*(presenter)*/);
 	}
+	
+	public function handleShowBiggerSize($cart_id, $previousSize){
+		$new_main_product_id = $this->backendModel->getBiggerSize($previousSize, $this->store_id);
+		if($new_main_product_id)
+			$this->redirect("Default:showPrices", $cart_id, $new_main_product_id);
+	}
+	
+	public function handleShowSmallerSize($cart_id, $previousSize){
+		$new_main_product_id = $this->backendModel->getSmallerSize($previousSize, $this->store_id);
+		if($new_main_product_id)
+			$this->redirect("Default:showPrices", $cart_id, $new_main_product_id);
+	}
 
 	public function actionDefault($values = array()){
-		if(isset($values['store_id'])&&isset($values['product_id'])){
+		if(isset($values['store_id'])&&isset($values['main_product_id'])){
 			$this->quote = $values;
 			$this->template->step2 = true;
 			$this->template->store = $this->backendModel->getStoreData($values['store_id']);
@@ -41,11 +55,59 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		$this->redirect(":Front:Default:default");
 	}
 	
-	public function actionShowPrices($cart_id){
+	public function actionShowPrices($cart_id, $new_main_product_id = NULL){
 		if(isset($cart_id)){
 			$this->cart_id = $cart_id;
-			$this->template->cart_id = $this->cart_id;
-			$this->template->cart = $this->backendModel->getCart($this->cart_id);
+			$this->template->cart_id = $this->cart_id;		
+			$this->cart = $this->backendModel->getCart($this->cart_id);
+			$this->template->cart = $this->cart;
+			$this->store_id = $this->cart->store_id;
+			
+			$new_main_product_size = 0;
+			
+			if($new_main_product_id){
+				$new_main_product_size = $this->backendModel->getMainProductSize($new_main_product_id);
+			}
+			$this->template->prevSize = ($new_main_product_id)?$new_main_product_size:$this->cart->mainProductSize;
+			
+			$main_product_id = ($new_main_product_id)?$new_main_product_id:$this->cart->main_product_id;
+			
+			if($main_product_id){
+				$subProducts = $this->backendModel->getProductsByMainProduct($main_product_id);
+				$products = array();
+				
+				if(count($subProducts)>0){
+					$pricesArray = array();
+					
+					foreach($subProducts AS $key => $product){
+						$pricesArray = $this->countProductPrices($product, $this->cart->cartLeaseInMonths);
+						
+						$products[] = array(
+							"product_id" => $product->product_id,
+							"productName" => $product->productName,
+							"productDescription" => $product->productDescription,
+							"productPricePerMonth" => $product->productPricePerMonth,
+							"productTotal" => $product->productTotal,
+							"productOccupancy" => $product->productOccupancy,
+							"productVacancy" => $product->productVacancy,
+							"productUnitType" => $product->productUnitType,
+							"promotionName" => $product->promotionName,
+							"promotionActive" => $product->promotionActive,
+							"standartTotalPrice" => $product->productPricePerMonth*$this->cart->cartLeaseInMonths,
+							"cartSaleActive" => $pricesArray['cartSaleActive'],
+							"cartPrice" => $pricesArray['cartPrice'],
+							"cartSale" => $pricesArray['cartSale'],
+							"cartPriceTotal" => $pricesArray['cartPriceTotal'],
+							"cartPriceTotal2" => $pricesArray['cartPriceTotal2'],
+							"cartSaleActive2" => $pricesArray['cartSaleActive2']
+						);
+					}
+				}
+				
+				$this->template->products = $products;
+				//Debugger::dump($products); die();
+			}
+			
 		}
 	}
 	
@@ -53,7 +115,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		$select1 = $form["store_id"]->getValue();
 		/*Debugger::log($this->backendModel->getProductsByStorePairs($select1));
 		Debugger::log($select1);*/
-		return $this->backendModel->getProductsByStorePairs($select1);
+		return $this->backendModel->getMainProductsByStorePairs($select1);
 	}
 
 	protected function createComponentQuoteForm($name){
@@ -66,7 +128,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		$store->addRule($form::FILLED, "Please select your local store.");
 		$store->setAttribute('class', 'form-control');
 			
-		$form->addJSelect("product_id", "Select your size", $form["store_id"], array($this, "getStoreProducts"))
+		$form->addJSelect("main_product_id", "Select your size", $form["store_id"], array($this, "getStoreProducts"))
 			->setPrompt("select size")
 			->addRule($form::FILLED, "Please choose your size.")
 			->setAttribute('class', 'form-control');
@@ -92,7 +154,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			
         $form->onSuccess[] = array($this, 'quoteFormSubmitted');
 		$form->addSubmit('submit', 'Continue')
-			->setAttribute('class', 'btn btn-primary quoteFormSubmit ajax');
+			->setAttribute('class', 'btn btn-primary quoteFormSubmit ajax'); //ajax!!
 		
 		return $form;
 	}
@@ -149,6 +211,84 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		return $counter/30;
 	}
 	
+	public function countProductPrices($productData, $cartLeaseInMonths){
+		$vals = array();
+		$vals["cartPrice"] = 0;
+		$vals["cartSale"] = 0;
+		$vals["cartPriceTotal"] = 0;
+		$vals["cartSaleActive"] = false;
+		
+		//second offer
+		//$vals["cartSale2"] = 0;
+		$vals["cartPriceTotal2"] = 0;
+		$vals["cartSaleActive2"] = false;
+		
+		$months = $cartLeaseInMonths;
+		
+		if($months > 0){
+			//doba zapujceni je nenulova, muzeme spocitat cenu
+			$cartPrice = $months*$productData->productPricePerMonth;
+			if($productData->promotionActive == '1'){
+				//spocitame slevu
+				$sale = 0;
+				$salePerMonth = 0;
+				
+				//prvni ale zjistime zda jsme dodrzeli min dobu pro aktivaci slevy
+				if($months >= $productData->promotionMinimalRentingPeriod){
+					//sleva aktivovana
+					
+					//kolik bude sleva na jeden mesic
+					$salePerMonth = ($productData->promotionPercentage/100)*$productData->productPricePerMonth;
+					
+					
+					if($months >= $productData->promotionValidityPeriod){
+						//sleva bude rovna max sleve
+						$sale = $productData->promotionValidityPeriod*$salePerMonth;	
+					}
+					elseif($months < $productData->promotionValidityPeriod){
+						//sleva bude podilove mensi
+						$fullSale = $productData->promotionValidityPeriod*$salePerMonth;
+						
+						$sale = ($months/$productData->promotionValidityPeriod)*$fullSale;
+					}
+					
+					$vals["cartSaleActive"] = true;
+					$vals["cartPrice"] = $cartPrice;
+					$vals["cartSale"] = $sale;
+					$vals["cartPriceTotal"] = $cartPrice - $sale;
+				}
+				else{
+					//cena je jiz konecna
+					$vals["cartSaleActive"] = false;
+					$vals["cartPrice"] = $cartPrice;
+					$vals["cartSale"] = 0;
+					$vals["cartPriceTotal"] = $cartPrice;								
+				}
+			}
+			else{
+				//cena je jiz konecna
+				$vals["cartSaleActive"] = false;
+				$vals["cartPrice"] = $cartPrice;
+				$vals["cartSale"] = 0;
+				$vals["cartPriceTotal"] = $cartPrice;
+			}
+			
+			//spocitame jeste slevu pro move in
+			if($months >= 2){
+				$sale = $cartPrice - $productData->productPricePerMonth + 1;
+				$vals["cartPriceTotal2"] = $sale;
+				$vals["cartSaleActive2"] = true;
+			}
+			else{
+				$vals["cartPriceTotal2"] = $cartPrice;
+				$vals["cartSaleActive2"] = false;
+			}
+		}
+		
+		
+		return $vals;
+	}
+	
 	public function customerFormSubmitted($form){
         if($form->isSubmitted() && $form->isValid()){
 			if($form['submit']->isSubmittedBy()){
@@ -158,64 +298,24 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 				if($customer_id){
 					//mame zakaznika, ulozime kosik ale prvni spocitame ceny
 					$vals = $this->quote;
-					$productData = $this->backendModel->getProductData($vals["product_id"]);
-					
-					if(isset($vals["leaseFrom"])&&isset($vals["leaseTo"])){
-						$months = $this->nb_mois($vals["leaseFrom"], $vals["leaseTo"]);
-						if($months > 0){
-							//doba zapujceni je nenulova, muzeme spocitat cenu
-							$cartPrice = $months*$productData->productPricePerMonth;
-							if($productData->promotionActive == '1'){
-								//spocitame slevu
-								$sale = 0;
-								$salePerMonth = 0;
-								
-								//prvni ale zjistime zda jsme dodrzeli min dobu pro aktivaci slevy
-								if($months >= $productData->promotionMinimalRentingPeriod){
-									//sleva aktivovana
-									
-									//kolik bude sleva na jeden mesic
-									$salePerMonth = ($productData->promotionPercentage/100)*$productData->productPricePerMonth;
-									
-									
-									if($months >= $productData->promotionValidityPeriod){
-										//sleva bude rovna max sleve
-										$sale = $productData->promotionValidityPeriod*$salePerMonth;	
-									}
-									elseif($months < $productData->promotionValidityPeriod){
-										//sleva bude podilove mensi
-										$fullSale = $productData->promotionValidityPeriod*$salePerMonth;
-										
-										$sale = ($months/$productData->promotionValidityPeriod)*$fullSale;
-									}
-									
-									$vals["cartPrice"] = $cartPrice;
-									$vals["cartSale"] = $sale;
-									$vals["cartPriceTotal"] = $cartPrice - $sale;
-								}
-								else{
-									//cena je jiz konecna
-									$vals["cartPrice"] = $cartPrice;
-									$vals["cartPriceTotal"] = $cartPrice;								
-								}
-							}
-							else{
-								//cena je jiz konecna
-								$vals["cartPrice"] = $cartPrice;
-								$vals["cartPriceTotal"] = $cartPrice;
-							}
-						}
-						else{
-							$this->flashMessage("Error, lease period is smaller than one day, please check filled date range.", "warning");
-							$this->redirect("this");
-						}
-					}
-					else{
+					if(!isset($vals["leaseFrom"])||!isset($vals["leaseTo"])){
 						$this->flashMessage("Error, lease from and lease to date must be filled, please return to step 1.", "warning");
 						$this->redirect("this");
 					}
+					else{
+						$months = $this->nb_mois($vals["leaseFrom"], $vals["leaseTo"]);
+						if($months <= 0){
+							$this->flashMessage("Error, lease period is smaller than one day, please check filled date range.", "warning");
+							$this->redirect("this");
+						}
+						else{
+							$vals["cartLeaseInMonths"] = $months;
+						}
+					}
 										
 					//ulozime kosik
+					$vals["leaseFrom"] = date("Y-m-d H:i:s", strtotime($vals["leaseFrom"]));
+					$vals["leaseTo"] = date("Y-m-d H:i:s", strtotime($vals["leaseTo"]));
 					$vals["customer_id"] = $customer_id;
 					$vals["cartAdDate"] = date ("Y-m-d H:i:s");
 					$cart_id = $this->backendModel->saveCart($vals);
