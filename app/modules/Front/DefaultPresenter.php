@@ -134,7 +134,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			->setAttribute('class', 'form-control');
 
 		if($this->isAjax()) {
-			$form["product_id"]->addOnSubmitCallback(array($this, "invalidateControl"), "productsSnippet");
+			$form["main_product_id"]->addOnSubmitCallback(array($this, "invalidateControl"), "productsSnippet");
 		}
 		
 		$form->addText('leaseFrom', 'Lease from')
