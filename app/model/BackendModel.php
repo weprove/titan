@@ -9,6 +9,14 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	public function getLeftCarts(){
+		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName")->where(":order(cart_id).order_id IS NULL")->fetchAll();
+	}
+	
+	public function getOrders(){
+		return $this->db->table("order")->select("order.order_id AS orderId, order.orderAdDate, order.order_state_id, order_state_id.orderStateName, cart_id.*, cart_id.customer_id.*")->fetchAll();
+	}
+	
 	public function getBiggerSize($prevSize, $store_id){
 		$r = $this->db->table("main_product")->select("main_product.main_product_id")->where("main_product.mainProductSize > ? AND main_product.store_id = ?", $prevSize, $store_id)->order("mainProductSize ASC")->limit(1)->fetch();	
 		return  (isset($r["main_product_id"]))?$r["main_product_id"]:false;

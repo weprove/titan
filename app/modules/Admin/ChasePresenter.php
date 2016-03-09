@@ -11,5 +11,30 @@ use Nette\Application\UI\Form,
 
 class ChasePresenter extends SecuredPresenter
 {
+	protected function createComponentChaseGrid($name) {
+		$grid = new Grid($this, $name);
+		$grid->model = $this->backendModel->getLeftCarts();
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('cart_id');
+		
+		$grid->addColumnText('cart_id', 'Cart id')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('cartAdDate', 'Created')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('mainProductName', 'Main product name')
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addActionHref('editStore', 'Edit', 'editStore')
+            ->setIcon('pencil');*/
 
+		$fName = "stores";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
 }
