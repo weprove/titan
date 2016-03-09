@@ -240,6 +240,12 @@ div.backlink .btn-primary:hover   {
 	margin-bottom: 20px;
 	text-transform:uppercase
 }
+span.steps{
+	color: #095998;
+    font-size: 15px;
+	font-weight: bold;
+	
+}
 .estimator-description {
 	font-size: 15px;
 	margin-top: 20px;
@@ -304,7 +310,7 @@ div.backlink .btn-primary:hover   {
 .quoteFormSubmit:hover							{ background-color: #2575cf; }
 
 .quoteFormBook { 
-     margin-top: 20px;
+    margin-top: 3px;
 	padding: 8px 28px;
 	background-color: #4e9af3;
 }
