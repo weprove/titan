@@ -30,7 +30,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 											<div class="col-md-6">
 												<h2><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>
 												<h3><?php echo Latte\Runtime\Filters::escapeHtml($product["productDescription"], ENT_NOQUOTES) ?></h3>
-												<h4>Standart price per month: <?php echo Latte\Runtime\Filters::escapeHtml($product["productPricePerMonth"], ENT_NOQUOTES) ?></h4>
+												<h4>Standart price per month: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["productPricePerMonth"], ENT_NOQUOTES) ?></h4>
 												<p>Standart price total: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["standartTotalPrice"], ENT_NOQUOTES) ?></p>
 											</div>
 											
@@ -45,7 +45,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 <?php if ($product['cartSaleActive']) { ?>														<p> Save: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartSale"], ENT_NOQUOTES) ?></p>
 <?php } ?>
 														<p>New total price: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal"], ENT_NOQUOTES) ?></p>
-														<a href="" class="btn btn-primary">Book now!</a>
+														<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" class="btn btn-primary">Book now!</a>
 													</div>
 												</div>
 												
@@ -56,7 +56,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 													
 													<div class="col-md-12">
 														<p>New total price: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?></p>
-														<a href="" class="btn btn-primary">Book now!</a>
+														<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" class="btn btn-primary">Book now!</a>
 													</div>											
 												</div>
 <?php } ?>

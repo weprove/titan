@@ -18,7 +18,7 @@
 											<div class="col-md-6">
 												<h2>{$product["productName"]}</h2>
 												<h3>{$product["productDescription"]}</h3>
-												<h4>Standart price per month: {$product["productPricePerMonth"]}</h4>
+												<h4>Standart price per month: £ {$product["productPricePerMonth"]}</h4>
 												<p>Standart price total: £ {$product["standartTotalPrice"]}</p>
 											</div>
 											
@@ -31,7 +31,7 @@
 													<div class="col-md-12">
 														<p n:if="$product['cartSaleActive']"> Save: £ {$product["cartSale"]}</p>
 														<p>New total price: £ {$product["cartPriceTotal"]}</p>
-														<a href="" class="btn btn-primary">Book now!</a>
+														<a href="{link order!, $cart_id, $product["product_id"], 1}" class="btn btn-primary">Book now!</a>
 													</div>
 												</div>
 												
@@ -42,7 +42,7 @@
 													
 													<div class="col-md-12">
 														<p>New total price: £ {$product["cartPriceTotal2"]}</p>
-														<a href="" class="btn btn-primary">Book now!</a>
+														<a href="{link order!, $cart_id, $product["product_id"], 2}" class="btn btn-primary">Book now!</a>
 													</div>											
 												</div>
 											</div>

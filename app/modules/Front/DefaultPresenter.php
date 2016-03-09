@@ -32,12 +32,14 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 	
 	public function handleShowBiggerSize($cart_id, $previousSize){
 		$new_main_product_id = $this->backendModel->getBiggerSize($previousSize, $this->store_id);
+		
 		if($new_main_product_id)
 			$this->redirect("Default:showPrices", $cart_id, $new_main_product_id);
 	}
 	
 	public function handleShowSmallerSize($cart_id, $previousSize){
 		$new_main_product_id = $this->backendModel->getSmallerSize($previousSize, $this->store_id);
+
 		if($new_main_product_id)
 			$this->redirect("Default:showPrices", $cart_id, $new_main_product_id);
 	}
@@ -50,8 +52,43 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		}
 	}
 	
-	public function handleOrder($cart_id){
-		$this->flashMessage("Your order was successfull. Thank you for trusting us.", "success");
+	public function handleOrder($cart_id, $product_id, $offer){
+		//prvni zjistime ceny
+		$pricesArray  = array();
+		$this->cart = $this->backendModel->getCart($cart_id);
+		$product = $this->backendModel->getProductData($product_id);
+		
+		$pricesArray = $this->countProductPrices($product, $this->cart->cartLeaseInMonths);
+		
+		//aktualizujeme kosik
+		$cart = array(
+			"cart_id" => $cart_id,
+			"product_id" => $product_id
+		);
+		
+		if($offer == 1){
+			$cart["cartPrice"] = $pricesArray['cartPrice'];
+			$cart["cartSale"] = $pricesArray['cartSale'];
+			$cart["cartPriceTotal"] = $pricesArray['cartPriceTotal'];
+		}
+		elseif($order == 2){
+			$cart["cartPrice"] = $pricesArray['cartPrice'];
+			$cart["cartSale"] = $pricesArray['cartSale'];
+			$cart["cartPriceTotal"] = $pricesArray['cartPriceTotal2'];		
+		}
+		
+		
+		$this->backendModel->saveCart($cart);
+		
+		$order = array(
+			"cart_id" => (INT)$cart_id,
+			"order_state_id" => 3,
+			"orderAdDate" => date("Y-m-d H:i:s")
+		);
+		
+		$this->backendModel->saveOrder($order);
+		
+		$this->flashMessage("Booking was successfull. Thank you for trusting us.", "success");
 		$this->redirect(":Front:Default:default");
 	}
 	

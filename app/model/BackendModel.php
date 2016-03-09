@@ -10,12 +10,12 @@ use Nette\Object,
 class Backend extends Base
 { 
 	public function getBiggerSize($prevSize, $store_id){
-		$r = $this->db->table("main_product")->select("main_product_id")->where("mainProductSize > ? AND store_id = ?", $prevSize, $store_id)->order("mainProductSize")->limit(1)->fetch();	
+		$r = $this->db->table("main_product")->select("main_product.main_product_id")->where("main_product.mainProductSize > ? AND main_product.store_id = ?", $prevSize, $store_id)->order("mainProductSize ASC")->limit(1)->fetch();	
 		return  (isset($r["main_product_id"]))?$r["main_product_id"]:false;
 	}
 	
 	public function getSmallerSize($prevSize, $store_id){
-		$r = $this->db->table("main_product")->select("main_product_id")->where("mainProductSize < ? AND store_id = ?", $prevSize, $store_id)->order("mainProductSize")->limit(1)->fetch();	
+		$r = $this->db->table("main_product")->select("main_product.main_product_id")->where("main_product.mainProductSize < ? AND main_product.store_id = ?", $prevSize, $store_id)->order("mainProductSize DESC")->limit(1)->fetch();	
 		return  (isset($r["main_product_id"]))?$r["main_product_id"]:false;	
 	}
 	
@@ -24,7 +24,32 @@ class Backend extends Base
 	}
 	
 	public function saveCart($values){
-		$r = $this->db->query("INSERT INTO cart ", $values);
+		$str = "";
+		
+		forEach($values as $key => $value){
+			$str .= " $key = VALUES($key),";
+		}
+		
+		$str = substr($str, 0, -1);
+		
+		
+		$r = $this->db->query("INSERT INTO cart ", $values, " ON DUPLICATE KEY UPDATE $str");
+		$insId =  $this->db->getInsertId();
+		
+		return ($insId)?$insId:false;
+	}
+	
+	public function saveOrder($values){
+		$str = "";
+		
+		forEach($values as $key => $value){
+			$str .= " $key = VALUES($key),";
+		}
+		
+		$str = substr($str, 0, -1);
+		
+		
+		$r = $this->db->query("INSERT INTO `order` ", $values, " ON DUPLICATE KEY UPDATE $str");
 		$insId =  $this->db->getInsertId();
 		
 		return ($insId)?$insId:false;
