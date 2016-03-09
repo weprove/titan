@@ -46,7 +46,7 @@
 													<div class="col-md-12">
 														<p n:if="$product['cartSaleActive']"> Save: £ {$product["cartSale"]}</p>
 														<p class="total-price">New total price: <strong>£ {$product["cartPriceTotal"]}</strong></p>
-														<a href="" class="btn btn-primary quoteFormBook quoteFormSubmit">Book now!</a>
+														<a href="{link order!, $cart_id, $product["product_id"], 1}" class="btn btn-primary quoteFormBook quoteFormSubmit">Book now!</a>
 													</div> 
 												</div>
 												
@@ -58,7 +58,7 @@
 													
 													<div class="col-md-12">
 														<p>New total price: £ {$product["cartPriceTotal2"]}</p>
-														<a href="" class="btn btn-primary">Book now!</a>
+														<a href="{link order!, $cart_id, $product["product_id"], 2}" class="btn btn-primary">Book now!</a>
 													</div>											
 												</div>
 											</div>
