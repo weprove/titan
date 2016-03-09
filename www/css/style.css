@@ -29,15 +29,40 @@ div.signWrapper{
 .marginLeft25{margin-left:25px !important;}
 .marginLeft30{margin-left:30px !important;}
 
-/*Margin Left*/
+/*Margin Right*/
 .marginRight5{margin-right:5px !important;}
 .marginRight10{margin-right:10px !important;}
 .marginRight15{margin-right:15px !important;}
 .marginRight20{margin-right:20px !important;}
 .marginRight25{margin-right:25px !important;}
 .marginRight30{margin-right:30px !important;}
+
+/*padding*/
+.paddingAll4 {padding:4px !important;}
+
 /** FRONT **/
 
+h3 {
+	color: #80b2ec;
+	font-size: 15px;
+	margin-bottom: 20px;
+	text-transform:uppercase	
+	
+}
+
+h4 {
+	color: #747474;
+	font-size: 15px;
+	margin-bottom: 5px;
+		
+	
+}
+.total-price{
+	color: #DB0F0F;
+	font-size: 15px;
+	margin-bottom: 5px;
+	
+}
 .row.no-gutters{
   margin-right:0;
   margin-left:0;
@@ -75,7 +100,34 @@ padding: 13px 19px 25px 0;
 .panel-primary {
     margin-top: 50px;
 }
+.left-btn {
+	background-image: url(../images/size-smaller.png);
+	background-position: center left;
+	background-repeat: no-repeat;
+	padding-bottom: 6px;
+    padding-top: 7px;
+	text-align: center;
+	color: white;
+}
 
+.right-btn {
+	background-image: url(../images/size-bigger.png);
+	background-position: center right;
+	background-repeat: no-repeat;
+    padding-bottom: 6px;
+    padding-top: 7px;
+	text-align: center;	
+	color: white;
+}
+.right-btn:hover {
+	background-image: url(../images/size-bigger-hover.png);
+	}
+	
+.left-btn:hover {
+	background-image: url(../images/size-smaller-hover.png);
+	}
+	
+	
 .panel-footer {
 
     border-bottom-left-radius: 6px;
@@ -86,6 +138,41 @@ padding: 13px 19px 25px 0;
     background: none repeat scroll 0 0 #E9E9E9;
     padding: 15px;	
  }
+.navigation-bar {
+    background: none repeat scroll 0 0 #E9E9E9;
+    padding-bottom: 5px;
+    padding-top: 7px;
+	text-align: center;
+	color: #095998;
+	font-size: 15px;
+	text-transform:uppercase	
+	}
+
+.offer {
+	background: none repeat scroll 0 0 #f0f0f0;
+	margin-left: 0px;
+	margin-right: 0px;
+	border: 1px solid;
+	border-color: transparent;
+	
+}
+.offer:hover {
+	border: 1px solid;
+	border-color: #b6cbe3;
+	
+	
+}
+.offer1, .offer2 {
+	text-align: center;
+	padding-top: 20px;
+}
+
+.offer-arrow {
+	background-image: url(../images/arrow-offer.png);
+	background-position: center right;
+	
+	}
+	
 .margin15 {
 	margin-left: 15px;
 	margin-right: 15px;
@@ -110,6 +197,7 @@ div.backlink .btn-primary:hover   {
      margin-top: 20px;
      padding: 7px 47px; 
 }
+
 
 .storeDetails        { 
      margin-top: 15px;
@@ -215,6 +303,11 @@ div.backlink .btn-primary:hover   {
 .quoteFormSubmit:active							{ top: 1px; }
 .quoteFormSubmit:hover							{ background-color: #2575cf; }
 
+.quoteFormBook { 
+     margin-top: 20px;
+	padding: 8px 28px;
+	background-color: #4e9af3;
+}
 #logo-login {
 max-height: 40px;
 
