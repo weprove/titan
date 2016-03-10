@@ -9,6 +9,12 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	public function getMiddleProductByMainProduct($main_product_id, $months = NULL){
+		//if months < minreting pro slevu tak NESPLNENO
+		return $this->db->table("product")->select("((7/30)*product.productPricePerMonth) AS productStandartPricePerWeek, (promotion_id.promotionPercentage*promotion_id.promotionValidityPeriod) AS promoIndex, product.*, promotion_id.promotionName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")
+		->order("promoIndex DESC, product.productPricePerMonth ASC")->limit(1)->where("(promotion_id.promotionMinimalRentingPeriod <= ? OR product.productPricePerMonth =  ( SELECT MIN(productPricePerMonth) FROM product WHERE main_product_id = ?)) AND main_product_id = ?", $months, $main_product_id, $main_product_id)->fetch();
+	}
+	
 	public function getLeftCarts(){
 		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName")->where(":order(cart_id).order_id IS NULL")->fetchAll();
 	}
