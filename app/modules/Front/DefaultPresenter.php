@@ -88,7 +88,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		
 		$this->backendModel->saveOrder($order);
 		
-		$this->flashMessage("Booking was successfull. Thank you for trusting us.", "success");
+		$this->flashMessage("Booking was successfull.", "success");
 		$this->redirect(":Front:Default:default");
 	}
 	
@@ -109,9 +109,25 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			
 			$main_product_id = ($new_main_product_id)?$new_main_product_id:$this->cart->main_product_id;
 			
-			if($main_product_id){
-				$subProducts = $this->backendModel->getProductsByMainProduct($main_product_id);
+			if($main_product_id){	
+				//ziskame prvni prostredni produkt
 				$products = array();
+				$subProducts = array();
+				$middle = $this->backendModel->getMiddleProductByMainProduct($main_product_id, $this->cart->cartLeaseInMonths);	
+				$subProducts[] = $middle;
+				//Debugger::dump($middle);
+				
+				$prev_main_product_id = $this->backendModel->getSmallerSize($middle->productSizeInSqFt, $this->store_id);
+				$next_main_product_id = $this->backendModel->getBiggerSize($middle->productSizeInSqFt, $this->store_id);
+				
+				$prev = $this->backendModel->getMiddleProductByMainProduct($prev_main_product_id, $this->cart->cartLeaseInMonths);	
+				array_unshift ($subProducts, $prev);
+				
+				$next = $this->backendModel->getMiddleProductByMainProduct($next_main_product_id, $this->cart->cartLeaseInMonths);	
+				array_push ($subProducts, $next);
+				//jak ted kurva ziskam vrchni a spodni produkt?
+				
+				//$subProducts = $this->backendModel->getProductsByMainProduct($main_product_id);
 				
 				if(count($subProducts)>0){
 					$pricesArray = array();
@@ -124,18 +140,19 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 							"productName" => $product->productName,
 							"productDescription" => $product->productDescription,
 							"productPricePerMonth" => $product->productPricePerMonth,
+							"productStandartPricePerWeek" => round($product->productStandartPricePerWeek),
 							"productTotal" => $product->productTotal,
 							"productOccupancy" => $product->productOccupancy,
 							"productVacancy" => $product->productVacancy,
 							"productUnitType" => $product->productUnitType,
 							"promotionName" => $product->promotionName,
 							"promotionActive" => $product->promotionActive,
-							"standartTotalPrice" => $product->productPricePerMonth*$this->cart->cartLeaseInMonths,
+							"standartTotalPrice" => round($product->productPricePerMonth*$this->cart->cartLeaseInMonths),
 							"cartSaleActive" => $pricesArray['cartSaleActive'],
-							"cartPrice" => $pricesArray['cartPrice'],
-							"cartSale" => $pricesArray['cartSale'],
-							"cartPriceTotal" => $pricesArray['cartPriceTotal'],
-							"cartPriceTotal2" => $pricesArray['cartPriceTotal2'],
+							"cartPrice" => round($pricesArray['cartPrice']),
+							"cartSale" => round($pricesArray['cartSale']),
+							"cartPriceTotal" => round($pricesArray['cartPriceTotal']),
+							"cartPriceTotal2" => round($pricesArray['cartPriceTotal2']),
 							"cartSaleActive2" => $pricesArray['cartSaleActive2']
 						);
 					}
