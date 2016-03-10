@@ -290,7 +290,7 @@ h2.steps {
 	color: #095998;
 	font-size: 24px;
 	margin-bottom: 10px;
-	text-transform:uppercase;
+	text-transform: lowercase;
 }
 h2.step1 {
 	font-family: Arimo; 
