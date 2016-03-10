@@ -71,7 +71,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			$cart["cartSale"] = $pricesArray['cartSale'];
 			$cart["cartPriceTotal"] = $pricesArray['cartPriceTotal'];
 		}
-		elseif($order == 2){
+		elseif($offer == 2){
 			$cart["cartPrice"] = $pricesArray['cartPrice'];
 			$cart["cartSale"] = $pricesArray['cartSale'];
 			$cart["cartPriceTotal"] = $pricesArray['cartPriceTotal2'];		
@@ -140,13 +140,16 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 							"productName" => $product->productName,
 							"productDescription" => $product->productDescription,
 							"productPricePerMonth" => $product->productPricePerMonth,
-							"productStandartPricePerWeek" => round($product->productStandartPricePerWeek),
+							"productStandartPricePerWeek" => round($product->productStandartPricePerWeek, 2),
 							"productTotal" => $product->productTotal,
 							"productOccupancy" => $product->productOccupancy,
 							"productVacancy" => $product->productVacancy,
 							"productUnitType" => $product->productUnitType,
 							"promotionName" => $product->promotionName,
 							"promotionActive" => $product->promotionActive,
+							"productVacancy" => $product->productVacancy,
+							"productPricePerMonthSale" => round($pricesArray['cartPriceTotal']/$this->cart->cartLeaseInMonths, 2),
+							"productPricePerMonthSale2" => round($pricesArray['cartPriceTotal2']/$this->cart->cartLeaseInMonths, 2),
 							"standartTotalPrice" => round($product->productPricePerMonth*$this->cart->cartLeaseInMonths),
 							"cartSaleActive" => $pricesArray['cartSaleActive'],
 							"cartPrice" => round($pricesArray['cartPrice']),
@@ -177,6 +180,9 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		$form->getElementPrototype()->class[] = "stdForm";
 		
 		$form->setMethod('get');
+		$form->addText('postalCode', 'Postal code')
+			->setAttribute('placeholder', 'Your postcode')
+			->setAttribute('class', 'form-control');
 		$store = $form->addSelect('store_id', 'Select your local store', $this->backendModel->getStorePairs());
 		$store->setPrompt("select store");
 		$store->addRule($form::FILLED, "Please select your local store.");

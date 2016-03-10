@@ -135,6 +135,8 @@ if (!function_exists($_b->blocks['_productsSnippet'][] = '_lb947e7aaca6__product
 
 				<div class="grey col-md-3">			
 					<span class="steps">1. find your store</span>
+					<?php echo $_form["postalCode"]->getControl() ?>
+
 					<?php echo $_form["store_id"]->getControl() ?>
 
 					<div>

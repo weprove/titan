@@ -41,9 +41,15 @@
 													</div>
 													
 													<div class="col-md-12">
-														<p n:if="$product['cartSaleActive']"> Save: £ {$product["cartSale"]}</p>
-														<p class="soldout">sold out</p>
-														<a href="{link order!, $cart_id, $product["product_id"], 1}" class="btn-book btn-primary">call us</a>
+														<p>£{$product['productPricePerMonthSale']} a month</p>
+														<p>(£{$product['productPricePerMonthSale']/4} a week)</p>
+														<p class="total-price">Total price: <strong>£{$product["cartPriceTotal"]}</strong></p>
+														{if $product['productVacancy']<1}
+															<p class="soldout">sold out</p>
+															<a href="#" class="callus btn-book btn-primary">Call us</a>
+														{else}
+															<a href="{link order!, $cart_id, $product["product_id"], 1}" class="btn-book btn-primary">reserve</a>
+														{/if}
 													</div> 
 												</div>
 											</div>
@@ -51,12 +57,19 @@
 												<div class="row offer2" n:if="$product['cartSaleActive2']">
 													<div class="col-md-12">
 														<span class="steps">Move in for £1 for the first month</span> 
-														<h4 >minimum stay 2 months</h4>
+														<h4>minimum stay 2 months</h4>
 													</div>	
 													
 													<div class="col-md-12">
-														<p class="total-price">New total price: <strong>£ {$product["cartPriceTotal2"]}</strong></p>
-														<a href="{link order!, $cart_id, $product["product_id"], 2}" class="btn-book btn-primary">Call us</a>
+														<p>£1 then £{$product['productPricePerMonth']} a month</p>
+														<p>(£{$product['productPricePerMonthSale2']/4} a week)</p>
+														<p class="total-price">Total price: <strong>£{$product["cartPriceTotal2"]}</strong></p>
+														{if $product['productVacancy']<1}
+															<p class="soldout">sold out</p>
+															<a href="#" class="callus btn-book btn-red">Call us</a>
+														{else}
+															<a href="{link order!, $cart_id, $product["product_id"], 2}" class="btn-book btn-primary">reserve</a>
+														{/if}
 													</div>											
 												</div>
 											</div>
@@ -74,7 +87,7 @@
 								<p class="information">Prices exclude the cost of padlock and insurance and are valid for the next 14 days. We charge calendar monthly from the date of move in 
 and all prices quoted are inclusive of VAT.</p>
 <p class="li-information">* Move in for £1 for the first month - minimum stay 2 months</p>
-<p class="li-information">* 50% off first month - minimum stay 1 month</p>
+<p class="li-information">* 50% off first month - minimum stay 2 month</p>
 <p class="li-information">* 50% off for 2 months - minimum stay 1 month</p>
 <p class="li-information">* 50% off for 3 months - minimum stay 1 month</p>
 								</div>

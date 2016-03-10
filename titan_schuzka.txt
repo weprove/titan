@@ -1,0 +1,18 @@
+30 dni .............. 555
+7 dni ............... x
+
+7/30 = x/555
+7/30*555
+
+
+order == 2  => order is undefined  (kdyz neni dalsi step tak taky chyba)
+
+half past three
+
+
+
+you have booked a 25 sq. ft unit at Bracknell from 2 may to 4 august.
+
+you will shortly receive a confirmation email.
+
+confirmation email: you have booked a 25 sq. ft unit at Bracknell from 2 may to 4 august.
