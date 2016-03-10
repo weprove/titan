@@ -156,7 +156,7 @@ padding: 13px 19px 25px 0;
 .row.offer {
 	
     background: none repeat scroll 0 0 #e5e8ee;
-	height: 141px;
+	height: 100%;
 }
 .row.offer:nth-child(2) {
     background: #f3f5f9;
@@ -225,7 +225,7 @@ div.backlink .btn-primary:hover   {
     font-size: 13px;
     font-weight: bold;
     line-height: 1.42857;
-    margin-bottom: 0;
+    margin-bottom: 18px;
 	margin-top: 17px;
     padding: 3px ;
 	width: 114px;
