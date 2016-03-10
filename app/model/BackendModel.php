@@ -110,7 +110,7 @@ class Backend extends Base
 	
 	// STORE
 	public function getProductData($product_id){
-		return $this->db->table("product")->select("*, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
+		return $this->db->table("product")->select("*, store_id.storeName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
 	}
 	
 	public function updateProduct($values){		

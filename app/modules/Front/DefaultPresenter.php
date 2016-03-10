@@ -88,7 +88,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		
 		$this->backendModel->saveOrder($order);
 		
-		$this->flashMessage("Booking was successfull.", "success");
+		$this->flashMessage("You have booked a ".$product->productName." unit from ".$this->cart->leaseFrom." to ".$this->cart->leaseTo.". You will shortly receive a confirmation email.", "success");
 		$this->redirect(":Front:Default:default");
 	}
 	
@@ -358,6 +358,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 				if($customer_id){
 					//mame zakaznika, ulozime kosik ale prvni spocitame ceny
 					$vals = $this->quote;
+					unset($vals["postalCode"]);
 					if(!isset($vals["leaseFrom"])||!isset($vals["leaseTo"])){
 						$this->flashMessage("Error, lease from and lease to date must be filled, please return to step 1.", "warning");
 						$this->redirect("this");
