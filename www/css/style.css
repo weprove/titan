@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Arimo:400,700);
 /** ADMIN **/
 div.signWrapper{
 	margin:auto;
@@ -14,6 +15,7 @@ div.signWrapper{
 .marginTop30{margin-top:30px !important;}
 
 /*Margin Bottom*/
+.marginBottom2{margin-bottom:2px !important;}
 .marginBottom5{margin-bottom:5px !important;}
 .marginBottom10{margin-bottom:10px !important;}
 .marginBottom15{margin-bottom:15px !important;}
@@ -39,14 +41,21 @@ div.signWrapper{
 
 /*padding*/
 .paddingAll4 {padding:4px !important;}
+.paddingAll30 {padding-left:30px !important; }
+.paddingBottom4 {padding-bottom:4px !important;}
 
 /** FRONT **/
 
+body {
+	font-family: Arimo;
+	background-color: #fff;
+}
 h3 {
-	color: #80b2ec;
+	color: #095998;
 	font-size: 15px;
 	margin-bottom: 20px;
-	text-transform:uppercase	
+	text-transform:uppercase;
+	margin-top: 10px;
 	
 }
 
@@ -57,10 +66,10 @@ h4 {
 		
 	
 }
-.total-price{
+.soldout{
 	color: #DB0F0F;
 	font-size: 15px;
-	margin-bottom: 5px;
+
 	
 }
 .row.no-gutters{
@@ -100,32 +109,30 @@ padding: 13px 19px 25px 0;
 .panel-primary {
     margin-top: 50px;
 }
-.left-btn {
-	background-image: url(../images/size-smaller.png);
-	background-position: center left;
-	background-repeat: no-repeat;
-	padding-bottom: 6px;
-    padding-top: 7px;
-	text-align: center;
+.smaller-offer, .bigger-offer {
 	color: white;
+	font-weight: bold;
+	
 }
 
-.right-btn {
-	background-image: url(../images/size-bigger.png);
-	background-position: center right;
+.smaller-offer {
+	background-image: url(../images/arrow-left.png);
+	background-position: center left ;
 	background-repeat: no-repeat;
-    padding-bottom: 6px;
-    padding-top: 7px;
-	text-align: center;	
-	color: white;
-}
-.right-btn:hover {
-	background-image: url(../images/size-bigger-hover.png);
+	text-align: left;
+	padding-left: 25px;
+	
 	}
 	
-.left-btn:hover {
-	background-image: url(../images/size-smaller-hover.png);
+.bigger-offer {
+	background-image: url(../images/arrow-right.png);
+	background-position: center right;
+	background-repeat: no-repeat;
+	text-align: right;
+	padding-right: 25px;
 	}
+
+
 	
 	
 .panel-footer {
@@ -138,7 +145,7 @@ padding: 13px 19px 25px 0;
     background: none repeat scroll 0 0 #E9E9E9;
     padding: 15px;	
  }
-.navigation-bar {
+/*navigation-bar {
     background: none repeat scroll 0 0 #E9E9E9;
     padding-bottom: 5px;
     padding-top: 7px;
@@ -147,7 +154,34 @@ padding: 13px 19px 25px 0;
 	font-size: 15px;
 	text-transform:uppercase	
 	}
+	*/
+	
+.row.navigation-bar {
+	
+	padding-left: 15px;
+    padding-right: 15px;
+}
 
+.row.offer {
+	
+    background: none repeat scroll 0 0 #e5e8ee;
+	height: 141px;
+}
+.row.offer:nth-child(2) {
+    background: #f3f5f9;
+} 
+
+.navigation-bar {
+    background: none repeat scroll 0 0 #005596;
+    padding-top: 6px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 13px;
+	height: 31px;
+	text-transform:uppercase	
+	}
+
+	
 .offer {
 	background: none repeat scroll 0 0 #f0f0f0;
 	margin-left: 0px;
@@ -159,7 +193,11 @@ padding: 13px 19px 25px 0;
 .offer:hover {
 	border: 1px solid;
 	border-color: #b6cbe3;
-	
+}
+
+.offer:nth-child(2):hover {
+	border: 1px solid;
+	border-color: #d7deed;	
 	
 }
 .offer1, .offer2 {
@@ -191,6 +229,40 @@ div.backlink .btn-primary:hover   {
     background-color: #95ADC1; 
     border-color: #337AB7;
            
+}
+.btn-book {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.42857;
+    margin-bottom: 0;
+	margin-top: 17px;
+    padding: 3px ;
+	width: 114px;
+	height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+	text-transform:uppercase;
+	
+}
+.btn-book:hover {
+    background-color: #286090;
+	text-decoration:none;
+}
+.callus.btn-book {
+    background-color: #ec1c24;
+	
+	
+}
+.callus.btn-book:hover {
+    background-color: #cd0b13;
+	text-decoration:none;
+	border: 1px solid transparent;
 }
     
 .quoteFormSubmit, .customerFormSubmit { 
@@ -240,9 +312,15 @@ div.backlink .btn-primary:hover   {
 	margin-bottom: 20px;
 	text-transform:uppercase
 }
-span.steps{
+h2.steps {
 	color: #095998;
-    font-size: 15px;
+	font-size: 24px;
+	margin-bottom: 10px;
+	text-transform:uppercase;
+}
+span.steps{
+	color: #005596;
+    font-size: 14px;
 	font-weight: bold;
 	
 }
@@ -324,3 +402,20 @@ margin-top: 12px;
 text-align: center;
 
 }
+
+.smaller-offer:hover, .bigger-offer:hover {
+	color: #9ab9d0;	
+	}
+
+.information {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		font-size: 15px;
+		color: #5d5d5d;
+	}
+.li-information {
+		font-size: 12px;
+		color: #5d5d5d;
+	}
+
+
