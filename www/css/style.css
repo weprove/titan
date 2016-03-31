@@ -470,7 +470,7 @@ text-align: center;
 
 .column {
 	display: table-cell;
-	min-height: 168px;
+	min-height: 224px;
 	border-left: 1px solid #ccc;
 	}
 	
