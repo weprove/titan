@@ -9,6 +9,26 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	public function getTemplate($template_id){
+		return $this->db->table("template")->select("template.*")->where("template_id = ?", $template_id)->fetch();
+	}
+	
+	public function saveTemplate($values){
+		$str = "";
+		
+		forEach($values as $key => $value){
+			$str .= " $key = VALUES($key),";
+		}
+		
+		$str = substr($str, 0, -1);
+		
+		
+		$r = $this->db->query("INSERT INTO template ", $values, " ON DUPLICATE KEY UPDATE $str");
+		$insId =  $this->db->getInsertId();
+		
+		return ($insId)?$insId:false;
+	}
+	
 	public function changeOrdersState($state, $ids){
 		return $this->db->query("UPDATE `order` SET order_state_id = ? WHERE order_id IN(?)", $state, $ids);
 	}

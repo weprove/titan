@@ -44,7 +44,47 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			$this->redirect("Default:showPrices", $cart_id, $new_main_product_id);
 	}
 
+	public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+		$theta = $lon1 - $lon2;
+		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+		$dist = acos($dist);
+		$dist = rad2deg($dist);
+		$miles = $dist * 60 * 1.1515;
+		$unit = strtoupper($unit);
+
+		if ($unit == "K") {
+		  return ($miles * 1.609344);
+		} else if ($unit == "N") {
+		  return ($miles * 0.8684);
+		} else {
+		  return $miles;
+		}
+	}
+
 	public function actionDefault($values = array()){
+		if(isset($values['psc'])){
+			//mame psc
+			$url ="http://maps.googleapis.com/maps/api/geocode/xml?address=".$values['psc']."&sensor=false";
+			$result = simplexml_load_file($url);
+			$lat1 = $result->result->geometry->location->lat;
+			$lon1 = $result->result->geometry->location->lng;
+			
+			$stores = $this->backendModel->getStores()->fetchAll();
+			$distances = array();
+			
+			if(count($stores)>0){
+				foreach($stores AS $store){
+					$distances[$store->store_id] = $this->distance($this->toFloat($lat1), $this->toFloat($lon1), $store->lat, $store->lon, 'K');		
+					//echo $this->distance($this->toFloat($lat1), $this->toFloat($lon1), $store->lat, $store->lon, 'K');
+				}
+			}
+			
+			if(count($distances)>0){
+				//vybere pobocku nejblizeme a nastavime formular
+				$chosenOne = array_keys($distances, min($distances));
+				$this["quoteForm"]->setDefaults(array("store_id"=>end($chosenOne)));
+			}
+		}
 		if(isset($values['store_id'])&&isset($values['main_product_id'])){
 			$this->quote = $values;
 			$this->template->step2 = true;

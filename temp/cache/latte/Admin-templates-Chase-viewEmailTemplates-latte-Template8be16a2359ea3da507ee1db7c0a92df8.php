@@ -12,8 +12,17 @@ list($_b, $_g, $_l) = $template->initialize('ccbbe2caf0', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb005a69bbc1_content')) { function _lb005a69bbc1_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>	There are currently no email templates.
-<?php
+?>	<a class="marginBottom20 btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:editTemplate"), ENT_COMPAT) ?>">Create new template</a>
+<?php if (isset($teplates)&&count($templates)>0) { ?>
+		<ul>
+<?php $iterations = 0; foreach ($templates AS $template) { ?>
+				<li><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:editTemplate", array($template->template_id)), ENT_COMPAT) ?>
+"><?php echo Latte\Runtime\Filters::escapeHtml($template->templateName, ENT_NOQUOTES) ?></a></li>
+<?php $iterations++; } ?>
+		</ul>
+<?php } else { ?>
+			There are currently no email templates.
+<?php } 
 }}
 
 //

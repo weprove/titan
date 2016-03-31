@@ -11,12 +11,18 @@ use Nette\Application\UI\Form,
 
 class ChasePresenter extends SecuredPresenter
 {
+	public $template_id;
+	
 	public function actionViewEmailTemplates(){
 	
 	}
 	
 	public function actionChaseClient($cart_id){
 		
+	}
+	
+	public function actionEditTemplate($template_id = NULL){
+		$this->template_id = $template_id;
 	}
 	
 	public function handleDeleteCart($cart_id){
@@ -75,4 +81,32 @@ class ChasePresenter extends SecuredPresenter
 	 
 		return $grid;
 	}
+	
+	protected function createComponentEditTemplateForm($name){
+        $form = new  Form($this, $name);
+		$form->addHidden("template_id");
+		$form->addText('templateName', 'Název:')
+            ->setRequired('Please fill template name.');
+        $form->addTextArea('templateHtml', 'Content:')
+			->getControlPrototype()->class("mceEditor emailTemplateBody")
+            ->setRequired('Please fill template content.');
+			
+		if(isset($this->template_id))
+			$form->setDefaults($this->backendModel->getTemplate($this->template_id));
+
+        $form->addSubmit('login', 'Save')
+			->setAttribute('class', 'btn btn-primary');
+		$form->onSuccess[] = array($this, 'editTemplateFormSubmitted');
+        
+        return $form;
+    }
+	
+    public function editTemplateFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			$values = $form->values;	
+			$this->backendModel->saveTemplate($values);
+			
+			$this->redirect("this");
+        }
+    }
 }
