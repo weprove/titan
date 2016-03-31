@@ -252,19 +252,20 @@ div.backlink .btn-primary:hover   {
     vertical-align: middle;
     white-space: nowrap;
 	text-transform:uppercase;
-	
+	background-color: #ec1c24;
 }
 .btn-book:hover {
-    background-color: #286090;
+    background-color: #f67b7f;
 	text-decoration:none;
+	border:none;
 }
 .callus.btn-book {
-    background-color: #ec1c24;
+    background-color: #005596;
 	
 	
 }
 .callus.btn-book:hover {
-    background-color: #cd0b13;
+    background-color: #0b77c9;
 	text-decoration:none;
 	border: 1px solid transparent;
 }
