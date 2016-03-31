@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12"><b>Name:</b> {$order->customerFirstname} {$order->customerSurname}</div>
+			<div class="col-md-12"><b>Tel.:</b> {$order->customerPhone}</div>
+			<div class="col-md-12"><b>Unit details:</b> {$order->productName}</div>
+			<div class="col-md-12"><b>Promotion:</b> {$order->promotionName}</div>
+		</div>
+	</div>
+	
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12"></div>
+			<div class="col-md-12"><b>Email:</b> {$order->customerEmail}</div>
+			<div class="col-md-12"><b>Duration:</b> {php echo date("d/m/y", strtotime($order->leaseFrom))} to {php echo date("d/m/y", strtotime($order->leaseTo))}</div>
+			<div class="col-md-12"></div>
+		</div>
+	</div>
+</div>

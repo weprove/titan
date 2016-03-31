@@ -15,38 +15,39 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 ?>	<div class="container">	
 	<div class="row">
 			<div class="panel-primary">
-				
 				<div class="col-md-12">	   
 
-					<div class="row navigation-bar marginBottom5">
-						<a  class="smaller-link" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showSmallerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>">	
-							<div class="col-md-6 smaller-offer">	
-								Smaller size
+					<div class="row navigation-bar ">
+							<div class="col-md-3 alignLeft">	
+								Unit size
 							</div>	
-						</a>	
-						
-							<a class="bigger-link" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showBiggerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" >
-							<div class="col-md-6 bigger-offer">
-								Bigger size
+							<div class="col-md-3">	
+								Promotion 1
+							</div>	
+							<div class="col-md-3">	
+								Promotion 2
+							</div>	
+							<div class="col-md-3">
+								Price thereafter
 							</div>
-						</a>
 					</div>
-				</div>	
+				</div>
+	
 				
-						<div class="row">
-								<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
 <?php if (isset($cart)&&count($cart)>0) { ?>
 								
 								
 <?php if (isset($products)&&count($products)>0) { $iterations = 0; foreach ($products AS $product) { ?>
-										<div class="row offer marginBottom2">
-											<div class="col-md-4 paddingAll30">
+										<div class="row offer ">
+											<div class="col-md-3 paddingAll30 column">
 												<h2 class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>
-												<h3><?php echo Latte\Runtime\Filters::escapeHtml($product["productDescription"], ENT_NOQUOTES) ?></h3>
+												<h3 class="product-description"><?php echo Latte\Runtime\Filters::escapeHtml($product["productDescription"], ENT_NOQUOTES) ?></h3>
 										
 											</div>
 											
-											<div class="col-md-4">
+											<div class="col-md-3 column">
 												<div class="row offer1">
 <?php if ($product['promotionName']&&$product['promotionActive']) { ?>													<div class="col-md-12">
 														<span class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["promotionName"], ENT_NOQUOTES) ?></span>
@@ -56,7 +57,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 													<div class="col-md-12">
 														<p>£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale'], ENT_NOQUOTES) ?> a month</p>
 														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale']/4, ENT_NOQUOTES) ?> a week)</p>
-														<p class="total-price">Total price: <strong>£<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal"], ENT_NOQUOTES) ?></strong></p>
+														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
 															<p class="soldout">sold out</p>
 															<a href="#" class="callus btn-book btn-primary">Call us</a>
@@ -66,7 +67,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 													</div> 
 												</div>
 											</div>
-											<div class="col-md-4">	
+											<div class="col-md-3 column">	
 <?php if ($product['cartSaleActive2']) { ?>												<div class="row offer2">
 													<div class="col-md-12">
 														<span class="steps">Move in for £1 for the first month</span> 
@@ -76,7 +77,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 													<div class="col-md-12">
 														<p>£1 then £<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonth'], ENT_NOQUOTES) ?> a month</p>
 														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale2']/4, ENT_NOQUOTES) ?> a week)</p>
-														<p class="total-price">Total price: <strong>£<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?></strong></p>
+														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
 															<p class="soldout">sold out</p>
 															<a href="#" class="callus btn-book btn-red">Call us</a>
@@ -87,6 +88,21 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 												</div>
 <?php } ?>
 											</div>
+											
+											<div class="col-md-3 column">
+												<div class="row offer2">
+													<div class="col-md-12">
+														<span class="steps">unit cost</span> 
+													</div>	
+													
+													<div class="col-md-12">
+														<p>£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonth'], ENT_NOQUOTES) ?> per month</p>
+														<p>£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale2']/4, ENT_NOQUOTES) ?> per week</p>
+														
+													</div>											
+												</div>										
+											</div>
+											
 										</div>
 <?php $iterations++; } } } ?>
 						</div> <!-- col-md-8 -->
@@ -94,6 +110,22 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 							
 						
 					</div>
+				<div class="col-md-12">	   
+
+					<div class="row navigation-bar marginBottom5">
+						<a  class="smaller-link" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showSmallerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>">	
+							<div class="col-md-6 smaller-offer">	
+								show smaller units
+							</div>	
+						</a>	
+						
+							<a class="bigger-link" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showBiggerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" >
+							<div class="col-md-6 bigger-offer">
+								show larger units
+							</div>
+						</a>
+					</div>
+				</div>
 					<div class="row">
 								<div class="col-md-12">
 								<p class="information">Prices exclude the cost of padlock and insurance and are valid for the next 14 days. We charge calendar monthly from the date of move in 

@@ -13,8 +13,12 @@ class OrderPresenter extends SecuredPresenter
 {
 	public $order_id;
 	
-	public function actionShowOrder($order_id){
-		$this->template->order = $this->backendModel->getOrder($order_id);
+	public function actionShowOrder($cart_id){
+		$this->template->order = $this->backendModel->getFullCart($cart_id);
+	}
+	
+	public function actionShowCart($cart_id){
+		$this->template->order = $this->backendModel->getFullCart($cart_id);
 	}
 	
 	public function actionAddOrderNote($order_id){
@@ -90,7 +94,7 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
             //->setIcon('file-text-o');
 			->setCustomRender(function($item) use ($that){
-				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->cart_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
 				return $el;
 			});
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
@@ -165,7 +169,7 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
             //->setIcon('file-text-o');
 			->setCustomRender(function($item) use ($that){
-				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->cart_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
 				return $el;
 			});
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
@@ -240,7 +244,7 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
             //->setIcon('file-text-o');
 			->setCustomRender(function($item) use ($that){
-				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->cart_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
 				return $el;
 			});
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
@@ -315,7 +319,7 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
             //->setIcon('file-text-o');
 			->setCustomRender(function($item) use ($that){
-				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->cart_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
 				return $el;
 			});
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')

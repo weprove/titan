@@ -19,12 +19,20 @@ class Backend extends Base
 		->order("promoIndex DESC, product.productPricePerMonth ASC")->limit(1)->where("(promotion_id.promotionMinimalRentingPeriod <= ? OR product.productPricePerMonth =  ( SELECT MIN(productPricePerMonth) FROM product WHERE main_product_id = ?)) AND main_product_id = ?", $months, $main_product_id, $main_product_id)->fetch();
 	}
 	
+	public function getFullCart($cart_id){
+		return $this->db->table("cart")->select("cart.*, customer_id.*, product_id.*, product_id.promotion_id.promotionName")->where("cart.cart_id = ?", $cart_id)->fetch();
+	}
+	
 	public function getLeftCarts(){
 		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName, customer_id.*")->where(":order(cart_id).order_id IS NULL")->fetchAll();
 	}
 	
 	public function deleteOrder($order_id){
 		return $this->db->query("DELETE FROM order WHERE order_id=?", $order_id);
+	}
+	
+	public function deleteCart($cart_id){
+		return $this->db->query("DELETE FROM cart WHERE cart_id=?", $cart_id);
 	}
 	
 	public function getOrder($order_id){

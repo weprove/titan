@@ -1,3 +1,23 @@
+{block scripts}
+	{include parent}
+	<script type="text/javascript">
+		$(function(){
+			$(".viewCartDialogTrigger").click(function(e){
+				e.preventDefault();
+				var url = $(this).attr('href');
+				$.ajax({
+					url: url,
+					success: function(data) {
+					  $("#cartDetailDialog").html(data);
+					  $("#cartDetailDialog").dialog();
+					}
+				});
+			});
+		});
+	</script>
+{/block}
+
 {block content}
+		<div id="cartDetailDialog"></div>
 		{control chaseGrid}
 {/block}

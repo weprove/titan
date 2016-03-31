@@ -11,5 +11,7 @@ use Nette\Application\UI\Form,
 
 class DefaultPresenter extends SecuredPresenter
 {
-
+	public function actionDefault(){
+		$this->redirect(":Admin:Order:");
+	}
 }
