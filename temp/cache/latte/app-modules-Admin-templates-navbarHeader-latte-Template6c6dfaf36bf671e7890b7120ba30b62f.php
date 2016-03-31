@@ -25,7 +25,7 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:"), ENT_COMPAT) ?>"><i class="fa fa-gears"></i> Titan Storage CRM</a>
+                <a class="navbar-brand" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:"), ENT_COMPAT) ?>">Titan Storage CRM</a>
             </div>
             <!-- /.navbar-header --><?php
 }}

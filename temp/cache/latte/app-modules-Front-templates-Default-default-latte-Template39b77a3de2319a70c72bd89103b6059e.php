@@ -52,7 +52,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { func
 			
 <?php if (isset($step2)) { ?>
 			<div class="row">
-				<div class="col-md-6" ><div class="backlink"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Front:Default:default"), ENT_COMPAT) ?>" class="btn btn-primary backBtn"> << Back to step 1</a></div> 
+				<div class="col-md-6" ><div class="backlink"><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Front:Default:default"), ENT_COMPAT) ?>" class="btn btn-primary customerFormSubmit button"> << Back to step 1</a></div> 
 <?php $_l->tmp = $_control->getComponent("customerForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
 				</div>	
 				
@@ -98,8 +98,12 @@ if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { func
 </div>				</div>
 			
 			</div>
-					
-			
+			<div class="row" id="row-step-1">
+				
+				<div class="grey col-md-6">	
+					<span class="estimator-description">Not sure how much space you need? View our <u>size estimator</u>.</span>			
+				</div>
+			</div>
 			</div>
 		 
 
@@ -108,18 +112,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { func
 		</div>
 		
 	</div> <!-- row end-->
-		<div class="estimator-row row">
-			<div class="panel-body margin15">
-					<div class="col-md-6">	
-					 
-					<span class="steps">Size estimator for: 125 sq. ft.</span><p class="estimator-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent placerat erat vitae dui feugiat tempus. Aliquam vitae porta est, eget pretium elit. Fusce vitae luctus mauris. Donec non feugiat est, id elementum nulla. Integer molestie lorem sed sapien ullamcorper vestibulum. Vestibulum malesuada lobortis dui convallis tristique. Sed mauris nisl, ullamcorper vitae purus eu, pharetra congue nulla. In cursus aliquet erat.</p>
-					</div>
-					<div class="col-md-6 estimator-img">	
-					<span class=""><img src="images/125sq.png"></span>
-					</div>
-			
-			</div>			
-		</div>
+		
 </div>        
         
 <?php } ?>
@@ -133,8 +126,8 @@ if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { func
 if (!function_exists($_b->blocks['_productsSnippet'][] = '_lb947e7aaca6__productsSnippet')) { function _lb947e7aaca6__productsSnippet($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v; $_control->redrawControl('productsSnippet', FALSE)
 ?>						<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_control["quoteForm"], array()) ?>
 
-				<div class="grey col-md-3">			
-					<span class="steps">1. find your store</span>
+				<div class="grey col-md-4">			
+					<h2 class="step1">Find your store</h2>
 					<?php echo $_form["postalCode"]->getControl() ?>
 
 					<?php echo $_form["store_id"]->getControl() ?>
@@ -146,10 +139,8 @@ if (!function_exists($_b->blocks['_productsSnippet'][] = '_lb947e7aaca6__product
 						</div>
 					</div>
 				</div>
-				<div class="grey arrow col-md-1">
-				</div>
 				<div class="grey col-md-4">
-					<span class="steps">2. what size & for how long</span>
+					<h2 class="step1">What size and for how long?</h2>
 						<div class="center-form">
 							<?php echo $_form["main_product_id"]->getControl() ?>
 
@@ -159,13 +150,10 @@ if (!function_exists($_b->blocks['_productsSnippet'][] = '_lb947e7aaca6__product
 
 						</div>
 				</div>
-				<div class="arrow col-md-1">
-				</div>
-				<div class="grey col-md-3">
-					<span class="steps">3. request quote</span>
+				<div class="grey col-md-4">
+					<h2 class="step1">Request a quote</h2>
 							<?php echo $_form["submit"]->getControl() ?>
 
-					</span>
 						<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form) ?>
 
 <?php

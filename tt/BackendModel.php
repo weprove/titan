@@ -9,38 +9,6 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
-	public function changeOrdersState($state, $ids){
-		return $this->db->query("UPDATE `order` SET order_state_id = ? WHERE order_id IN(?)", $state, $ids);
-	}
-	
-	public function getMiddleProductByMainProduct($main_product_id, $months = NULL){
-		//if months < minreting pro slevu tak NESPLNENO
-		return $this->db->table("product")->select("((7/30)*product.productPricePerMonth) AS productStandartPricePerWeek, (promotion_id.promotionPercentage*promotion_id.promotionValidityPeriod) AS promoIndex, product.*, promotion_id.promotionName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")
-		->order("promoIndex DESC, product.productPricePerMonth ASC")->limit(1)->where("(promotion_id.promotionMinimalRentingPeriod <= ? OR product.productPricePerMonth =  ( SELECT MIN(productPricePerMonth) FROM product WHERE main_product_id = ?)) AND main_product_id = ?", $months, $main_product_id, $main_product_id)->fetch();
-	}
-	
-	public function getLeftCarts(){
-		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName")->where(":order(cart_id).order_id IS NULL")->fetchAll();
-	}
-	
-	public function deleteOrder($order_id){
-		return $this->db->query("DELETE FROM order WHERE order_id=?", $order_id);
-	}
-	
-	public function getOrder($order_id){
-		return $this->db->table("order")->select("order.order_id AS orderId, order.orderAdDate, order.order_state_id, order_state_id.orderStateName, cart_id.*, cart_id.customer_id.*, cart_id.product_id.*, cart_id.product_id.promotion_id.promotionName, order.orderInternalNote, order.order_id")->where("order.order_id = ?", $order_id)->fetch();
-	}
-	
-	public function getOrders(){
-		return $this->db->table("order")->select("order.order_id AS orderId, order.orderAdDate, order.order_state_id, order_state_id.orderStateName, cart_id.*, cart_id.customer_id.*, cart_id.product_id.*, order.order_id")->fetchAll();
-	}
-	
-	public function getOrdersSelection(){
-		$selection = $this->db->table("order");
-		$selection->select("order.order_id AS orderId, order.orderAdDate, order.order_state_id, order_state_id.orderStateName, cart_id.*, cart_id.customer_id.*, cart_id.product_id.*, order.order_id");
-		return $selection;
-	}
-	
 	public function getBiggerSize($prevSize, $store_id){
 		$r = $this->db->table("main_product")->select("main_product.main_product_id")->where("main_product.mainProductSize > ? AND main_product.store_id = ?", $prevSize, $store_id)->order("mainProductSize ASC")->limit(1)->fetch();	
 		return  (isset($r["main_product_id"]))?$r["main_product_id"]:false;
@@ -98,10 +66,6 @@ class Backend extends Base
 		return $this->db->query("UPDATE product SET", $values, "WHERE product_id = ?", $product_id);
 	}
 	
-	public function getOrderStatePairs(){
-		return $this->db->table("order_state")->select("order_state_id, orderStateName")->fetchPairs("order_state_id", "orderStateName");		
-	}
-	
 	public function getStoreSpecialOffers($store_id){
 		return $this->db->table("promotion")->select("promotion_id, promotionName")->where("store_id = ?", $store_id)->fetchPairs("promotion_id", "promotionName");	
 	}
@@ -132,7 +96,7 @@ class Backend extends Base
 	
 	// STORE
 	public function getProductData($product_id){
-		return $this->db->table("product")->select("*, store_id.storeName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
+		return $this->db->table("product")->select("*, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
 	}
 	
 	public function updateProduct($values){		

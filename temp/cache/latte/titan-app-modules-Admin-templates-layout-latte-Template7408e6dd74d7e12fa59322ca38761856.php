@@ -27,7 +27,7 @@ if (!function_exists($_b->blocks['css'][] = '_lbea6d750fdf_css')) { function _lb
 		<!-- Custom CSS -->
 		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/sb-admin-2.css" rel="stylesheet">
 		<!-- Morris Charts CSS -->
-		<link href="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/css/morris.css" rel="stylesheet">
+		<!--<link href="<?php echo Latte\Runtime\Filters::escapeHtmlComment($basePath) ?>/css/morris.css" rel="stylesheet">-->
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -53,12 +53,12 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb141ec3de85_scripts')) { func
 		<script type="text/javascript" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/jquery.fancybox.pack.js?v=2.1.5"></script>
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/jquery.bxslider.min.js"></script>
 		<script type="text/javascript" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/tinymce/tinymce.min.js"></script>
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/metisMenu/metisMenu.min.js"></script>
 		<!-- Morris Charts JavaScript -->
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/raphael/raphael-min.js"></script>
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/morrisjs/morris.min.js"></script>
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/morris-data.js"></script>
+		<!--<script src="<?php echo Latte\Runtime\Filters::escapeHtmlComment($basePath) ?>/js/morrisjs/morris.min.js"></script>-->
+		<!--<script src="<?php echo Latte\Runtime\Filters::escapeHtmlComment($basePath) ?>/js/morris-data.js"></script>-->
+		<!-- Metis Menu Plugin JavaScript -->
+		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/metisMenu.min.js"></script>
 		<!-- Custom Theme JavaScript -->
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/sb-admin-2.js"></script>	
 		<script type="text/javascript">

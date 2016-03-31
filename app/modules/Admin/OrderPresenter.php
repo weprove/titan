@@ -11,19 +11,75 @@ use Nette\Application\UI\Form,
 
 class OrderPresenter extends SecuredPresenter
 {
-	protected function createComponentOrdersGrid($name) {
+	public $order_id;
+	
+	public function actionShowOrder($order_id){
+		$this->template->order = $this->backendModel->getOrder($order_id);
+	}
+	
+	public function actionAddOrderNote($order_id){
+		$this->order_id = $order_id;
+	}
+	
+	public function actionEditOrder($order_id){
+	
+	}
+	
+	public function handleDeleteOrder($order_id){
+		$this->backendModel->deleteOrder($order_id);
+		$this->flashMessage("Order deleted.", "warning");
+		$this->redirect("this");
+	}
+	
+	protected function createComponentTodayOrdersGrid($name) {
 		$grid = new Grid($this, $name);
-		$grid->model = $this->backendModel->getOrders();
+		$that = $this;
+		
+		$operations = $this->backendModel->getOrderStatePairs();
+			
+		$grid->setOperation($operations, function($operation, $ids){	
+			$this->backendModel->changeOrdersState($operation, $ids);
+			$this->flashMessage("Order states changed.", "warning");
+			
+			$this->redirect("this#today");
+		});
+		
+		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND DATE(orderAdDate) = CURDATE()");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
 		
-		$grid->addColumnText('orderId', 'Order id')
+		$grid->addColumnText('customerFirstname', 'Name')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('customerSurname', 'Surname')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('productUnitType', 'Unit')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnDate('leaseFrom', 'From')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnDate('leaseTo', 'To')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnText('cartPriceTotal', 'Price')
+			->setCustomRender(function($item){
+				$el = "£".round($item->cartPriceTotal, 2);
+				return $el;
+			})
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addColumnText('orderId', 'Order id')
 			->setSortable()
             ->setFilterText();
 			
 		$grid->addColumnText('orderAdDate', 'Created')
 			->setSortable()
-            ->setFilterText();
+            ->setFilterText();*/
 			
 		$grid->addColumnText('orderStateName', 'Status')
 			->setSortable()
@@ -31,11 +87,295 @@ class OrderPresenter extends SecuredPresenter
 			
 		/*$grid->addActionHref('editStore', 'Edit', 'editStore')
             ->setIcon('pencil');*/
+		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
+            //->setIcon('file-text-o');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				return $el;
+			});
+		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
+            ->setIcon('paperclip');
+		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
+            ->setIcon('edit');
+		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
+            ->setIcon('remove');
 
-		$fName = "stores";
+		$fName = "orders";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+	
+	protected function createComponentYesterdayOrdersGrid($name) {
+		$grid = new Grid($this, $name);
+		$that = $this;
+			
+		$operations = $this->backendModel->getOrderStatePairs();
+			
+		$grid->setOperation($operations, function($operation, $ids){	
+			$this->backendModel->changeOrdersState($operation, $ids);
+			$this->flashMessage("Order states changed.", "warning");
+			
+			$this->redirect("this#yesterday");
+		});
+		
+		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND SUBDATE(DATE(orderAdDate),1)");
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('order_id');
+		
+		$grid->addColumnText('customerFirstname', 'Name')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('customerSurname', 'Surname')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('productUnitType', 'Unit')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnDate('leaseFrom', 'From')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnDate('leaseTo', 'To')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnText('cartPriceTotal', 'Price')
+			->setCustomRender(function($item){
+				$el = "£".round($item->cartPriceTotal, 2);
+				return $el;
+			})
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addColumnText('orderId', 'Order id')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('orderAdDate', 'Created')
+			->setSortable()
+            ->setFilterText();*/
+			
+		$grid->addColumnText('orderStateName', 'Status')
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addActionHref('editStore', 'Edit', 'editStore')
+            ->setIcon('pencil');*/
+		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
+            //->setIcon('file-text-o');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				return $el;
+			});
+		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
+            ->setIcon('paperclip');
+		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
+            ->setIcon('edit');
+		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
+            ->setIcon('remove');
+
+		$fName = "orders";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+	
+	protected function createComponentRecentOrdersGrid($name) {
+		$grid = new Grid($this, $name);
+		$that = $this;
+		
+		$operations = $this->backendModel->getOrderStatePairs();
+			
+		$grid->setOperation($operations, function($operation, $ids){	
+			$this->backendModel->changeOrdersState($operation, $ids);
+			$this->flashMessage("Order states changed.", "warning");
+			
+			$this->redirect("this#recent");
+		});
+		
+		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND orderAdDate <= DATE_ADD(DATE(orderAdDate), INTERVAL -1 DAY)");
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('order_id');
+		
+		$grid->addColumnText('customerFirstname', 'Name')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('customerSurname', 'Surname')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('productUnitType', 'Unit')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnDate('leaseFrom', 'From')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnDate('leaseTo', 'To')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnText('cartPriceTotal', 'Price')
+			->setCustomRender(function($item){
+				$el = "£".round($item->cartPriceTotal, 2);
+				return $el;
+			})
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addColumnText('orderId', 'Order id')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('orderAdDate', 'Created')
+			->setSortable()
+            ->setFilterText();*/
+			
+		$grid->addColumnText('orderStateName', 'Status')
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addActionHref('editStore', 'Edit', 'editStore')
+            ->setIcon('pencil');*/
+		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
+            //->setIcon('file-text-o');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				return $el;
+			});
+		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
+            ->setIcon('paperclip');
+		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
+            ->setIcon('edit');
+		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
+            ->setIcon('remove');
+
+		$fName = "orders";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+	
+	protected function createComponentCompletedOrdersGrid($name) {
+		$grid = new Grid($this, $name);
+		$that = $this;
+		
+		$operations = $this->backendModel->getOrderStatePairs();
+			
+		$grid->setOperation($operations, function($operation, $ids){	
+			$this->backendModel->changeOrdersState($operation, $ids);
+			$this->flashMessage("Order states changed.", "warning");
+			
+			$this->redirect("this#completed");
+		});
+		
+		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id = 5");
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('order_id');
+		
+		$grid->addColumnText('customerFirstname', 'Name')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('customerSurname', 'Surname')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnText('productUnitType', 'Unit')
+			->setSortable()
+            ->setFilterText();
+		$grid->addColumnDate('leaseFrom', 'From')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnDate('leaseTo', 'To')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();
+		$grid->addColumnText('cartPriceTotal', 'Price')
+			->setCustomRender(function($item){
+				$el = "£".round($item->cartPriceTotal, 2);
+				return $el;
+			})
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addColumnText('orderId', 'Order id')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('orderAdDate', 'Created')
+			->setSortable()
+            ->setFilterText();*/
+			
+		$grid->addColumnText('orderStateName', 'Status')
+			->setSortable()
+            ->setFilterText();
+			
+		/*$grid->addActionHref('editStore', 'Edit', 'editStore')
+            ->setIcon('pencil');*/
+		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
+            //->setIcon('file-text-o');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:showOrder", $item->order_id))->class("btn btn-primary viewOrderDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				return $el;
+			});
+		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
+            ->setIcon('paperclip');
+		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
+            ->setIcon('edit');
+		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
+            ->setIcon('remove');
+
+		$fName = "orders";
 		new \Helpers\GridoExport($grid, $fName);
 	 
 		return $grid;
 	}
 
+	protected function createComponentEditOrderForm($name){
+        $form = new  Form($this, $name);
+
+        $form->addText('username', 'Email:')
+            ->setRequired('Please fill your email')
+			->setAttribute('placeholder', 'Email address')
+			->setAttribute('class', 'form-control');
+
+        $form->addSubmit('login', 'Sign in')
+			->setAttribute('class', 'btn btn-lg btn-primary btn-block');
+		$form->onSuccess[] = array($this, 'editOrderFormSubmitted');
+        
+        return $form;
+    }
+	
+    public function editOrderFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			$values = $form->values;		
+        }
+    }
+	
+	protected function createComponentAddOrderNoteForm($name){
+        $form = new  Form($this, $name);
+		$form->addHidden("order_id");
+        $form->addTextArea('orderInternalNote', 'Internal note:')
+            ->setRequired('Please fill note content.')
+			->setAttribute('placeholder', 'Note content')
+			->setAttribute('class', 'form-control');
+			
+		if(isset($this->order_id))
+			$form->setDefaults($this->backendModel->getOrder($this->order_id));
+
+        $form->addSubmit('login', 'Save')
+			->setAttribute('class', 'btn btn-primary');
+		$form->onSuccess[] = array($this, 'addOrderNoteFormSubmitted');
+        
+        return $form;
+    }
+	
+    public function addOrderNoteFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			$values = $form->values;	
+			$this->backendModel->saveOrder($values);
+			
+			$this->redirect("this");
+        }
+    }
 }

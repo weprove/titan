@@ -22,16 +22,16 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:default"), ENT_COMPAT) ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:default"), ENT_COMPAT) ?>">Dashboard</a>
                         </li>
 						<li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>"><i class="fa fa-institution fa-fw"></i> Stores</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>">Stores</a>
                         </li>
 						<li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>"><i class="fa fa-shopping-cart fa-fw"></i> Orders</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>">Orders</a>
                         </li>
 						<li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>"><i class="fa fa-user fa-fw"></i> Chasing clients</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>">Chasing clients</a>
                         </li>
                     </ul>
                 </div>

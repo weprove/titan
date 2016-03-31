@@ -17,15 +17,19 @@ class ChasePresenter extends SecuredPresenter
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('cart_id');
 		
-		$grid->addColumnText('cart_id', 'Cart id')
+		/*$grid->addColumnText('cart_id', 'Cart id')
+			->setSortable()
+            ->setFilterText();*/
+			
+		$grid->addColumnText('customerEmail', 'Email')
 			->setSortable()
             ->setFilterText();
 			
-		$grid->addColumnText('cartAdDate', 'Created')
+		$grid->addColumnText('customerFirstname', 'Name')
 			->setSortable()
             ->setFilterText();
 			
-		$grid->addColumnText('mainProductName', 'Main product name')
+		$grid->addColumnText('customerSurname', 'Surname')
 			->setSortable()
             ->setFilterText();
 			

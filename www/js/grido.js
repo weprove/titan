@@ -92,9 +92,6 @@
          */
         initActions: function()
         {	
-			$('.table').resizableColumns({
-				store: window.store
-			});	
 			
             var that = this;
             $('.actions a', this.$table)

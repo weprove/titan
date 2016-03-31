@@ -12,51 +12,77 @@ list($_b, $_g, $_l) = $template->initialize('8f53e0b573', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { function _lb9604a74000_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>	<div class="row">
-		<div class="col-md-12">    
+?>	<div class="container">	
+	<div class="row">
 			<div class="panel-primary">
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showSmallerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" class="btn btn-normal"> << Smaller size</a>
-						</div>
+				
+				<div class="col-md-12">	   
+
+					<div class="row navigation-bar marginBottom5">
+						<a  class="smaller-link" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showSmallerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>">	
+							<div class="col-md-6 smaller-offer">	
+								Smaller size
+							</div>	
+						</a>	
 						
-						<div class="col-md-8">
+							<a class="bigger-link" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showBiggerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" >
+							<div class="col-md-6 bigger-offer">
+								Bigger size
+							</div>
+						</a>
+					</div>
+				</div>	
+				
+						<div class="row">
+								<div class="col-md-12">
 <?php if (isset($cart)&&count($cart)>0) { ?>
-								<h2>Offers for you</h2>
+								
 								
 <?php if (isset($products)&&count($products)>0) { $iterations = 0; foreach ($products AS $product) { ?>
-										<div class="row">
-											<div class="col-md-6">
-												<h2><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>
+										<div class="row offer marginBottom2">
+											<div class="col-md-4 paddingAll30">
+												<h2 class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>
 												<h3><?php echo Latte\Runtime\Filters::escapeHtml($product["productDescription"], ENT_NOQUOTES) ?></h3>
-												<h4>Standart price per month: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["productPricePerMonth"], ENT_NOQUOTES) ?></h4>
-												<p>Standart price total: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["standartTotalPrice"], ENT_NOQUOTES) ?></p>
+										
 											</div>
 											
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<div class="row offer1">
 <?php if ($product['promotionName']&&$product['promotionActive']) { ?>													<div class="col-md-12">
-														<h4><?php echo Latte\Runtime\Filters::escapeHtml($product["promotionName"], ENT_NOQUOTES) ?></h4>
+														<span class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["promotionName"], ENT_NOQUOTES) ?></span>
 													</div>
 <?php } ?>
 													
 													<div class="col-md-12">
-<?php if ($product['cartSaleActive']) { ?>														<p> Save: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartSale"], ENT_NOQUOTES) ?></p>
+														<p>£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale'], ENT_NOQUOTES) ?> a month</p>
+														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale']/4, ENT_NOQUOTES) ?> a week)</p>
+														<p class="total-price">Total price: <strong>£<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal"], ENT_NOQUOTES) ?></strong></p>
+<?php if ($product['productVacancy']<1) { ?>
+															<p class="soldout">sold out</p>
+															<a href="#" class="callus btn-book btn-primary">Call us</a>
+<?php } else { ?>
+															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve</a>
 <?php } ?>
-														<p>New total price: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal"], ENT_NOQUOTES) ?></p>
-														<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" class="btn btn-primary">Book now!</a>
-													</div>
+													</div> 
 												</div>
-												
+											</div>
+											<div class="col-md-4">	
 <?php if ($product['cartSaleActive2']) { ?>												<div class="row offer2">
 													<div class="col-md-12">
-														Move in for £1 for the first month - minimum stay 2 months
+														<span class="steps">Move in for £1 for the first month</span> 
+														<h4>minimum stay 2 months</h4>
 													</div>	
 													
 													<div class="col-md-12">
-														<p>New total price: £ <?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?></p>
-														<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" class="btn btn-primary">Book now!</a>
+														<p>£1 then £<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonth'], ENT_NOQUOTES) ?> a month</p>
+														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale2']/4, ENT_NOQUOTES) ?> a week)</p>
+														<p class="total-price">Total price: <strong>£<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?></strong></p>
+<?php if ($product['productVacancy']<1) { ?>
+															<p class="soldout">sold out</p>
+															<a href="#" class="callus btn-book btn-red">Call us</a>
+<?php } else { ?>
+															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve</a>
+<?php } ?>
 													</div>											
 												</div>
 <?php } ?>
@@ -64,15 +90,22 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 										</div>
 <?php $iterations++; } } } ?>
 						</div> <!-- col-md-8 -->
-						
-						<div class="col-md-2">
-							<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("showBiggerSize!", array($cart_id, $prevSize)), ENT_COMPAT) ?>" class="btn btn-normal">Bigger size >> </a>
-						</div>
+							
+							
 						
 					</div>
-				</div>
+					<div class="row">
+								<div class="col-md-12">
+								<p class="information">Prices exclude the cost of padlock and insurance and are valid for the next 14 days. We charge calendar monthly from the date of move in 
+and all prices quoted are inclusive of VAT.</p>
+<p class="li-information">* Move in for £1 for the first month - minimum stay 2 months</p>
+<p class="li-information">* 50% off first month - minimum stay 2 month</p>
+<p class="li-information">* 50% off for 2 months - minimum stay 1 month</p>
+<p class="li-information">* 50% off for 3 months - minimum stay 1 month</p>
+								</div>
+					</div>
 			</div>
-		</div>
+	</div>
 	</div>
 <?php
 }}

@@ -1,3 +1,49 @@
+{block scripts}
+	{include parent}
+	<script type="text/javascript">
+		$(function(){
+			$(".viewOrderDialogTrigger").click(function(e){
+				e.preventDefault();
+				var url = $(this).attr('href');
+				$.ajax({
+					url: url,
+					success: function(data) {
+					  $("#orderDetailDialog").html(data);
+					  $("#orderDetailDialog").dialog();
+					}
+				});
+			});
+		});
+	</script>
+{/block}
+
 {block content}
-		{control ordersGrid}
+	<div id="orderDetailDialog"></div>
+	
+	<ul class="nav nav-tabs marginTop20">
+		<li class="active"><a href="#today" data-toggle="tab">Today</a>
+		</li>
+		<li><a href="#yesterday" data-toggle="tab">Yesterday</a>
+		</li>
+		<li><a href="#recent" data-toggle="tab">Recent</a>
+		</li>
+		<li><a href="#completed" data-toggle="tab">Completed orders</a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="today">
+			{control todayOrdersGrid}
+		</div>
+		<div class="tab-pane fade" id="yesterday">
+			{control yesterdayOrdersGrid}
+		</div>
+		<div class="tab-pane fade" id="recent">
+			{control recentOrdersGrid}
+		</div>
+		<div class="tab-pane fade" id="completed">
+			{control completedOrdersGrid}
+		</div>
+	</div>
 {/block}
