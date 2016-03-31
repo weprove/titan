@@ -2,39 +2,40 @@
 	<div class="container">	
 	<div class="row">
 			<div class="panel-primary">
-				
 				<div class="col-md-12">	   
 
-					<div class="row navigation-bar marginBottom5">
-						<a  class="smaller-link" href="{link showSmallerSize!, $cart_id, $prevSize}">	
-							<div class="col-md-6 smaller-offer">	
-								Smaller size
+					<div class="row navigation-bar ">
+							<div class="col-md-3 alignLeft">	
+								Unit size
 							</div>	
-						</a>	
-						
-							<a class="bigger-link" href="{link showBiggerSize!, $cart_id, $prevSize}" >
-							<div class="col-md-6 bigger-offer">
-								Bigger size
+							<div class="col-md-3">	
+								Promotion 1
+							</div>	
+							<div class="col-md-3">	
+								Promotion 2
+							</div>	
+							<div class="col-md-3">
+								Price thereafter
 							</div>
-						</a>
 					</div>
-				</div>	
+				</div>
+	
 				
-						<div class="row">
-								<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
 							{if isset($cart)&&count($cart)>0}
 								
 								
 								{if isset($products)&&count($products)>0}
 									{foreach $products AS $product}
-										<div class="row offer marginBottom2">
-											<div class="col-md-4 paddingAll30">
+										<div class="row offer ">
+											<div class="col-md-3 paddingAll30 column">
 												<h2 class="steps">{$product["productName"]}</h2>
-												<h3>{$product["productDescription"]}</h3>
+												<h3 class="product-description">{$product["productDescription"]}</h3>
 										
 											</div>
 											
-											<div class="col-md-4">
+											<div class="col-md-3 column">
 												<div class="row offer1">
 													<div n:if="$product['promotionName']&&$product['promotionActive']" class="col-md-12">
 														<span class="steps">{$product["promotionName"]}</span>
@@ -43,7 +44,7 @@
 													<div class="col-md-12">
 														<p>£{$product['productPricePerMonthSale']} a month</p>
 														<p>(£{$product['productPricePerMonthSale']/4} a week)</p>
-														<p class="total-price">Total price: <strong>£{$product["cartPriceTotal"]}</strong></p>
+														<p class="total-price">Total cost £{$product["cartPriceTotal2"]} for dates selected</p>
 														{if $product['productVacancy']<1}
 															<p class="soldout">sold out</p>
 															<a href="#" class="callus btn-book btn-primary">Call us</a>
@@ -53,7 +54,7 @@
 													</div> 
 												</div>
 											</div>
-											<div class="col-md-4">	
+											<div class="col-md-3 column">	
 												<div class="row offer2" n:if="$product['cartSaleActive2']">
 													<div class="col-md-12">
 														<span class="steps">Move in for £1 for the first month</span> 
@@ -63,7 +64,7 @@
 													<div class="col-md-12">
 														<p>£1 then £{$product['productPricePerMonth']} a month</p>
 														<p>(£{$product['productPricePerMonthSale2']/4} a week)</p>
-														<p class="total-price">Total price: <strong>£{$product["cartPriceTotal2"]}</strong></p>
+														<p class="total-price">Total cost £{$product["cartPriceTotal2"]} for dates selected</p>
 														{if $product['productVacancy']<1}
 															<p class="soldout">sold out</p>
 															<a href="#" class="callus btn-book btn-red">Call us</a>
@@ -73,6 +74,21 @@
 													</div>											
 												</div>
 											</div>
+											
+											<div class="col-md-3 column">
+												<div class="row offer2">
+													<div class="col-md-12">
+														<span class="steps">unit cost</span> 
+													</div>	
+													
+													<div class="col-md-12">
+														<p>£{$product['productPricePerMonth']} per month</p>
+														<p>£{$product['productPricePerMonthSale2']/4} per week</p>
+														
+													</div>											
+												</div>										
+											</div>
+											
 										</div>
 									{/foreach}
 								{/if}
@@ -82,6 +98,22 @@
 							
 						
 					</div>
+				<div class="col-md-12">	   
+
+					<div class="row navigation-bar marginBottom5">
+						<a  class="smaller-link" href="{link showSmallerSize!, $cart_id, $prevSize}">	
+							<div class="col-md-6 smaller-offer">	
+								show smaller units
+							</div>	
+						</a>	
+						
+							<a class="bigger-link" href="{link showBiggerSize!, $cart_id, $prevSize}" >
+							<div class="col-md-6 bigger-offer">
+								show larger units
+							</div>
+						</a>
+					</div>
+				</div>
 					<div class="row">
 								<div class="col-md-12">
 								<p class="information">Prices exclude the cost of padlock and insurance and are valid for the next 14 days. We charge calendar monthly from the date of move in 
