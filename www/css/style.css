@@ -479,6 +479,58 @@ text-align: center;
 	min-height: 168px;
 	border-left: 0px solid #ccc;
 	}
+.navbar-default {
+    background-color: #f2f2f2;
+}
+.navbar-static-top {
+    background: #666;
+}
+.navbar-default .navbar-brand  {
+	color: #fff
+	}
+	
+ul#side-menu > li {
+	background: #f2f2f2 ; 
+	border: none;
+	color: #666 ;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.sidebar ul li a.active {
+    background-color: #f2f2f2;
+	border: none;
+	color: #666;
+	font-weight: bold;
+}
+ 
+ul#side-menu > li:hover {
+	background: #c7c4c4;
 
+}
+.sidebar ul li a.active:hover{
+    background-color: #c7c4c4;
 
+} 
+.nav > li > a {
+	background: #f2f2f2 ; 
+	border: none;
+	color: #666 ;
+	font-weight: bold;
+	
+}	
+
+.nav > li > a:hover {
+	background: #c7c4c4; 
+	border: none;
+	color: #666 ;
+	font-weight: bold;
+}	
+.viewOrderDialogTrigger,.grid-action-addOrderNote,.grid-action-editOrder,.grid-action-deleteOrder {
+	background: none;
+	color: #666;
+	border: none;
+	
+}
+	
 
