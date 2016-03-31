@@ -20,7 +20,7 @@ class Backend extends Base
 	}
 	
 	public function getLeftCarts(){
-		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName")->where(":order(cart_id).order_id IS NULL")->fetchAll();
+		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName, customer_id.*")->where(":order(cart_id).order_id IS NULL")->fetchAll();
 	}
 	
 	public function deleteOrder($order_id){
