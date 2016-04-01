@@ -97,7 +97,7 @@ class ChasePresenter extends SecuredPresenter
 		$form->addText('templateName', 'Název:')
             ->setRequired('Please fill template name.');
         $html = $form->addTextArea('templateHtml', 'Content:');
-		$html->getControlPrototype()->class("mceEditor emailTemplateBody");
+		$html->getControlPrototype()->class("mceEditor2 emailTemplateBody");
         $html->setRequired('Please fill template content.');
 		
 		$htmlTemplate = file_get_contents(__DIR__ ."/templates/emailTemplate.latte");
@@ -126,7 +126,7 @@ class ChasePresenter extends SecuredPresenter
 	protected function createComponentFullFilledTemplateForm($name){
         $form = new  Form($this, $name);
         $html = $form->addTextArea('templateHtml', 'Content:');
-		$html->getControlPrototype()->class("mceEditor emailTemplateBody");
+		$html->getControlPrototype()->class("mceEditor2 emailTemplateBody");
         $html->setRequired('Please fill template content.');
 		
 		$htmlTemplate = file_get_contents(__DIR__ ."/templates/emailTemplate.latte");

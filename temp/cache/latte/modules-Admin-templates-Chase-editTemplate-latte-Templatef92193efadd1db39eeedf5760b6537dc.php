@@ -9,6 +9,22 @@ list($_b, $_g, $_l) = $template->initialize('89658df7c2', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
+// block scripts
+//
+if (!function_exists($_b->blocks['scripts'][] = '_lb3fe2050e20_scripts')) { function _lb3fe2050e20_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+;Latte\Macros\BlockMacrosRuntime::callBlockParent($_b, 'scripts', get_defined_vars()) ?>
+	<script>
+		tinyMCE.init({
+				mode : "specific_textareas",
+				editor_selector : "mceEditor",
+				editor_deselector : "mceNoEditor",
+				content_css : <?php echo Latte\Runtime\Filters::escapeJs($basePath) ?>+"/css/email_editor_content.css",
+		});
+	</script>
+<?php
+}}
+
+//
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb08043fada1_content')) { function _lb08043fada1_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
@@ -55,5 +71,7 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 // main template
 //
 if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); }
-call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; 
+call_user_func(reset($_b->blocks['scripts']), $_b, get_defined_vars())  ?>
+
+<?php call_user_func(reset($_b->blocks['content']), $_b, get_defined_vars()) ; 
 }}
