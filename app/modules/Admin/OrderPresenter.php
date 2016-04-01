@@ -23,6 +23,10 @@ class OrderPresenter extends SecuredPresenter
 		$this->template->order = $this->backendModel->getFullCart($cart_id);
 	}
 	
+	public function actionShowLeftCart($cart_id){
+		$this->template->order = $this->backendModel->getFullCart($cart_id);
+	}
+	
 	public function actionAddOrderNote($order_id){
 		$this->order_id = $order_id;
 	}

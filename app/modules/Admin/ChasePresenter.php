@@ -73,7 +73,7 @@ class ChasePresenter extends SecuredPresenter
 		$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
             //->setIcon('file-text-o');
 			->setCustomRender(function($item) use ($that){
-				$el = Html::el('a')->href($that->link(":Admin:Order:showCart", $item->cart_id))->class("btn btn-primary viewCartDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				$el = Html::el('a')->href($that->link(":Admin:Order:showLeftCart", $item->cart_id))->class("btn btn-primary viewCartDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
 				return $el;
 			});
 		$grid->addActionHref('chaseClient', 'Chase client', 'Chase')
@@ -94,7 +94,7 @@ class ChasePresenter extends SecuredPresenter
 	protected function createComponentEditTemplateForm($name){
         $form = new  Form($this, $name);
 		$form->addHidden("template_id");
-		$form->addText('templateName', 'Název:')
+		$form->addText('templateName', 'Title:')
             ->setRequired('Please fill template name.');
         $html = $form->addTextArea('templateHtml', 'Content:');
 		$html->getControlPrototype()->class("mceEditor2 emailTemplateBody");
@@ -151,7 +151,7 @@ class ChasePresenter extends SecuredPresenter
 			$form->setDefaults(array("templateHtml"=>$tpl->__toString()));
 		}
 
-        $form->addSubmit('login', 'Save')
+        $form->addSubmit('login', 'Send chase email now')
 			->setAttribute('class', 'btn btn-primary');
 		$form->onSuccess[] = array($this, 'fullfilledTemplateFormSubmitted');
         
