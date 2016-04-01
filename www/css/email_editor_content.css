@@ -2,14 +2,14 @@ body{
 	/* :DD */
 	
 	height: 5000px !important;
+	background: #f5f5f5;
 }
 
-tinymce.init {
-  selector: 'textarea'; 
+tinymce.init{
   height : 300px;
 }
 
-tinyMCE.init({
+tinyMCE.init{
         height : 480px;
-});
+}
 
