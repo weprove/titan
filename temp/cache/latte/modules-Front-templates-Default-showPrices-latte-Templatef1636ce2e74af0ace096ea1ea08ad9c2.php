@@ -56,7 +56,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 													
 													<div class="col-md-12">
 														<p>£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale'], ENT_NOQUOTES) ?> a month</p>
-														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale']/4, ENT_NOQUOTES) ?> a week)</p>
+														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml(round($product['productPricePerMonthSale']/4, 2), ENT_NOQUOTES) ?> a week)</p>
 														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
 															<p class="soldout">sold out</p>
@@ -76,7 +76,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 													
 													<div class="col-md-12">
 														<p>£1 then £<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonth'], ENT_NOQUOTES) ?> a month</p>
-														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonthSale2']/4, ENT_NOQUOTES) ?> a week)</p>
+														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml(round($product['productPricePerMonthSale2']/4, 2), ENT_NOQUOTES) ?> a week)</p>
 														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
 															<p class="soldout">sold out</p>

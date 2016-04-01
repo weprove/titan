@@ -43,7 +43,7 @@
 													
 													<div class="col-md-12">
 														<p>£{$product['productPricePerMonthSale']} a month</p>
-														<p>(£{$product['productPricePerMonthSale']/4} a week)</p>
+														<p>(£{round($product['productPricePerMonthSale']/4, 2)} a week)</p>
 														<p class="total-price">Total cost £{$product["cartPriceTotal2"]} for dates selected</p>
 														{if $product['productVacancy']<1}
 															<p class="soldout">sold out</p>
@@ -63,7 +63,7 @@
 													
 													<div class="col-md-12">
 														<p>£1 then £{$product['productPricePerMonth']} a month</p>
-														<p>(£{$product['productPricePerMonthSale2']/4} a week)</p>
+														<p>(£{round($product['productPricePerMonthSale2']/4, 2)} a week)</p>
 														<p class="total-price">Total cost £{$product["cartPriceTotal2"]} for dates selected</p>
 														{if $product['productVacancy']<1}
 															<p class="soldout">sold out</p>

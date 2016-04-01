@@ -12,6 +12,8 @@ use Nette\Application\UI\Form,
 class OrderPresenter extends SecuredPresenter
 {
 	public $order_id;
+	public $cart;
+	public $cart_id;
 	
 	public function actionShowOrder($cart_id){
 		$this->template->order = $this->backendModel->getFullCart($cart_id);
@@ -25,8 +27,9 @@ class OrderPresenter extends SecuredPresenter
 		$this->order_id = $order_id;
 	}
 	
-	public function actionEditOrder($order_id){
-	
+	public function actionEditOrder($cart_id){
+		$this->cart = $this->backendModel->getFullCart($cart_id);
+		$this->cart_id = $cart_id;
 	}
 	
 	public function handleDeleteOrder($order_id){
@@ -100,7 +103,10 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
             ->setIcon('paperclip');
 		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
-            ->setIcon('edit');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:editOrder", $item->cart_id))->class("btn btn-primary editOrder")->setHtml("<i class='fa fa-edit'></i>");
+				return $el;
+			});
 		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
             ->setIcon('remove');
 
@@ -175,7 +181,10 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
             ->setIcon('paperclip');
 		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
-            ->setIcon('edit');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:editOrder", $item->cart_id))->class("btn btn-primary editOrder")->setHtml("<i class='fa fa-edit'></i>");
+				return $el;
+			});
 		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
             ->setIcon('remove');
 
@@ -250,7 +259,10 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
             ->setIcon('paperclip');
 		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
-            ->setIcon('edit');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:editOrder", $item->cart_id))->class("btn btn-primary editOrder")->setHtml("<i class='fa fa-edit'></i>");
+				return $el;
+			});
 		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
             ->setIcon('remove');
 
@@ -325,7 +337,10 @@ class OrderPresenter extends SecuredPresenter
 		$grid->addActionHref('addOrderNote', 'Add a note', 'addOrderNote')
             ->setIcon('paperclip');
 		$grid->addActionHref('editOrder', 'Edit order', 'editOrder')
-            ->setIcon('edit');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:editOrder", $item->cart_id))->class("btn btn-primary editOrder")->setHtml("<i class='fa fa-edit'></i>");
+				return $el;
+			});
 		$grid->addActionHref('deleteOrder', 'delete order', 'deleteOrder!')
             ->setIcon('remove');
 
@@ -338,13 +353,21 @@ class OrderPresenter extends SecuredPresenter
 	protected function createComponentEditOrderForm($name){
         $form = new  Form($this, $name);
 
-        $form->addText('username', 'Email:')
-            ->setRequired('Please fill your email')
-			->setAttribute('placeholder', 'Email address')
-			->setAttribute('class', 'form-control');
-
-        $form->addSubmit('login', 'Sign in')
-			->setAttribute('class', 'btn btn-lg btn-primary btn-block');
+		$form->addHidden("cart_id");
+		$form->addSelect('product_id', 'Product', $this->backendModel->getProductsByStorePairs($this->cart->store_id));
+        $form->addText('cartPrice', 'Price before sale');
+        $form->addText('cartSale', 'Sale (£)');
+		$form->addText('cartPriceTotal', 'Price total');
+		$form->addText('leaseFrom', 'From')
+			->getControlPrototype()->class("systemDate");
+		$form->addText('leaseTo', 'To')
+			->getControlPrototype()->class("systemDate");
+			
+		if(isset($this->cart_id))
+			$form->setDefaults($this->cart);
+		
+        $form->addSubmit('submit', 'Save')
+			->setAttribute('class', 'btn btn-primary');
 		$form->onSuccess[] = array($this, 'editOrderFormSubmitted');
         
         return $form;

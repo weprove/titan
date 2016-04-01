@@ -162,6 +162,26 @@ class ChasePresenter extends SecuredPresenter
         if($form->isSubmitted() && $form->isValid()){
 			$values = $form->values;	
 			
+			//zasleme email
+			$email = $this->cart->customerEmail;
+				
+			//mail pro zaslání dodatečných informací
+			$mail = new Message;
+			$mail->setFrom("noreply@titanstorage.co.uk");
+			$mail->addTo($email);
+			$mail->setSubject('Titan Storage');
+			$mail->setHtmlBody("
+				$values[templateHtml]
+			"); 
+                
+			try{
+				$this->mailer->send($mail);      
+				$this->flashMessage('Email sent.', 'success');
+                    
+      		} catch (\Exception $e) {
+				$this->flashMessage("ERROR: sending of email failed.", 'error');
+			}
+			
 			$this->redirect(":Admin:Chase:");
         }
     }
