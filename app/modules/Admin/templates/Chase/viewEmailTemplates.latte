@@ -1,6 +1,6 @@
 {block content}
 	<a class="marginBottom20 btn btn-primary" href="{link :Admin:Chase:editTemplate}">Create new template</a>
-	{if isset($teplates)&&count($templates)>0}
+	{if isset($templates)&&count($templates)>0}
 		<ul>
 			{foreach $templates AS $template}
 				<li><a href="{link :Admin:Chase:editTemplate, $template->template_id}">{$template->templateName}</a></li>

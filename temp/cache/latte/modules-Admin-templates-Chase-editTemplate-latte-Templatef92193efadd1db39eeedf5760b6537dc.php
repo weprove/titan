@@ -23,11 +23,9 @@ if (!function_exists($_b->blocks['content'][] = '_lb08043fada1_content')) { func
 					<strong>Legend</strong>
 					<ul>
 						<li>Cart id: {$data['cart_id']}</li>
-						<li>Cart id: {$data['cart_id']}</li>
-						<li>Cart id: {$data['cart_id']}</li>
-						<li>Cart id: {$data['cart_id']}</li>
-						<li>Cart id: {$data['cart_id']}</li>
-						<li>Cart id: {$data['cart_id']}</li>
+						<li>Name: {$data['customerFirstname']}</li>
+						<li>Surname: {$data['customerSurname']}</li>
+						<li>Product name: {$data['productName']}</li>
 					</ul>
 				</div>
 			</div>

@@ -1,28 +1,30 @@
 <?php
-// source: C:\xampp\htdocs\titan\app\modules\Admin/templates/Chase/viewEmailTemplates.latte
+// source: C:\xampp\htdocs\titan\app\modules\Admin/templates/Chase/chaseClient.latte
 
-class Template8be16a2359ea3da507ee1db7c0a92df8 extends Latte\Template {
+class Templatec2feb50eabafbaf12cfe92cbd55343b4 extends Latte\Template {
 function render() {
 foreach ($this->params as $__k => $__v) $$__k = $__v; unset($__k, $__v);
 // prolog Latte\Macros\CoreMacros
-list($_b, $_g, $_l) = $template->initialize('ccbbe2caf0', 'html')
+list($_b, $_g, $_l) = $template->initialize('256e13fbbb', 'html')
 ;
 // prolog Latte\Macros\BlockMacros
 //
 // block content
 //
-if (!function_exists($_b->blocks['content'][] = '_lb005a69bbc1_content')) { function _lb005a69bbc1_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>	<a class="marginBottom20 btn btn-primary" href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:editTemplate"), ENT_COMPAT) ?>">Create new template</a>
-<?php if (isset($templates)&&count($templates)>0) { ?>
+if (!function_exists($_b->blocks['content'][] = '_lb113a7f5bd2_content')) { function _lb113a7f5bd2_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+;if (isset($templates)&&count($templates)>0) { ?>
+		Select template please:
 		<ul>
 <?php $iterations = 0; foreach ($templates AS $template) { ?>
-				<li><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:editTemplate", array($template->template_id)), ENT_COMPAT) ?>
+				<li><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("this", array($cart_id, $template->template_id)), ENT_COMPAT) ?>
 "><?php echo Latte\Runtime\Filters::escapeHtml($template->templateName, ENT_NOQUOTES) ?></a></li>
 <?php $iterations++; } ?>
 		</ul>
 <?php } else { ?>
 			There are currently no email templates.
-<?php } 
+<?php } ?>
+	
+<?php $_l->tmp = $_control->getComponent("fullFilledTemplateForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;
 }}
 
 //

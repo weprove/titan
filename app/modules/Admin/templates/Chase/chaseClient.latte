@@ -1,0 +1,14 @@
+{block content}
+	{if isset($templates)&&count($templates)>0}
+		Select template please:
+		<ul>
+			{foreach $templates AS $template}
+				<li><a href="{link this, $cart_id, $template->template_id}">{$template->templateName}</a></li>
+			{/foreach}
+		</ul>
+	{else}
+			There are currently no email templates.
+	{/if}
+	
+	{control fullFilledTemplateForm}
+{/block}

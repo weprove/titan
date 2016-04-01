@@ -22,7 +22,7 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb04c36fa084_scripts')) { func
 					url: url,
 					success: function(data) {
 					  $("#cartDetailDialog").html(data);
-					  $("#cartDetailDialog").dialog();
+					  $("#cartDetailDialog").dialog({'width':600, 'height':250});
 					}
 				});
 			});

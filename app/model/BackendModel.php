@@ -13,6 +13,10 @@ class Backend extends Base
 		return $this->db->table("template")->select("template.*")->where("template_id = ?", $template_id)->fetch();
 	}
 	
+	public function getTemplates(){
+		return $this->db->table("template")->select("template.*")->fetchAll();
+	}
+	
 	public function saveTemplate($values){
 		$str = "";
 		
