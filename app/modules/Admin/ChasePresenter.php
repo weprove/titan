@@ -79,7 +79,7 @@ class ChasePresenter extends SecuredPresenter
 		$grid->addActionHref('chaseClient', 'Chase client', 'Chase')
             //->setIcon('file-text-o');
 			->setCustomRender(function($item) use ($that){
-				$el = Html::el('a')->href($that->link(":Admin:Chase:chaseClient", $item->cart_id))->class("btn btn-primary")->setHtml("<i class='fa fa-envelope-o'></i>");
+				$el = Html::el('a')->href($that->link(":Admin:Chase:chaseClient", $item->cart_id))->class("btn btn-primary chaseClientEmail")->setHtml("<i class='fa fa-envelope-o'></i>");
 				return $el;
 			});
 		$grid->addActionHref('deleteCart', 'delete cart', 'deleteCart!')
