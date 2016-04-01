@@ -15,8 +15,8 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb3fe2050e20_scripts')) { func
 ;Latte\Macros\BlockMacrosRuntime::callBlockParent($_b, 'scripts', get_defined_vars()) ?>
 	<script>
 		tinyMCE.init({
-				mode : "specific_textareas",
-				editor_selector : "mceEditor",
+				mode : "textareas",
+				editor_selector : "mceEditor2",
 				editor_deselector : "mceNoEditor",
 				content_css : <?php echo Latte\Runtime\Filters::escapeJs($basePath) ?>+"/css/email_editor_content.css",
 		});

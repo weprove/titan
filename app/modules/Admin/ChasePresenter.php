@@ -129,7 +129,7 @@ class ChasePresenter extends SecuredPresenter
 		$html->getControlPrototype()->class("mceEditor2 emailTemplateBody");
         $html->setRequired('Please fill template content.');
 		
-		$htmlTemplate = file_get_contents(__DIR__ ."/templates/emailTemplate.latte");
+		//$htmlTemplate = file_get_contents(__DIR__ ."/templates/emailTemplate.latte");
 			
 		if(isset($this->template_id)){
 			$fullTemplate = $this->backendModel->getTemplate($this->template_id);

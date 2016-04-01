@@ -128,7 +128,27 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		
 		$this->backendModel->saveOrder($order);
 		
-		$this->flashMessage("You have booked a ".$product->productName." unit from ".$this->cart->leaseFrom." to ".$this->cart->leaseTo.". You will shortly receive a confirmation email.", "success");
+			/*//zasleme email
+			$email = $this->cart->customerEmail;
+				
+			//mail pro zaslání dodatečných informací
+			$mail = new Message;
+			$mail->setFrom("noreply@titanstorage.co.uk");
+			$mail->addTo($email);
+			$mail->setSubject('Titan Storage');
+			$mail->setHtmlBody("
+				$values[templateHtml]
+			"); 
+                
+			try{
+				$this->mailer->send($mail);      
+				$this->flashMessage('Email sent.', 'success');
+                    
+      		} catch (\Exception $e) {
+				$this->flashMessage("ERROR: sending of email failed.", 'error');
+			}*/
+		
+		$this->flashMessage("You have booked a ".$product->productName." unit from ".date("d/m/y", strtotime($this->cart->leaseFrom))." to ".date("d/m/y", strtotime($this->cart->leaseTo)).". You will shortly receive a confirmation email.", "success");
 		$this->redirect(":Front:Default:default");
 	}
 	
@@ -190,12 +210,12 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 							"productVacancy" => $product->productVacancy,
 							"productPricePerMonthSale" => round($pricesArray['cartPriceTotal']/$this->cart->cartLeaseInMonths, 2),
 							"productPricePerMonthSale2" => round($pricesArray['cartPriceTotal2']/$this->cart->cartLeaseInMonths, 2),
-							"standartTotalPrice" => round($product->productPricePerMonth*$this->cart->cartLeaseInMonths),
+							"standartTotalPrice" => round($product->productPricePerMonth*$this->cart->cartLeaseInMonths, 2),
 							"cartSaleActive" => $pricesArray['cartSaleActive'],
-							"cartPrice" => round($pricesArray['cartPrice']),
-							"cartSale" => round($pricesArray['cartSale']),
-							"cartPriceTotal" => round($pricesArray['cartPriceTotal']),
-							"cartPriceTotal2" => round($pricesArray['cartPriceTotal2']),
+							"cartPrice" => round($pricesArray['cartPrice'], 2),
+							"cartSale" => round($pricesArray['cartSale'], 2),
+							"cartPriceTotal" => round($pricesArray['cartPriceTotal'], 2),
+							"cartPriceTotal2" => round($pricesArray['cartPriceTotal2'], 2),
 							"cartSaleActive2" => $pricesArray['cartSaleActive2']
 						);
 					}
@@ -420,6 +440,27 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 					$vals["customer_id"] = $customer_id;
 					$vals["cartAdDate"] = date ("Y-m-d H:i:s");
 					$cart_id = $this->backendModel->saveCart($vals);
+					
+					
+					$tpl = $this->createTemplate();
+					$tpl->setFile(__DIR__ ."/templates/automaticEmail1.latte");
+					$tpl->name =  $values["customerFirstname"];
+					$tpl->surname = $values["customerSurname"];
+					
+					$email = $values["customerEmail"];
+						
+					//mail pro zaslání dodatečných informací
+					$mail = new Message;
+					$mail->setFrom("noreply@titanstorage.co.uk");
+					$mail->addTo($email);
+					$mail->setSubject('Titan Storage');
+					$mail->setHtmlBody($tpl->__toString()); 
+						
+					try{
+						$this->mailer->send($mail);      
+							
+					} catch (\Exception $e) {
+					}
 				}
 				/*$this->backendModel->saveQuote($this->quote);
 				$this->backendModel->saveCustomer($values);*/
