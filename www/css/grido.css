@@ -129,7 +129,7 @@
 /******************** OTHERS ********************/
 
 .grido th.actions {
-    width: 15%;
+    width: 8%;
     text-align: right;
 }
 
@@ -261,9 +261,13 @@ small .fa,
     background-color: #dadada;
     border-color: #CDCDCD; 
     float: right;
-    margin-right: 51px;
+    margin-right: 16px;
     margin-top: 20px;
     }   
+.btn.btn-primary.backBtn:hover  {
+    background-color: #666666;
+
+    } 
     
 .btn.btn-primary.addStoreFormSubmit.button  {
     padding-right: 61px;
@@ -295,7 +299,7 @@ th.column {
 }
 
 .viewOrderDialogTrigger,.grid-action-addOrderNote,.grid-action-editOrder,.grid-action-deleteOrder,.grid-action-editProducts 
-,.grid-action-editSpecialOffers,.grid-action-editStore,.viewCartDialogTrigger {
+,.grid-action-editSpecialOffers,.chaseClientEmail,.grid-action-editPromotion ,.grid-action-editStore,.viewCartDialogTrigger,.grid-action-editProduct {
 	background: none;
 	color: #666;
 	border: none;
@@ -308,7 +312,8 @@ th.column {
 	
 }
 .viewOrderDialogTrigger:hover,.grid-action-addOrderNote:hover,.grid-action-editOrder:hover,.grid-action-deleteOrder:hover,.grid-action-editProducts:hover
-,.grid-action-editSpecialOffers:hover,.grid-action-editStore:hover,.grid-action-deleteOrder:hover,.grid-action-deleteCart:hover,.viewCartDialogTrigger:hover {
+,.grid-action-editSpecialOffers:hover,.chaseClientEmail,.grid-action-editStore:hover,.grid-action-deleteOrder:hover,.grid-action-deleteCart:hover
+,.grid-action-editProduct:hover,.grid-action-editPromotion:hover ,.viewCartDialogTrigger:hover {
 	background: #fff;
 	border: none;
 	color: #666;
