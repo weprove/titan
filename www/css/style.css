@@ -527,14 +527,16 @@ ul#side-menu > li:hover {
 	color: #666 ;
 	font-weight: bold;
 }	
-.viewOrderDialogTrigger,.grid-action-addOrderNote,.grid-action-editOrder,.grid-action-deleteOrder,.grid-action-editProducts ,.grid-action-editSpecialOffers,.grid-action-editStore {
-	background: none;
-	color: #666;
-	border: none;
+.ui-widget-header {
+    background: none repeat scroll 0 0 #666666;
+    border: 1px solid #666666;
+    color: #FFFFFF;
+    font-weight: bold;
 	
 }
+.ui-widget-content {
+    font-size: 13px;
+	line-height: 23px;
 
-.grido th.buttons, .grido td.actions,.actions center {
-    text-align: right;
-}	
+}
 

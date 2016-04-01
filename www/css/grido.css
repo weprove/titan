@@ -61,7 +61,7 @@
 
 .grido th.column {width: 7%}
 
-.grido thead {font-size: 1.15em}
+.grido thead {font-size: 1.15em; background-color:#f2f2f2}
 .grido tfoot {font-size: 1.1em}
 
 .grido .no-results {text-align: center}
@@ -130,7 +130,7 @@
 
 .grido th.actions {
     width: 15%;
-    text-align: center;
+    text-align: right;
 }
 
 .grido th.buttons,
@@ -169,7 +169,7 @@
 
 .grido table td, .grido table th {border-top: 0!important}
 .grido thead th {
-    border-bottom: 1px solid #CACACA!important;
+    border-bottom: 0px solid #CACACA!important;
     padding: 3px 6px!important;
 }
 .grido tbody tr td, .grido tfoot tr td {
@@ -269,3 +269,56 @@ small .fa,
     padding-right: 61px;
     padding-left: 61px;
     }   
+
+.head a {
+    color: #666 ;
+	font-size: 13px;
+}
+th.column {
+    border-left: 0px solid #CCCCCC;
+}
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #fff; 
+	font-size: 13px;
+}
+.table-striped > tbody > tr {
+    background-color: #fff; 
+	font-size: 13px;
+
+
+}
+
+.table-striped > tbody > tr:hover {
+    background-color: #F5F5F5;
+
+	
+}
+
+.viewOrderDialogTrigger,.grid-action-addOrderNote,.grid-action-editOrder,.grid-action-deleteOrder,.grid-action-editProducts 
+,.grid-action-editSpecialOffers,.grid-action-editStore,.viewCartDialogTrigger {
+	background: none;
+	color: #666;
+	border: none;
+	
+}
+.grid-action-deleteOrder,.grid-action-deleteCart {
+	background: none;
+	color: red;
+	border: none;
+	
+}
+.viewOrderDialogTrigger:hover,.grid-action-addOrderNote:hover,.grid-action-editOrder:hover,.grid-action-deleteOrder:hover,.grid-action-editProducts:hover
+,.grid-action-editSpecialOffers:hover,.grid-action-editStore:hover,.grid-action-deleteOrder:hover,.grid-action-deleteCart:hover,.viewCartDialogTrigger:hover {
+	background: #fff;
+	border: none;
+	color: #666;
+}
+.grido th.buttons, .grido td.actions,.actions center {
+    text-align: right;
+}
+ul.marginTop20 > li > a {
+	background-color: #fff
+	
+}
+
+
