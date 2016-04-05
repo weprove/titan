@@ -52,10 +52,6 @@ if (!function_exists($_b->blocks['content'][] = '_lb828fd6a92e_content')) { func
 
 						<fieldset>
 <?php $_l->tmp = $_control->getComponent("loginForm"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render('end') ?>
-					<p class="notRegisteredYet">
-						Not registered yet? <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Sign:register"), ENT_COMPAT) ?>">Sign up</a> <br> 
-						No activation email received?  <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Sign:resendActivationEmail"), ENT_COMPAT) ?>">Resend</a> <br>
-					</p>
 				</div>
 			</div>
 		</div>

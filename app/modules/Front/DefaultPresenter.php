@@ -74,10 +74,12 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			
 			if(count($stores)>0){
 				foreach($stores AS $store){
-					$distances[$store->store_id] = $this->distance($this->toFloat($lat1), $this->toFloat($lon1), $store->lat, $store->lon, 'K');		
+					$distances[$store->store_id] = $this->distance((string)$lat1, (string)$lon1, $store->lat, $store->lon, 'K');		
 					//echo $this->distance($this->toFloat($lat1), $this->toFloat($lon1), $store->lat, $store->lon, 'K');
 				}
 			}
+			
+			//Debugger::dump($distances);
 			
 			if(count($distances)>0){
 				//vybere pobocku nejblizeme a nastavime formular

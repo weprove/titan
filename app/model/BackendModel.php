@@ -44,7 +44,7 @@ class Backend extends Base
 	}
 	
 	public function getFullCart($cart_id){
-		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName, customer_id.*, product_id.*, product_id.promotion_id.promotionName")->where("cart.cart_id = ?", $cart_id)->fetch();
+		return $this->db->table("cart")->select("cart.*, customer_id.*, product_id.*, product_id.promotion_id.promotionName,  main_product_id.mainProductName")->where("cart.cart_id = ?", $cart_id)->fetch();
 	}
 	
 	public function getLeftCarts(){
