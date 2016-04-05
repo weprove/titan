@@ -79,10 +79,10 @@ class User extends Base
         return $this->db->query('UPDATE user SET ? WHERE user_id = ?', array('activated'=>0), $user_id);
     }  
 	
-    public function getrole(){
-        $result = $this->db->query("SELECT role_id, roleName FROM role")->fetchPairs();
+    public function getRoles(){
+        $result = $this->db->query("SELECT role_id, roleName FROM role")->fetchPairs("role_id", "roleName");
         return $result;
-    }  
+    }    
 	
     public  function selectHash($email){
       $result =  $this->db->query('SELECT uh.user_hash_id as hash

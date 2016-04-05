@@ -12,6 +12,10 @@ class Backend extends Base
 	/*public function getStoreData($store_id){
 		return $this->db->table("store")->select("*")->where("store_id = ?", $store_id)->fetch();
 	}*/
+	public function getUsers($user_id){
+		return $this->db->table("user")->select("user.*, role_id.roleName")->where("user.user_id != ?", $user_id);
+	}
+	
 	public function getProductCategoryPairs($store_id){
 		return $this->db->table("main_product")->select("main_product_id, mainProductName")->where("main_product.store_id = ?", $store_id)->fetchPairs("main_product_id", "mainProductName");		
 	}

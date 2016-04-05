@@ -157,7 +157,6 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			
 		$form->addSelect('promotion_id', 'Select special offer', $this->backendModel->getStoreSpecialOffers($store_id))
 			->setPrompt('Select special offer')
-			->addRule($form::FILLED, "Please select special offer.")
 			->setAttribute('class', 'form-control');
 			
         $form->onSuccess[] = array($this, 'addProductFormSubmitted');

@@ -1,16 +1,19 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-						<li>
+						<li n:if="$user->isInRole('admin')">
+                            <a href="{link :Admin:Default:viewUsers}">Users</a>
+                        </li>
+						<li n:if="$user->isAllowed('Admin:Store')">
                             <a href="{link :Admin:Store:viewStores}">Stores</a>
                         </li>
-						<li>
+						<li n:if="$user->isAllowed('Admin:Order')">
                             <a href="{link :Admin:Order:}">Reservations</a>
                         </li>
-						<li>
+						<li n:if="$user->isAllowed('Admin:Chase')">
                             <a href="{link :Admin:Chase:}">Nurture Quotes</a>
                         </li>
-						<li>
+						<li n:if="$user->isAllowed('Admin:Chase', 'viewEmailTemplates')">
                             <a href="{link :Admin:Chase:viewEmailTemplates}">Email templates</a>
                         </li>
                     </ul>

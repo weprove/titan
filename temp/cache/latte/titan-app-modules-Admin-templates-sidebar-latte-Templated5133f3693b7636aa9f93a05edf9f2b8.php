@@ -21,18 +21,22 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-						<li>
+<?php if ($user->isInRole('admin')) { ?>						<li>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:viewUsers"), ENT_COMPAT) ?>">Users</a>
+                        </li>
+<?php } if ($user->isAllowed('Admin:Store')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>">Stores</a>
                         </li>
-						<li>
+<?php } if ($user->isAllowed('Admin:Order')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>">Reservations</a>
                         </li>
-						<li>
+<?php } if ($user->isAllowed('Admin:Chase')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>">Nurture Quotes</a>
                         </li>
-						<li>
+<?php } if ($user->isAllowed('Admin:Chase', 'viewEmailTemplates')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:viewEmailTemplates"), ENT_COMPAT) ?>">Email templates</a>
                         </li>
+<?php } ?>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

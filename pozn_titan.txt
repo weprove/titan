@@ -11,6 +11,7 @@ can: view bookings, chase clients
 
 -----------------------------
  admin => admin
+-----------------------------
  
  vypis uzivatelu => admin muze editovat admina
  
@@ -21,3 +22,9 @@ can: view bookings, chase clients
  jsem salesman nebo shop manager => prihlasim se =>
  
  vypis podle obchodu (bez prepinace, filtrace), pridat razeni podle obchodu bude to pro REZERVACE a CHASE
+ 
+ ---
+ 
+ postcode predvyplnit
+ poslat booking na braintree
+ user role
