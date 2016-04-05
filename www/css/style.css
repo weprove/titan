@@ -608,6 +608,7 @@ ul#side-menu > li:hover {
 	color:#FFFFFF; 
 	font-size: 15px; 
 	font-weight: bold; 
+	line-height: 25px;
 	border-left: 1px solid #0070A8; 
 	} 
 
@@ -621,6 +622,7 @@ ul#side-menu > li:hover {
 	font-size: 12px;
 	font-weight: normal; 
 	}
+	
 
 .table-sizeestimator table tbody .alt td { 
 	background: #E5E8EE; 
