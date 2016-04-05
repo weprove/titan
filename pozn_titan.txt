@@ -1,0 +1,23 @@
+Admin: Jackob, Tom, Steve, Niamh, James
+can: create/delete offers, create/delete products, create/delete stores, create/delete email templates
+
+Shop Manager
+can: create/delete products for his store, view bookings, chase clients
+
+Salesman
+can: view bookings, chase clients
+
+
+
+-----------------------------
+ admin => admin
+ 
+ vypis uzivatelu => admin muze editovat admina
+ 
+ pozvanka noveho uzivatele => 
+ prirazeni ocbhodu zamestnanci => kdyz budu vybirat roli admin => ok, kdyz salesman nebo shop manager tak vyskoci pole s obchodem (checkboxy)
+ 
+ 
+ jsem salesman nebo shop manager => prihlasim se =>
+ 
+ vypis podle obchodu (bez prepinace, filtrace), pridat razeni podle obchodu bude to pro REZERVACE a CHASE

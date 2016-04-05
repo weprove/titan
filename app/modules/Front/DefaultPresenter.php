@@ -19,7 +19,6 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 	public $cart_id;
 	public $cart;
 	public $store_id;
-	public $prev_main_product_id;
 	
 	public function startup() {
 		parent::startup();
@@ -156,7 +155,8 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			}*/
 		
 		$this->flashMessage("You have booked a ".$product->productName." unit from ".date("d/m/y", strtotime($this->cart->leaseFrom))." to ".date("d/m/y", strtotime($this->cart->leaseTo)).". You will shortly receive a confirmation email.", "success");
-		$this->redirect(":Front:Default:default");
+		//$this->redirect(":Front:Default:default");
+		header('Location: http://titantest.lahivecreative.co.uk/your-quote-from-titan/');
 	}
 	
 	public function actionShowPrices($cart_id, $new_main_product_id = NULL){
@@ -323,6 +323,11 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 	
 	public function nb_mois($date1, $date2)
 	{
+		$date1 = str_replace('/', '-', $date1);
+		$date2 = str_replace('/', '-', $date2);
+		/*$date1 = date("Y-m-d", strtotime($date1));
+		$date2 = date("Y-m-d", strtotime($date2));*/
+		
 		$begin = new \DateTime( $date1 );
 		$end = new \DateTime( $date2 );
 		//$end = $end->modify( '+1 month' );

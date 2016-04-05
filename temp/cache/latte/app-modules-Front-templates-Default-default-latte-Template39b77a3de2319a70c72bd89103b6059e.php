@@ -21,6 +21,7 @@ if (!function_exists($_b->blocks['scripts'][] = '_lbcc3720135d_scripts')) { func
 	$(function() {
 		$( "#frm-quoteForm-leaseFrom" ).datepicker({
 			defaultDate: "+1w",
+			dateFormat: 'dd/mm/yy',
 			changeMonth: true,
 			numberOfMonths: 3,
 			onClose: function( selectedDate ) {
@@ -29,6 +30,7 @@ if (!function_exists($_b->blocks['scripts'][] = '_lbcc3720135d_scripts')) { func
 		});
 		$( "#frm-quoteForm-leaseTo" ).datepicker({
 			defaultDate: "+1w",
+			dateFormat: 'dd/mm/yy',
 			changeMonth: true,
 			numberOfMonths: 3,
 			onClose: function( selectedDate ) {

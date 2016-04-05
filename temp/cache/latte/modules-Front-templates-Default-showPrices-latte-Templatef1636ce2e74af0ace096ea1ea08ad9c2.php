@@ -77,7 +77,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 															<p class="soldout">sold out</p>
 															<a href="#" class="callus btn-book btn-primary">Call us now</a>
 <?php } else { ?>
-															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve now</a>
+															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" target="_top" class="btn-book btn-primary">reserve now</a>
 <?php } ?>
 													</div> 
 												</div>
@@ -97,7 +97,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 															<p class="soldout">sold out</p>
 															<a href="#" class="callus btn-book btn-red">Call us now</a>
 <?php } else { ?>
-															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve now</a>
+															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" target="_top" class="btn-book btn-primary">reserve now</a>
 <?php } ?>
 													</div>											
 												</div>

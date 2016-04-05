@@ -151,10 +151,12 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			
 		$store_id = (isset($productData->store_id))?$productData->store_id:$this->store_id;
 		$form->addSelect('main_product_id', 'Product category', $this->backendModel->getProductCategoryPairs($store_id))
+			->setPrompt('Please select product category')
 			->addRule($form::FILLED, "Please select product category (will display in quote form).")
 			->setAttribute('class', 'form-control');
 			
 		$form->addSelect('promotion_id', 'Select special offer', $this->backendModel->getStoreSpecialOffers($store_id))
+			->setPrompt('Select special offer')
 			->addRule($form::FILLED, "Please select special offer.")
 			->setAttribute('class', 'form-control');
 			
