@@ -123,6 +123,9 @@ class StorePresenter extends \Base\Presenters\BasePresenter
         $form = new  Form($this, $name);
 		$form->getElementPrototype()->class[] = "stdForm";
 		
+		if(isset($this->product_id))
+			$productData = $this->backendModel->getProductData($this->product_id);
+			
 		$form->addHidden("store_id");
 		$form->addHidden("product_id");
 		$form->addText('productName', 'Product name')
@@ -140,13 +143,18 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			->addRule($form::FILLED, "Please fill product price per month.")
 			->setAttribute('class', 'form-control');
 			
+		$store_id = (isset($productData->store_id))?$productData->store_id:$this->store_id;
+		$form->addSelect('promotion_id', 'Select special offer', $this->backendModel->getStoreSpecialOffers($store_id))
+			->addRule($form::FILLED, "Please select special offer.")
+			->setAttribute('class', 'form-control');
+			
         $form->onSuccess[] = array($this, 'addProductFormSubmitted');
 		
 		$form->addSubmit('submit', 'Save')
 			->setAttribute('class', 'btn btn-primary addProductFormSubmit');
 			
 		if(isset($this->product_id))
-			$form->setDefaults($this->backendModel->getProductData($this->product_id));
+			$form->setDefaults($productData);
 		
 		return $form;
 	}

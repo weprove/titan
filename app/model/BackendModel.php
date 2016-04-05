@@ -9,6 +9,15 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	/*public function getStoreData($store_id){
+		return $this->db->table("store")->select("*")->where("store_id = ?", $store_id)->fetch();
+	}*/
+	
+	public function getSentEmail($sent_email_id){
+		$r = $this->db->table("sent_email")->select("sent_email_id, sent_email_content")->fetch("sent_email_content");
+		return (isset($r['sent_email_content']))? $r['sent_email_content']:"";
+	}
+	
 	public function saveSentEmail($arr){
 		return $this->db->query("INSERT INTO sent_email", $arr);
 	}
@@ -177,7 +186,7 @@ class Backend extends Base
 	
 	// STORE
 	public function getProductData($product_id){
-		return $this->db->table("product")->select("*, store_id.storeName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
+		return $this->db->table("product")->select("*, store_id.storeName, product.promotion_id, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")->where("product_id = ?", $product_id)->fetch();
 	}
 	
 	public function updateProduct($values){		

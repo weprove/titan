@@ -91,12 +91,16 @@ class ChasePresenter extends SecuredPresenter
 		return $grid;
 	}
 	
+	public function actionviewSentEmail($sent_email_id){
+		$this->template->content = $this->backendModel->getSentEmail($sent_email_id);
+	}
+	
 	protected function createComponentSentEmailsGrid($name) {
 		$that = $this;
 		$grid = new Grid($this, $name);
 		$grid->model = $this->backendModel->getSentEmails();
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
-		$grid->setPrimaryKey('cart_id');
+		$grid->setPrimaryKey('sent_email_id');
 		
 		/*$grid->addColumnText('cart_id', 'Cart id')
 			->setSortable()
@@ -135,9 +139,10 @@ class ChasePresenter extends SecuredPresenter
 			->setCustomRender(function($item) use ($that){
 				$el = Html::el('a')->href($that->link(":Admin:Chase:chaseClient", $item->cart_id))->class("btn btn-primary chaseClientEmail")->setHtml("<i class='fa fa-envelope-o'></i>");
 				return $el;
-			});
-		$grid->addActionHref('deleteCart', 'delete cart', 'deleteCart!')
-            ->setIcon('remove');*/
+			});*/
+		$grid->addActionHref('viewSentEmail', 'view', 'viewSentEmail')
+			->getElementPrototype()->setTarget('_blank')
+            ->setIcon('remove');
 
 		$fName = "sent_emails";
 		new \Helpers\GridoExport($grid, $fName);

@@ -19,6 +19,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 	public $cart_id;
 	public $cart;
 	public $store_id;
+	public $prev_main_product_id;
 	
 	public function startup() {
 		parent::startup();
