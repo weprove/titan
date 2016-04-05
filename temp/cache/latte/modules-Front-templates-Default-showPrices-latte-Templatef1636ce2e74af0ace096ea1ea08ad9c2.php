@@ -42,9 +42,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 <?php if (isset($products)&&count($products)>0) { $iterations = 0; foreach ($products AS $product) { ?>
 										<div class="row offer ">
 											<div class="col-md-3 paddingAll30 column">
-												<h2 class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>
-												<h3 class="product-description"><?php echo Latte\Runtime\Filters::escapeHtml($product["productDescription"], ENT_NOQUOTES) ?></h3>
-										
+												<h2 class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>										
 											</div>
 											
 											<div class="col-md-3 column">
@@ -60,9 +58,9 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
 															<p class="soldout">sold out</p>
-															<a href="#" class="callus btn-book btn-primary">Call us</a>
+															<a href="#" class="callus btn-book btn-primary">Call us now</a>
 <?php } else { ?>
-															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve</a>
+															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 1)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve now</a>
 <?php } ?>
 													</div> 
 												</div>
@@ -80,9 +78,9 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
 															<p class="soldout">sold out</p>
-															<a href="#" class="callus btn-book btn-red">Call us</a>
+															<a href="#" class="callus btn-book btn-red">Call us now</a>
 <?php } else { ?>
-															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve</a>
+															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" class="btn-book btn-primary">reserve now</a>
 <?php } ?>
 													</div>											
 												</div>

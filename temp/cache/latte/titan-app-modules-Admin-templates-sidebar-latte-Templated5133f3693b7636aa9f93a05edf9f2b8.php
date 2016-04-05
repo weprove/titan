@@ -25,10 +25,10 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>">Stores</a>
                         </li>
 						<li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>">Bookings</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>">Reservations</a>
                         </li>
 						<li>
-                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>">Chasing clients</a>
+                            <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>">Nurture Quotes</a>
                         </li>
 						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:viewEmailTemplates"), ENT_COMPAT) ?>">Email templates</a>

@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-12"><b>Name:</b> {$order->customerFirstname} {$order->customerSurname}</div>
 			<div class="col-md-12"><b>Tel.:</b> {$order->customerPhone}</div>
-			<div class="col-md-12"><b>Unit details:</b> {$order->productName}</div>
+			<div class="col-md-12"><b>Unit details:</b> {$order->productName} {ifset $order->productDescription}{$order->productDescription}{/ifset}</div>
 			<div class="col-md-12"><b>Promotion:</b> {$order->promotionName}</div>
 		</div>
 	</div>

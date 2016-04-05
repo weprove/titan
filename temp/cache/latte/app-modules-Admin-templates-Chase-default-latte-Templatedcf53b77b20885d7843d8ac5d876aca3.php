@@ -36,7 +36,24 @@ if (!function_exists($_b->blocks['scripts'][] = '_lb04c36fa084_scripts')) { func
 //
 if (!function_exists($_b->blocks['content'][] = '_lb9b52851bb1_content')) { function _lb9b52851bb1_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>		<div id="cartDetailDialog"></div>
-<?php $_l->tmp = $_control->getComponent("chaseGrid"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ;
+		
+	<ul class="nav nav-tabs marginTop20">
+		<li class="active"><a href="#chase" data-toggle="tab">Chase Clients</a>
+		</li>
+		<li><a href="#sentemails" data-toggle="tab">Sent Emails</a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="chase">
+<?php $_l->tmp = $_control->getComponent("chaseGrid"); if ($_l->tmp instanceof Nette\Application\UI\IRenderable) $_l->tmp->redrawControl(NULL, FALSE); $_l->tmp->render() ?>
+		</div>
+		<div class="tab-pane fade" id="sentemails">
+			send
+		</div>
+	</div>
+<?php
 }}
 
 //

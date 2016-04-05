@@ -24,7 +24,8 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 			<div class="col-md-12"><b>Name:</b> <?php echo Latte\Runtime\Filters::escapeHtml($order->customerFirstname, ENT_NOQUOTES) ?>
  <?php echo Latte\Runtime\Filters::escapeHtml($order->customerSurname, ENT_NOQUOTES) ?></div>
 			<div class="col-md-12"><b>Tel.:</b> <?php echo Latte\Runtime\Filters::escapeHtml($order->customerPhone, ENT_NOQUOTES) ?></div>
-			<div class="col-md-12"><b>Unit details:</b> <?php echo Latte\Runtime\Filters::escapeHtml($order->productName, ENT_NOQUOTES) ?></div>
+			<div class="col-md-12"><b>Unit details:</b> <?php echo Latte\Runtime\Filters::escapeHtml($order->productName, ENT_NOQUOTES) ?>
+ <?php if (isset($order->productDescription)) { echo Latte\Runtime\Filters::escapeHtml($order->productDescription, ENT_NOQUOTES) ;} ?></div>
 			<div class="col-md-12"><b>Promotion:</b> <?php echo Latte\Runtime\Filters::escapeHtml($order->promotionName, ENT_NOQUOTES) ?></div>
 		</div>
 	</div>
