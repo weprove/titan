@@ -30,6 +30,10 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		\DependentSelectBox\JsonDependentSelectBox::tryJsonResponse($this /*(presenter)*/);
 	}
 	
+	public function actionViewSizeEstimator(){
+	
+	}
+	
 	public function handleShowBiggerSize($cart_id, $previousSize){
 		$new_main_product_id = $this->backendModel->getBiggerSize($previousSize, $this->store_id);
 		
