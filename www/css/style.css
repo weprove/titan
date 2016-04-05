@@ -15,6 +15,7 @@ div.signWrapper{
 .marginTop30{margin-top:30px !important;}
 
 /*Margin Bottom*/
+.marginBottom1{margin-bottom:1px !important;}
 .marginBottom2{margin-bottom:2px !important;}
 .marginBottom5{margin-bottom:5px !important;}
 .marginBottom10{margin-bottom:10px !important;}
@@ -162,7 +163,9 @@ padding: 13px 19px 25px 0;
 	
 	padding-left: 15px;
     padding-right: 15px;
+
 }
+
 
 .row.offer {
 	
@@ -186,6 +189,10 @@ padding: 13px 19px 25px 0;
 	font-weight: bold;
 	text-transform:uppercase	
 	}
+	
+.navigation-bar.high5{
+	height: 5px; 
+	}
 
 	
 .offer {
@@ -195,7 +202,14 @@ padding: 13px 19px 25px 0;
 	border: 1px solid;
 	border-color: transparent;
 	
-}/*	
+}
+
+.dark {
+
+	background: none repeat scroll 0 0 #054272;
+}
+
+/*	
 .offer:hover {
 	border: 1px solid;
 	border-color: #a2b8c9;
@@ -554,7 +568,7 @@ ul#side-menu > li:hover {
     width: 1110px !important;
 }
 .container {
-    width: 1110px !important;
+    width: 100% !important;
 }
 
 .container-fluid > ul > li {
@@ -566,3 +580,57 @@ ul#side-menu > li:hover {
 .actions .center {
 	display: hidden;
 }
+.table-sizeestimator table { 
+	border-collapse: collapse; 
+	text-align: left; 
+	width: 100%; 
+	} 
+
+.table-sizeestimator {
+	font: normal 12px/150% Arial, Helvetica, sans-serif; 
+	background: #fff; 
+	overflow: hidden; 
+	border: 1px solid #006699; 
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px; 
+	border-radius: 3px; 
+	}
+
+.table-sizeestimator table td, .table-sizeestimator table th { 
+	padding: 3px 10px; 
+	}
+
+.table-sizeestimator table thead th {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005596), color-stop(1, #005596) );
+	background:-moz-linear-gradient( center top, #005596 5%, #005596 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#005596', endColorstr='#005596');
+	background-color:#005596; 
+	color:#FFFFFF; 
+	font-size: 15px; 
+	font-weight: bold; 
+	border-left: 1px solid #0070A8; 
+	} 
+
+.table-sizeestimator table thead th:first-child { 
+	border: none; 
+	}
+	
+.table-sizeestimator table tbody td { 
+	color: #00496B; 
+	border-left: 1px solid #D3D6DB;
+	font-size: 12px;
+	font-weight: normal; 
+	}
+
+.table-sizeestimator table tbody .alt td { 
+	background: #E5E8EE; 
+	color: #00496B; 
+	}
+	
+.table-sizeestimator table tbody td:first-child { 
+	border-left: none; 
+	}
+	
+.table-sizeestimator table tbody tr:last-child td { 
+	border-bottom: none; 
+	}
