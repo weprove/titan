@@ -91,6 +91,60 @@ class ChasePresenter extends SecuredPresenter
 		return $grid;
 	}
 	
+	protected function createComponentSentEmailsGrid($name) {
+		$that = $this;
+		$grid = new Grid($this, $name);
+		$grid->model = $this->backendModel->getSentEmails();
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('cart_id');
+		
+		/*$grid->addColumnText('cart_id', 'Cart id')
+			->setSortable()
+            ->setFilterText();*/
+			
+		$grid->addColumnText('customerEmail', 'Email')
+			->setSortable()
+            ->setFilterText()
+			->setColumn("cart_id.customer_id.customerEmail");
+			
+		$grid->addColumnText('customerFirstname', 'Name')
+			->setSortable()
+            ->setFilterText()
+			->setColumn("cart_id.customer_id.customerFirstname");
+			
+		$grid->addColumnText('customerSurname', 'Surname')
+			->setSortable()
+            ->setFilterText()
+			->setColumn("cart_id.customer_id.customerSurname");
+			
+		/*$grid->addColumnDate('cartAdDate', 'Date added')
+			->setDateFormat("d/m/y")
+			->setSortable()
+            ->setFilterDate();*/
+			
+		/*$grid->addActionHref('editStore', 'Edit', 'editStore')
+            ->setIcon('pencil');*/
+		/*$grid->addActionHref('viewOrder', 'Edit', 'viewOrder')
+            //->setIcon('file-text-o');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Order:showLeftCart", $item->cart_id))->class("btn btn-primary viewCartDialogTrigger")->setHtml("<i class='fa fa-file-text-o'></i>");
+				return $el;
+			});
+		$grid->addActionHref('chaseClient', 'Chase client', 'Chase')
+            //->setIcon('file-text-o');
+			->setCustomRender(function($item) use ($that){
+				$el = Html::el('a')->href($that->link(":Admin:Chase:chaseClient", $item->cart_id))->class("btn btn-primary chaseClientEmail")->setHtml("<i class='fa fa-envelope-o'></i>");
+				return $el;
+			});
+		$grid->addActionHref('deleteCart', 'delete cart', 'deleteCart!')
+            ->setIcon('remove');*/
+
+		$fName = "sent_emails";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+	
 	protected function createComponentEditTemplateForm($name){
         $form = new  Form($this, $name);
 		$form->addHidden("template_id");
@@ -161,6 +215,18 @@ class ChasePresenter extends SecuredPresenter
     public function fullfilledTemplateFormSubmitted($form){
         if($form->isSubmitted() && $form->isValid()){
 			$values = $form->values;	
+			$subject = 'Titan Storage';
+			
+			//ulozime email 
+			$fullEmail = array(
+				"sent_email_subject" => $subject,
+				"sent_email_content" => $values['templateHtml'],
+				"sent_email_adDate" => date("Y-m-d H:i:s"),
+				"email_sender_id" => $this->user->identity->id,
+				"cart_id" => $this->cart->cart_id,
+				"customer_id" => $this->cart->customer_id
+			);
+			$this->backendModel->saveSentEmail($fullEmail);
 			
 			//zasleme email
 			$email = $this->cart->customerEmail;
@@ -169,7 +235,7 @@ class ChasePresenter extends SecuredPresenter
 			$mail = new Message;
 			$mail->setFrom("noreply@titanstorage.co.uk");
 			$mail->addTo($email);
-			$mail->setSubject('Titan Storage');
+			$mail->setSubject($subject);
 			$mail->setHtmlBody("
 				$values[templateHtml]
 			"); 

@@ -9,6 +9,10 @@ use Nette\Object,
  */
 class Backend extends Base
 { 
+	public function saveSentEmail($arr){
+		return $this->db->query("INSERT INTO sent_email", $arr);
+	}
+	
 	public function getTemplate($template_id){
 		return $this->db->table("template")->select("template.*")->where("template_id = ?", $template_id)->fetch();
 	}
@@ -49,6 +53,15 @@ class Backend extends Base
 	
 	public function getLeftCarts(){
 		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName, customer_id.*")->where(":order(cart_id).order_id IS NULL")->fetchAll();
+	}
+	
+	public function getSentEmails($store_id = NULL){
+		$selection = $this->db->table("sent_email");
+		$selection->select("sent_email.sent_email_id, cart_id.*, cart_id.main_product_id.mainProductName, cart_id.customer_id.*");
+		
+		if($store_id)
+			$selection->where("cart_id.store_id = ?", $store_id);
+		return $selection;
 	}
 	
 	public function deleteOrder($order_id){
