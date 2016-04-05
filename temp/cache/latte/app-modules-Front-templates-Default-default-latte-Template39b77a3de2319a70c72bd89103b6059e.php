@@ -101,7 +101,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb92a73d93f9_content')) { func
 			<div class="row" id="row-step-1">
 				
 				<div class="grey col-md-6">	
-					<span class="estimator-description">Not sure how much space you need? View our <u>size estimator</u>.</span>			
+					<span class="estimator-description">Not sure how much space you need? View our <u><a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("Default:viewSizeEstimator"), ENT_COMPAT) ?>">size estimator</a></u>.</span>			
 				</div>
 			</div>
 			</div>
