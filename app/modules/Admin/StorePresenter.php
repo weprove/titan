@@ -18,6 +18,7 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 	private $store_id;
 	private $product_id;
 	private $promotion_id;
+	public	$main_product_id;
 	
 	public function actionViewStores(){
 		
@@ -32,6 +33,11 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 	}
 	
 	public function actionViewProducts($store_id){
+		$this->store_id = $store_id;
+		$this->template->store_id = $store_id;
+	}
+	
+	public function actionViewProductCategories($store_id){
 		$this->store_id = $store_id;
 		$this->template->store_id = $store_id;
 	}
@@ -144,6 +150,10 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			->setAttribute('class', 'form-control');
 			
 		$store_id = (isset($productData->store_id))?$productData->store_id:$this->store_id;
+		$form->addSelect('main_product_id', 'Product category', $this->backendModel->getProductCategoryPairs($store_id))
+			->addRule($form::FILLED, "Please select product category (will display in quote form).")
+			->setAttribute('class', 'form-control');
+			
 		$form->addSelect('promotion_id', 'Select special offer', $this->backendModel->getStoreSpecialOffers($store_id))
 			->addRule($form::FILLED, "Please select special offer.")
 			->setAttribute('class', 'form-control');
@@ -265,6 +275,9 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			
 		$grid->addActionHref('editSpecialOffers', 'Manage special offers', 'viewSpecialOffers')
             ->setIcon('tags');
+			
+		$grid->addActionHref('viewCategories', 'Edit product categories', 'viewProductCategories')
+            ->setIcon('check');
 
         /*$grid->addActionHref('delete', 'Smazat', 'deleteCadastralOwner!')
             ->setIcon('trash')
@@ -321,6 +334,75 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 			});*/
 			
 		$fName = "stores";
+		new \Helpers\GridoExport($grid, $fName);
+	 
+		return $grid;
+	}
+	
+	public function actionAddProductCategory($store_id){
+		$this->store_id = $store_id;
+	}
+	
+	public function actionEditProductCategory($main_product_id){
+		$this->main_product_id = $main_product_id;
+	}
+	
+	protected function createComponentAddProductCategoryForm($name){
+        $form = new  Form($this, $name);
+		$form->addHidden("main_product_id");
+		$form->getElementPrototype()->class[] = "stdForm";
+		$form->addText('mainProductName', 'Category name (300 sq. ft. etc)');
+		$form->addText('mainProductSize', 'Size (in ft, only number allowed!)');
+		
+		if(isset($this->main_product_id)){
+			$form->setDefaults($this->backendModel->getProductCategoryData($this->main_product_id));
+		}
+	
+        $form->onSuccess[] = array($this, 'addProductCategoryFormSubmitted');
+		
+		$form->addSubmit('submit', 'Save')
+			->setAttribute('class', 'btn btn-primary addProductCategoryFormSubmitted');
+		
+		return $form;
+	}
+	
+	public function addProductCategoryFormSubmitted($form){
+        if($form->isSubmitted() && $form->isValid()){
+			if($form['submit']->isSubmittedBy()){
+				$values = $form->values;
+				$values['user_id'] = $this->user->identity->id;
+				if(isset($this->store_id)) $values['store_id'] = $this->store_id;
+				
+				$r = $this->backendModel->updateProductCategory($values);
+				
+				if($r)
+					$this->flashMessage('Product category succesfully updated.', 'success');
+				else
+					$this->flashMessage('Saving of the data failed.', 'error');	
+					
+				$this->redirect("this");
+			}
+		}
+	}
+	
+	protected function createComponentProductCategoriesGrid($name) {
+		$grid = new Grid($this, $name);
+		$grid->model = $this->backendModel->getProductCategories($this->store_id);
+		$grid->setfilterRenderType(Filter::RENDER_INNER);
+		$grid->setPrimaryKey('main_product_id');
+		
+		$grid->addColumnText('mainProductName', 'Name')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addColumnText('mainProductSize', 'Size (ft)')
+			->setSortable()
+            ->setFilterText();
+			
+		$grid->addActionHref('editProductCategory', 'Edit', 'editProductCategory')
+            ->setIcon('pencil');
+			
+		$fName = "categories_grid";
 		new \Helpers\GridoExport($grid, $fName);
 	 
 		return $grid;

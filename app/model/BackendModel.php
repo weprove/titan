@@ -12,6 +12,13 @@ class Backend extends Base
 	/*public function getStoreData($store_id){
 		return $this->db->table("store")->select("*")->where("store_id = ?", $store_id)->fetch();
 	}*/
+	public function getProductCategoryPairs($store_id){
+		return $this->db->table("main_product")->select("main_product_id, mainProductName")->where("main_product.store_id = ?", $store_id)->fetchPairs("main_product_id", "mainProductName");		
+	}
+	
+	public function getProductCategoryData($main_product_id){
+		return $this->db->table("main_product")->select("main_product.*")->where("main_product_id = ?", $main_product_id)->fetch();
+	}
 	
 	public function getSentEmail($sent_email_id){
 		$r = $this->db->table("sent_email")->select("sent_email_id, sent_email_content")->fetch("sent_email_content");
@@ -203,6 +210,11 @@ class Backend extends Base
 		return ($r)?true:false;
 	}
 	
+	public function getProductCategories($store_id){
+		$selection = $this->db->table("main_product")->select("main_product.*")->where("main_product.store_id = ?", $store_id);	
+		return $selection;
+	}
+	
 	public function getProducts($store_id = NULL){
 		$selection = $this->db->table("product")->select("*, promotion_id.promotionName")->where("product.store_id = ?", $store_id);	
 		if(!$store_id)
@@ -213,6 +225,21 @@ class Backend extends Base
 	public function getStoreData($store_id){
 		return $this->db->table("store")->select("*")->where("store_id = ?", $store_id)->fetch();
 	}
+	
+	public function updateProductCategory($values){		
+		$str = "";
+		
+		forEach($values as $key => $value){
+			$str .= " $key = values($key),";
+		}
+		
+		$str = substr($str, 0, -1);
+		
+		$r = $this->db->query("INSERT INTO main_product ", $values," ON DUPLICATE KEY UPDATE $str");
+		
+		return ($r)?true:false;
+	}
+
 	
 	public function updateStore($values){		
 		$str = "";
