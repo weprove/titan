@@ -299,7 +299,8 @@ th.column {
 }
 
 .viewOrderDialogTrigger,.grid-action-addOrderNote,.grid-action-editOrder,.grid-action-deleteOrder,.grid-action-editProducts 
-,.grid-action-editSpecialOffers,.editOrder,.chaseClientEmail,.grid-action-editPromotion ,.grid-action-editStore,.viewCartDialogTrigger,.grid-action-editProduct {
+,.grid-action-editSpecialOffers,.editOrder,.chaseClientEmail,.grid-action-editPromotion ,.grid-action-editStore,.viewCartDialogTrigger
+,.grid-action-editProduct,.grid-action-viewCategories,.grid-action-editUser,.grid-action-editProductCategory {
 	background: none;
 	color: #666;
 	border: none;
@@ -313,7 +314,8 @@ th.column {
 }
 .viewOrderDialogTrigger:hover,.grid-action-addOrderNote:hover,.grid-action-editOrder:hover,.grid-action-deleteOrder:hover,.grid-action-editProducts:hover,
 .grid-action-editSpecialOffers:hover,.chaseClientEmail:hover,.grid-action-editStore:hover,.grid-action-deleteOrder:hover,.grid-action-deleteCart:hover
-,.grid-action-editProduct:hover,.editOrder:hover,.grid-action-editPromotion:hover ,.viewCartDialogTrigger:hover {
+,.grid-action-editProduct:hover,.editOrder:hover,.grid-action-editPromotion:hover ,.grid-action-viewCategories:hover,.viewCartDialogTrigger:hover
+,.grid-action-editUser:hover,.grid-action-editProductCategory:hover {
 	background: #fff;
 	border: none;
 	color: #666;
