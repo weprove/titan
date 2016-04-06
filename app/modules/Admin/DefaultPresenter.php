@@ -33,7 +33,7 @@ class DefaultPresenter extends SecuredPresenter
 	
 	protected function createComponentUsersGrid($name) {
 		$grid = new Grid($this, $name);
-		$grid->model = $this->backendModel->getUsers($this->user->identity->id);
+		$grid->model = $this->backendModel->getUsers();
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('user_id');
 		
@@ -69,20 +69,24 @@ class DefaultPresenter extends SecuredPresenter
         $form = new Form($this, $name);
 		$form->getElementPrototype()->class[] = "stdFrm";	
 		$form->addText('name', 'Firstname')
-			->addRule($form::FILLED, 'Please fill user firstname.');
+			->addRule($form::FILLED, 'Please fill user firstname.')
+			->setAttribute('class', 'form-control');
         $form->addText('surname', 'Surname')
-			->addRule($form::FILLED, 'Please fill user surname.');
+			->addRule($form::FILLED, 'Please fill user surname.')
+			->setAttribute('class', 'form-control');
 			
 		$form->addText('email', 'Email (used also as username)')
 			->addRule(array($this->userModel, 'isEmailAvailable'), "This email address is already registered.")
 			->addRule($form::FILLED, 'Fill email field.')
-			->addRule($form::EMAIL, 'Email address is in bad format.');
+			->addRule($form::EMAIL, 'Email address is in bad format.')
+			->setAttribute('class', 'form-control');
 			
         $roles = $this->userModel->getRoles();
         $prompt = Html::el('option')->setText("Choose role")->class('prompt');
         $form->addSelect('role_id', 'Role', $roles)
 			->addRule(Form::FILLED, 'Please select role')
-            ->setPrompt($prompt);
+            ->setPrompt($prompt)
+			->setAttribute('class', 'form-control');
         
         $form->addSubmit('submitter', 'Invite')->setAttribute('class', 'btn btn-primary btn_margin');
         $form->onSuccess[] = callback($this, 'addUserFormSubmitted');
@@ -147,24 +151,30 @@ class DefaultPresenter extends SecuredPresenter
 		$form->addHidden('user_id');
 		
 		$form->addText('name', 'Firstname')
-			->addRule($form::FILLED, 'Please fill user firstname.');
+			->addRule($form::FILLED, 'Please fill user firstname.')
+			->setAttribute('class', 'form-control');
         $form->addText('surname', 'Surname')
-			->addRule($form::FILLED, 'Please fill user surname.');
+			->addRule($form::FILLED, 'Please fill user surname.')
+			->setAttribute('class', 'form-control');
         $form->addText('email', 'Login E-mail')
 			->addCondition(~$form::EQUAL, $this->userData['email'])
 			->addRule($form::EMAIL, 'Email address is in bad format.')
-			->addRule(callback($this->userModel, 'isEmailAvailable'), 'This email address is already registered.');
+			->addRule(callback($this->userModel, 'isEmailAvailable'), 'This email address is already registered.')
+			->setAttribute('class', 'form-control');
         $form->addPassword('password', 'Password')
 			->addCondition($form::FILLED)
-				->addRule($form::MIN_LENGTH, '"Password should be between 6-12 chars', 6);
+				->addRule($form::MIN_LENGTH, '"Password should be between 6-12 chars', 6)
+				->setAttribute('class', 'form-control');
         $form->addPassword('passwordCheck', 'Password again')
-			->addRule($form::EQUAL, 'Both passwords must be equal', $form['password']); 
+			->addRule($form::EQUAL, 'Both passwords must be equal', $form['password'])
+			->setAttribute('class', 'form-control');
 			
         $roles = $this->userModel->getRoles();
         $prompt = Html::el('option')->setText("Choose role")->class('prompt');
         $form->addSelect('role_id', 'Role', $roles)
 			->addRule(Form::FILLED, 'Please select role')
-            ->setPrompt($prompt);
+            ->setPrompt($prompt)
+			->setAttribute('class', 'form-control');
 			
         $form->addCheckboxList('stores', 'Assigned stores', $this->backendModel->getStorePairs());
 	

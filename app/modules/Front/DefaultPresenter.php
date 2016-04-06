@@ -135,6 +135,43 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		
 		$this->backendModel->saveOrder($order);
 		
+		//titan email
+		$mail = new Message;
+		$mail->setFrom("noreply@titanstorage.co.uk");
+		$mail->addTo("braintree@titanstorage.co.uk");
+		$mail->setSubject('New booking');
+		$mail->setHtmlBody("
+			There is a new booking in your CRM system.\n
+			Total: £".round($this->cart->cartPriceTotal, 2)."\n
+			From: $this->cart->leaseFrom\n
+			To: $this->cart->leaseTo\n
+			Product name: $this->cart->productName\n
+			Product description: $this->cart->productDescription\n
+			
+			titanstorage.co.uk
+		"); 
+		
+		$this->mailer->send($mail);
+		
+		//customer email
+		$email = $this->cart->customerEmail;
+		$mail = new Message;
+		$mail->setFrom("noreply@titanstorage.co.uk");
+		$mail->addTo($email);
+		$mail->setSubject('Titan Storage - New booking');
+		$mail->setHtmlBody("
+			Your order is confirmed.\n
+			\n
+			Price total: £".round($this->cart->cartPriceTotal, 2)."\n
+			From: $this->cart->leaseFrom\n
+			To: $this->cart->leaseTo\n
+			Product name: $this->cart->productName\n
+			
+			titanstorage.co.uk
+		"); 
+		
+		$this->mailer->send($mail);
+		
 			/*//zasleme email
 			$email = $this->cart->customerEmail;
 				

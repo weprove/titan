@@ -22,8 +22,8 @@ class Backend extends Base
 		return $this->db->table("assigned_store")->select("store_id")->where("user_id = ?", $user_id)->fetchAll();
 	}
 	
-	public function getUsers($user_id){
-		return $this->db->table("user")->select("user.*, role_id.roleName")->where("user.user_id != ?", $user_id);
+	public function getUsers(){
+		return $this->db->table("user")->select("user.*, role_id.roleName");
 	}
 	
 	public function getProductCategoryPairs($store_id){
@@ -138,7 +138,7 @@ class Backend extends Base
 	}
 	
 	public function getCart($cart_id){
-		return $this->db->table("cart")->select("*, main_product_id.mainProductSize")->where("cart_id = ?", $cart_id)->fetch();
+		return $this->db->table("cart")->select("*, main_product_id.mainProductSize, product_id.productName, product_id.productDescription")->where("cart_id = ?", $cart_id)->fetch();
 	}
 	
 	public function saveCart($values){

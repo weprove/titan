@@ -448,11 +448,11 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 		$grid->addActionHref('editProduct', 'Edit product', 'editProduct')
             ->setIcon('pencil');
 			
-		$grid->addActionHref('addPromotion', 'Add special offer', 'addProductSpecialOffer')
+		/*$grid->addActionHref('addPromotion', 'Add special offer', 'addProductSpecialOffer')
 			->setCustomRender(function($item) use ($that){
 				$el = Html::el('a')->href($that->link("addProductSpecialOffer", $that->store_id, $item->product_id))->class("btn btn-primary")->setHtml("<i class='fa fa-tag'></i>");
 				return $el;
-			});
+			});*/
 			
 		$fName = "stores";
 		new \Helpers\GridoExport($grid, $fName);
