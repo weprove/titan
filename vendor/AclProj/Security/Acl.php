@@ -45,7 +45,7 @@ class Acl extends Permission
 		$this->allow('salesman', 'Admin:Chase', array('showLeftCart', 'chaseClient', 'viewSentEmail'));
 		
 		//store_manager
-		$this->allow('store_manager', 'Admin:Store', array('viewProducts', 'addProduct', 'editProduct', 'addProductSpecialOffer'));
+		$this->allow('store_manager', 'Admin:Store', array('viewStores', 'viewProducts', 'addProduct', 'editProduct', 'addProductSpecialOffer'));
 		$this->allow('store_manager', 'Admin:Order', array('showOrder', 'addOrderNote', 'editOrder'));
 		$this->allow('store_manager', 'Admin:Chase', array('showLeftCart', 'chaseClient', 'viewSentEmail'));
         

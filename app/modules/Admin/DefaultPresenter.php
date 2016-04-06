@@ -165,8 +165,10 @@ class DefaultPresenter extends SecuredPresenter
         $form->addSelect('role_id', 'Role', $roles)
 			->addRule(Form::FILLED, 'Please select role')
             ->setPrompt($prompt);
+			
+        $form->addCheckboxList('stores', 'Assigned stores', $this->backendModel->getStorePairs());
 	
-        $form->addSubmit('submitter', 'Invite')->setAttribute('class', 'btn btn-primary btn_margin');
+        $form->addSubmit('submitter', 'Save')->setAttribute('class', 'btn btn-primary btn_margin');
         $form->onSuccess[] = callback($this, 'editUserFormSubmitted');
 		
 		if($this->user_id){
@@ -184,6 +186,16 @@ class DefaultPresenter extends SecuredPresenter
 			
             $values = $form->values;
 			$email = $values->email;
+			
+			$stores = $values['stores'];
+			$pArr = array();
+			foreach($stores AS $key=>$store){
+				$pArr[] = array("user_id" => $this->user_id, "store_id" => $store) ;
+			}
+			
+			$this->backendModel->assignStores($pArr, $this->user_id);
+			
+			unset($values['stores']);
 			
             $config = Environment::getConfig('security');
             $clearPass = $values['password'];

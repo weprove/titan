@@ -43,7 +43,8 @@ class ChasePresenter extends SecuredPresenter
 	protected function createComponentChaseGrid($name) {
 		$that = $this;
 		$grid = new Grid($this, $name);
-		$grid->model = $this->backendModel->getLeftCarts();
+		
+		$grid->model = ($this->user->isInRole("admin"))?$this->backendModel->getLeftCarts():$this->backendModel->getLeftCarts($this->assignedStores);
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('cart_id');
 		
@@ -98,7 +99,8 @@ class ChasePresenter extends SecuredPresenter
 	protected function createComponentSentEmailsGrid($name) {
 		$that = $this;
 		$grid = new Grid($this, $name);
-		$grid->model = $this->backendModel->getSentEmails();
+		$grid->model = ($this->user->isInRole("admin"))?$this->backendModel->getSentEmails():$this->backendModel->getSentEmails($this->assignedStores);
+		//$grid->model = $this->backendModel->getSentEmails();
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('sent_email_id');
 		

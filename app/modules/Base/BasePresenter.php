@@ -21,6 +21,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected $messageModel;
 
 	public $mailer;
+	public $assignedStores;
 
 	public function startup(){
 		
@@ -29,6 +30,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		\Kdyby\Replicator\Container::register();
 		
 		$this->mailer = new \Nette\Mail\SendmailMailer;
+		
+		if($this->user->isLoggedIn()){
+			$hArr = array();
+			
+			foreach($this->backendModel->getAssignedStores($this->user->identity->id) AS $key => $value)
+				$hArr[] = $value->store_id;
+				
+			$this->assignedStores = $hArr;
+		}
 	}
 	
 	protected function beforeRender()

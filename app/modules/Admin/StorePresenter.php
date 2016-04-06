@@ -252,7 +252,8 @@ class StorePresenter extends \Base\Presenters\BasePresenter
 	
 	protected function createComponentStoresGrid($name) {
 		$grid = new Grid($this, $name);
-		$grid->model = $this->backendModel->getStores();
+		
+		$grid->model = ($this->user->isInRole("admin"))?$this->backendModel->getStores():$this->backendModel->getStores($this->assignedStores);
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('store_id');
 		

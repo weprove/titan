@@ -12,6 +12,16 @@ class Backend extends Base
 	/*public function getStoreData($store_id){
 		return $this->db->table("store")->select("*")->where("store_id = ?", $store_id)->fetch();
 	}*/
+	public function assignStores($stores, $user_id){
+		$this->db->query("DELETE FROM assigned_store WHERE user_id = ?", $user_id);
+		
+		return $this->db->query("INSERT INTO assigned_store", $stores);
+	}
+
+	public function getAssignedStores($user_id){	
+		return $this->db->table("assigned_store")->select("store_id")->where("user_id = ?", $user_id)->fetchAll();
+	}
+	
 	public function getUsers($user_id){
 		return $this->db->table("user")->select("user.*, role_id.roleName")->where("user.user_id != ?", $user_id);
 	}
@@ -71,16 +81,24 @@ class Backend extends Base
 		return $this->db->table("cart")->select("cart.*, customer_id.*, product_id.*, product_id.promotion_id.promotionName,  main_product_id.mainProductName")->where("cart.cart_id = ?", $cart_id)->fetch();
 	}
 	
-	public function getLeftCarts(){
-		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductName, customer_id.*")->where(":order(cart_id).order_id IS NULL")->fetchAll();
+	public function getLeftCarts($assigned_stores = NULL){
+		$r = $this->db->table("cart");
+		$r->select("cart.*, main_product_id.mainProductName, customer_id.*");
+		$r->where(":order(cart_id).order_id IS NULL");
+		
+		if($assigned_stores){
+			$r->where("cart.store_id IN(?)", $assigned_stores);
+		}
+		
+		return $r->fetchAll();
 	}
 	
-	public function getSentEmails($store_id = NULL){
+	public function getSentEmails($assigned_stores = NULL){
 		$selection = $this->db->table("sent_email");
 		$selection->select("sent_email.sent_email_id, cart_id.*, cart_id.main_product_id.mainProductName, cart_id.customer_id.*");
 		
-		if($store_id)
-			$selection->where("cart_id.store_id = ?", $store_id);
+		if($assigned_stores)
+			$selection->where("cart_id.store_id IN(?)", $assigned_stores);
 		return $selection;
 	}
 	
@@ -100,9 +118,12 @@ class Backend extends Base
 		return $this->db->table("order")->select("order.order_id AS orderId, order.orderAdDate, order.order_state_id, order_state_id.orderStateName, cart_id.*, cart_id.customer_id.*, cart_id.product_id.*, order.order_id")->fetchAll();
 	}
 	
-	public function getOrdersSelection(){
+	public function getOrdersSelection($assigned_stores = NULL){
 		$selection = $this->db->table("order");
 		$selection->select("order.order_id AS orderId, order.orderAdDate, order.order_state_id, order_state_id.orderStateName, cart_id.*, cart_id.customer_id.*, cart_id.product_id.*, order.order_id");
+		if($assigned_stores){
+			$selection->where("cart_id.store_id IN(?)", $assigned_stores);
+		}
 		return $selection;
 	}
 	
@@ -259,8 +280,15 @@ class Backend extends Base
 		return ($r)?true:false;
 	}
 
-	public function getStores(){
-		return $this->db->table("store")->select("*");
+	public function getStores($assigned_stores = NULL){
+		$r = $this->db->table("store");
+		$r->select("*");
+		
+		if($assigned_stores){
+			$r->where("store_id IN(?)", $assigned_stores);
+		}
+		
+		return $r;
 	}
 	
 	public function getStorePairs(){

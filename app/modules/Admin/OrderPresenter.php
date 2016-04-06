@@ -55,7 +55,8 @@ class OrderPresenter extends SecuredPresenter
 			$this->redirect("this#today");
 		});
 		
-		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND DATE(orderAdDate) = CURDATE()");
+		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
+		$grid->model = $s->where("order.order_state_id != 5 AND DATE(orderAdDate) = CURDATE()");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
 		
@@ -133,7 +134,9 @@ class OrderPresenter extends SecuredPresenter
 			$this->redirect("this#yesterday");
 		});
 		
-		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND SUBDATE(DATE(orderAdDate),1)");
+		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
+		$grid->model = $s->where("order.order_state_id != 5 AND SUBDATE(DATE(orderAdDate),1)");		
+		//$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND SUBDATE(DATE(orderAdDate),1)");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
 		
@@ -211,7 +214,9 @@ class OrderPresenter extends SecuredPresenter
 			$this->redirect("this#recent");
 		});
 		
-		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND orderAdDate <= DATE_ADD(DATE(orderAdDate), INTERVAL -1 DAY)");
+		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
+		$grid->model = $s->where("order.order_state_id != 5 AND orderAdDate <= DATE_ADD(DATE(orderAdDate), INTERVAL -1 DAY)");
+		//$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND orderAdDate <= DATE_ADD(DATE(orderAdDate), INTERVAL -1 DAY)");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
 		
@@ -289,7 +294,9 @@ class OrderPresenter extends SecuredPresenter
 			$this->redirect("this#completed");
 		});
 		
-		$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id = 5");
+		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
+		$grid->model = $s->where("order.order_state_id = 5");
+		//$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id = 5");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
 		
