@@ -67,6 +67,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 
 	public function actionDefault($values = array()){
 		if(isset($values['psc'])){
+			$this["quoteForm"]->setDefaults(array("postalCode"=>$values['psc']));
 			//mame psc
 			$url ="http://maps.googleapis.com/maps/api/geocode/xml?address=".$values['psc']."&sensor=false";
 			$result = simplexml_load_file($url);

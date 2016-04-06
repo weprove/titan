@@ -18,6 +18,25 @@ if (!function_exists($_b->blocks['scripts'][] = '_lbcc3720135d_scripts')) { func
 	<script type="text/javascript" src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/dependentselectbox.ajax.js"></script>
 	<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=true'></script>
 	<script type='text/javascript'>
+	function paramReplace(name, string, value) {
+        // Find the param with regex
+        // Grab the first character in the returned string (should be ? or &)
+        // Replace our href string with our new value, passing on the name and delimeter
+
+        var re = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var matches = re.exec(string);
+        var newString;
+
+        if (matches === null) {
+            // if there are no params, append the parameter
+            newString = string + '?' + name + '=' + value;
+        } else {
+            var delimeter = matches[0].charAt(0);
+            newString = string.replace(re, delimeter + name + "=" + value);
+        }
+        return newString;
+    }
+	
 	$(function() {
 		$( "#frm-quoteForm-leaseFrom" ).datepicker({
 			defaultDate: "+1w",
@@ -36,6 +55,12 @@ if (!function_exists($_b->blocks['scripts'][] = '_lbcc3720135d_scripts')) { func
 			onClose: function( selectedDate ) {
 				$( "#frm-quoteForm-leaseFrom" ).datepicker( "option", "maxDate", selectedDate );
 			}
+		});
+		
+		$("#frm-quoteForm-postalCode").on("change", function(){
+			url = document.location.href;
+			url = url.toString().split("?")[0];
+			window.location = url+"?values[psc]="+$(this).val();
 		});
 	});
 	</script>
