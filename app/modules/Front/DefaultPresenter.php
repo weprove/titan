@@ -67,7 +67,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 
 	public function actionDefault($values = array()){
 		if(isset($values['psc'])){
-			$this["quoteForm"]->setDefaults(array("postalCode"=>$values['psc']));
+			//$this["quoteForm"]->setDefaults(array("postalCode"=>$values['psc']));
 			//mame psc
 			$url ="http://maps.googleapis.com/maps/api/geocode/xml?address=".$values['psc']."&sensor=false";
 			$result = simplexml_load_file($url);
@@ -89,7 +89,9 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 			if(count($distances)>0){
 				//vybere pobocku nejblizeme a nastavime formular
 				$chosenOne = array_keys($distances, min($distances));
-				$this["quoteForm"]->setDefaults(array("store_id"=>end($chosenOne)));
+				//$products = $form["store_id"], array($this, "getStoreProducts")
+				//$this["quoteForm"]["main_product_id"]->setDefaultValues($this->backendModel->getMainProductsByStorePairs(end($chosenOne)));
+				$this["quoteForm"]->setDefaults(array("store_id"=>end($chosenOne), "postalCode"=>$values['psc']));
 			}
 		}
 		if(isset($values['store_id'])&&isset($values['main_product_id'])){
@@ -102,7 +104,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 	public function handleOrder($cart_id, $product_id, $offer){
 		//prvni zjistime ceny
 		$pricesArray  = array();
-		$this->cart = $this->backendModel->getCart($cart_id);
+		$this->cart = $this->backendModel->getCartWDetails($cart_id);
 		$product = $this->backendModel->getProductData($product_id);
 		
 		$pricesArray = $this->countProductPrices($product, $this->cart->cartLeaseInMonths);
@@ -285,9 +287,11 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		$form->getElementPrototype()->class[] = "stdForm";
 		
 		$form->setMethod('get');
-		$form->addText('postalCode', 'Postal code')
-			->setAttribute('placeholder', 'Your postcode')
-			->setAttribute('class', 'form-control');
+		
+		$postalCode = $form->addText('postalCode', 'Postal code');
+		$postalCode->setAttribute('placeholder', 'Your postcode');
+		$postalCode->setAttribute('class', 'form-control');
+		
 		$store = $form->addSelect('store_id', 'Select your local store', $this->backendModel->getStorePairs());
 		$store->setPrompt("select store");
 		$store->addRule($form::FILLED, "Please select your local store.");

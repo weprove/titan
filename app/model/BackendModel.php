@@ -15,7 +15,8 @@ class Backend extends Base
 	public function assignStores($stores, $user_id){
 		$this->db->query("DELETE FROM assigned_store WHERE user_id = ?", $user_id);
 		
-		return $this->db->query("INSERT INTO assigned_store", $stores);
+		if(count($stores)>0)
+			return $this->db->query("INSERT INTO assigned_store", $stores);
 	}
 
 	public function getAssignedStores($user_id){	
@@ -138,7 +139,11 @@ class Backend extends Base
 	}
 	
 	public function getCart($cart_id){
-		return $this->db->table("cart")->select("*, main_product_id.mainProductSize, product_id.productName, product_id.productDescription")->where("cart_id = ?", $cart_id)->fetch();
+		return $this->db->table("cart")->select("cart.*, main_product_id.mainProductSize")->where("cart_id = ?", $cart_id)->fetch();
+	}
+	
+	public function getCartWDetails($cart_id){
+		return $this->db->table("cart")->select("cart.cartLeaseInMonths, cart.cartPriceTotal, cart.leaseFrom, cart.leaseTo, main_product_id.mainProductSize, product_id.productName, product_id.productDescription, customer_id.customerEmail")->where("cart_id = ?", $cart_id)->fetch();
 	}
 	
 	public function saveCart($values){

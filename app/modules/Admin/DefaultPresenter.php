@@ -25,6 +25,7 @@ class DefaultPresenter extends SecuredPresenter
 	public function actionEditUser($user_id){
 		$this->user_id = $user_id;
 		$this->userData = $this->userModel->getAccountData($user_id);
+		unset($this->userData['password']);
 	}
 	
 	public function actionAssUser(){
@@ -156,15 +157,18 @@ class DefaultPresenter extends SecuredPresenter
         $form->addText('surname', 'Surname')
 			->addRule($form::FILLED, 'Please fill user surname.')
 			->setAttribute('class', 'form-control');
-        $form->addText('email', 'Login E-mail')
-			->addCondition(~$form::EQUAL, $this->userData['email'])
+			
+        $em = $form->addText('email', 'Login E-mail');
+		$em->addCondition(~$form::EQUAL, $this->userData['email'])
 			->addRule($form::EMAIL, 'Email address is in bad format.')
-			->addRule(callback($this->userModel, 'isEmailAvailable'), 'This email address is already registered.')
-			->setAttribute('class', 'form-control');
-        $form->addPassword('password', 'Password')
-			->addCondition($form::FILLED)
-				->addRule($form::MIN_LENGTH, '"Password should be between 6-12 chars', 6)
-				->setAttribute('class', 'form-control');
+			->addRule(callback($this->userModel, 'isEmailAvailable'), 'This email address is already registered.');
+		$em->setAttribute('class', 'form-control');
+		
+        $pa = $form->addPassword('password', 'Password');
+		$pa->addCondition($form::FILLED)
+			->addRule($form::MIN_LENGTH, '"Password should be between 6-12 chars', 6);
+		$pa->setAttribute('class', 'form-control');
+		
         $form->addPassword('passwordCheck', 'Password again')
 			->addRule($form::EQUAL, 'Both passwords must be equal', $form['password'])
 			->setAttribute('class', 'form-control');

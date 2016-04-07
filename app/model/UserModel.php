@@ -153,7 +153,7 @@ class User extends Base
 	
     public  function getAccountData($userId){
         $result =  $this->db->query("SELECT * FROM user u WHERE user_id = ?", $userId)->fetch();
-    
+		unset($result['password']);
         return ($result) ? $result:FALSE;
     }  
 	
