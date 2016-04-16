@@ -56,7 +56,7 @@ class OrderPresenter extends SecuredPresenter
 		});
 		
 		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
-		$grid->model = $s->where("order.order_state_id != 5 AND DATE(orderAdDate) = CURDATE()");
+		$grid->model = $s->where("order.order_state_id != 5 AND DATE(orderAdDate) = CURDATE()")->order("orderAdDate DESC");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
 		
@@ -135,7 +135,7 @@ class OrderPresenter extends SecuredPresenter
 		});
 		
 		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
-		$grid->model = $s->where("order.order_state_id != 5 AND SUBDATE(DATE(orderAdDate),1)");		
+		$grid->model = $s->where("order.order_state_id != 5 AND orderAdDate = SUBDATE(DATE(orderAdDate),1)")->order("orderAdDate DESC");		
 		//$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND SUBDATE(DATE(orderAdDate),1)");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
@@ -215,7 +215,7 @@ class OrderPresenter extends SecuredPresenter
 		});
 		
 		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
-		$grid->model = $s->where("order.order_state_id != 5 AND orderAdDate <= DATE_ADD(DATE(orderAdDate), INTERVAL -1 DAY)");
+		$grid->model = $s->where("order.order_state_id != 5 AND orderAdDate > SUBDATE(DATE(orderAdDate),1)")->order("orderAdDate DESC");
 		//$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id != 5 AND orderAdDate <= DATE_ADD(DATE(orderAdDate), INTERVAL -1 DAY)");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');
@@ -295,7 +295,7 @@ class OrderPresenter extends SecuredPresenter
 		});
 		
 		$s = ($this->user->isInRole("admin"))?$this->backendModel->getOrdersSelection():$this->backendModel->getOrdersSelection($this->assignedStores);
-		$grid->model = $s->where("order.order_state_id = 5");
+		$grid->model = $s->where("order.order_state_id = 5")->order("orderAdDate DESC");
 		//$grid->model = $this->backendModel->getOrdersSelection()->where("order.order_state_id = 5");
 		$grid->setfilterRenderType(Filter::RENDER_INNER);
 		$grid->setPrimaryKey('order_id');

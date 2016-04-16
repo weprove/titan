@@ -43,9 +43,9 @@ if (!function_exists($_b->blocks['css'][] = '_lbea6d750fdf_css')) { function _lb
 //
 if (!function_exists($_b->blocks['scripts'][] = '_lb141ec3de85_scripts')) { function _lb141ec3de85_scripts($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
 ?>		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/jquery-ui.min.js"></script>
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/jquery-ui-timepicker-addon.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/jquery-ui.min.js"></script>
 		<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/main.js"></script>
 		<script src="<?php echo Latte\Runtime\Filters::escapeHtml(Latte\Runtime\Filters::safeUrl($basePath), ENT_COMPAT) ?>/js/nette.ajax.js"></script>

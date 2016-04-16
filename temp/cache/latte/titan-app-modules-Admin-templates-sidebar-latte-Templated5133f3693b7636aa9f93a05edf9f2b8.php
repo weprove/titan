@@ -21,19 +21,24 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-<?php if ($user->isInRole('admin')) { ?>						<li>
+<?php if ($user->isInRole('admin')) { ?>						<li <?php if ($_presenter->isLinkCurrent(":Admin:Default:*")) { ?>
+class="act"<?php } ?>>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:viewUsers"), ENT_COMPAT) ?>">Users</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Store', 'default')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Store', 'default')) { ?>						<li <?php if ($_presenter->isLinkCurrent(":Admin:Store:*")) { ?>
+class="act"<?php } ?>>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>">Stores</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Order', 'default')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Order', 'default')) { ?>						<li <?php if ($_presenter->isLinkCurrent(":Admin:Order:*")) { ?>
+class="act"<?php } ?>>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>">Reservations</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Chase', 'default')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Chase', 'default')) { ?>						<li <?php if ($_presenter->isLinkCurrent(":Admin:Chase:default")) { ?>
+class="act"<?php } ?>>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>">Nurture Quotes</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Chase', 'viewEmailTemplates')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Chase', 'viewEmailTemplates')) { ?>						<li <?php if ($_presenter->isLinkCurrent(":Admin:Chase:viewEmailTemplates")) { ?>
+class="act"<?php } ?>>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:viewEmailTemplates"), ENT_COMPAT) ?>">Email templates</a>
                         </li>
 <?php } ?>

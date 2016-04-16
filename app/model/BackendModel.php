@@ -23,6 +23,10 @@ class Backend extends Base
 		return $this->db->table("assigned_store")->select("store_id")->where("user_id = ?", $user_id)->fetchAll();
 	}
 	
+	public function getAssignedStorePairs($user_id){	
+		return $this->db->table("assigned_store")->select("assigned_store_id, store_id")->where("user_id = ?", $user_id)->fetchPairs("assigned_store_id", "store_id");
+	}
+	
 	public function getUsers(){
 		return $this->db->table("user")->select("user.*, role_id.roleName");
 	}
@@ -101,6 +105,10 @@ class Backend extends Base
 		if($assigned_stores)
 			$selection->where("cart_id.store_id IN(?)", $assigned_stores);
 		return $selection;
+	}
+	
+	public function deleteUser($user_id){
+		return $this->db->query("DELETE FROM `user` WHERE user_id = ?", $user_id);
 	}
 	
 	public function deleteOrder($order_id){

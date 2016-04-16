@@ -13,20 +13,44 @@ can: view bookings, chase clients
  admin => admin
 -----------------------------
  
- vypis uzivatelu => admin muze editovat admina
+D - vypis uzivatelu => admin muze editovat admina
  
- pozvanka noveho uzivatele => 
- prirazeni ocbhodu zamestnanci => kdyz budu vybirat roli admin => ok, kdyz salesman nebo shop manager tak vyskoci pole s obchodem (checkboxy)
+D - pozvanka noveho uzivatele => 
+D - prirazeni ocbhodu zamestnanci => kdyz budu vybirat roli admin => ok, kdyz salesman nebo shop manager tak vyskoci pole s obchodem (checkboxy)
+D - jsem salesman nebo shop manager => prihlasim se =>
+D - vypis podle obchodu (bez prepinace, filtrace), pridat razeni podle obchodu bude to pro REZERVACE a CHASE
+ 
+Known bugs & tweaks:
+D  - postcode & select issue (after correctly selected store by distance, product selection not redrawing properly) PENDING (difficult problem)
+D  -   not properly shown data in quote results (connected with point 1) PENDING
+D  - edit user form not keeping set values when editing again (but values are still correctly saved in db) PENDING
+D  - yesterday reservations have all reservations, recent have nothing PENDING
  
  
- jsem salesman nebo shop manager => prihlasim se =>
- 
- vypis podle obchodu (bez prepinace, filtrace), pridat razeni podle obchodu bude to pro REZERVACE a CHASE
- 
- 
- ------------------------------------------------------------------------------------------------------
+01 the link to resume the quote sent in chase emails is wrong e.g. http://../default/show-prices?cart_id=43
 
- gp advanced search vyhledavat vsechny ne jen couche
+02 linking captured emails to mailchimp lists
+
+03 quote table - £123.2 is missing 0 at end e.g. £123.20
+
+D - 04 MOVE IN FOR £1 FOR THE FIRST MONTH
+D - minimum stay 2 months
+D - £1 then £78 a month - remove
+D - (£12 a week) - remove 
+D - Total cost £123.20 for dates selected
+
+D - 05 can you highlight the side nav link when it is active 
+
+06 if there is no promotion on a unit can we add placeholder text to the cell that says 'Not Applicable'
+
+D - 07 delete user function needed
+
+D - 08 border for text areas in CMS
+
+D - 09 wrong order in results in reservation list
+
+D - 10 bootsrap css - icon not displayling properly add jquery ui + remove scroll bar
+ ------------------------------------------------------------------------------------------------------
  
  gp responsive header sunday
  

@@ -1,19 +1,19 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-						<li n:if="$user->isInRole('admin')">
+						<li {ifCurrent :Admin:Default:*}class="act"{/ifCurrent} n:if="$user->isInRole('admin')">
                             <a href="{link :Admin:Default:viewUsers}">Users</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Store', 'default')">
+						<li {ifCurrent :Admin:Store:*}class="act"{/ifCurrent} n:if="$user->isAllowed('Admin:Store', 'default')">
                             <a href="{link :Admin:Store:viewStores}">Stores</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Order', 'default')">
+						<li {ifCurrent :Admin:Order:*}class="act"{/ifCurrent} n:if="$user->isAllowed('Admin:Order', 'default')">
                             <a href="{link :Admin:Order:}">Reservations</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Chase', 'default')">
+						<li {ifCurrent :Admin:Chase:default}class="act"{/ifCurrent} n:if="$user->isAllowed('Admin:Chase', 'default')">
                             <a href="{link :Admin:Chase:}">Nurture Quotes</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Chase', 'viewEmailTemplates')">
+						<li {ifCurrent :Admin:Chase:viewEmailTemplates}class="act"{/ifCurrent} n:if="$user->isAllowed('Admin:Chase', 'viewEmailTemplates')">
                             <a href="{link :Admin:Chase:viewEmailTemplates}">Email templates</a>
                         </li>
                     </ul>

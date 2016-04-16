@@ -28,6 +28,12 @@ class DefaultPresenter extends SecuredPresenter
 		unset($this->userData['password']);
 	}
 	
+	public function handleDeleteUser($user_id){
+		if($this->user->isInRole("admin")||$this->user->isInRole("super_admin")){
+			$this->backendModel->deleteUser($user_id);
+		}
+	}
+	
 	public function actionAssUser(){
 	
 	}
@@ -55,6 +61,11 @@ class DefaultPresenter extends SecuredPresenter
             ->setFilterText()
 			->setColumn("role_id.roleName");
 			
+		$grid->addActionHref('deleteUser', 'delete', 'deleteUser!')
+            ->setIcon('times')
+            ->setConfirm(function($item) {
+                return "Do you really want to delete user with ID: {$item->user_id}?";
+			});
 		$grid->addActionHref('editUser', 'edit', 'editUser')
             ->setIcon('pencil');
 			
@@ -189,7 +200,12 @@ class DefaultPresenter extends SecuredPresenter
             ->setPrompt($prompt)
 			->setAttribute('class', 'form-control');
 			
-        $form->addCheckboxList('stores', 'Assigned stores', $this->backendModel->getStorePairs());
+        $assignedStores = $form->addCheckboxList('stores', 'Assigned stores', $this->backendModel->getStorePairs());
+		
+		if(isset($this->user_id)){
+			$stores = $this->backendModel->getAssignedStorePairs($this->user_id);
+			$assignedStores->setDefaultValue($stores);
+		}
 	
         $form->addSubmit('submitter', 'Save')->setAttribute('class', 'btn btn-primary btn_margin');
         $form->onSuccess[] = callback($this, 'editUserFormSubmitted');
