@@ -27,11 +27,11 @@ D  - edit user form not keeping set values when editing again (but values are st
 D  - yesterday reservations have all reservations, recent have nothing PENDING
  
  
-01 the link to resume the quote sent in chase emails is wrong e.g. http://../default/show-prices?cart_id=43
+D - 01 the link to resume the quote sent in chase emails is wrong e.g. http://../default/show-prices?cart_id=43
 
 02 linking captured emails to mailchimp lists
 
-03 quote table - £123.2 is missing 0 at end e.g. £123.20
+D - 03 quote table - £123.2 is missing 0 at end e.g. £123.20
 
 D - 04 MOVE IN FOR £1 FOR THE FIRST MONTH
 D - minimum stay 2 months
@@ -41,7 +41,7 @@ D - Total cost £123.20 for dates selected
 
 D - 05 can you highlight the side nav link when it is active 
 
-06 if there is no promotion on a unit can we add placeholder text to the cell that says 'Not Applicable'
+D - 06 if there is no promotion on a unit can we add placeholder text to the cell that says 'Not Applicable'
 
 D - 07 delete user function needed
 

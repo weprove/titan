@@ -12,7 +12,17 @@ list($_b, $_g, $_l) = $template->initialize('8f53e0b573', 'html')
 // block content
 //
 if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { function _lb9604a74000_content($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
-?>	<div class="container">	
+?>	<script>
+		$(function(){
+			$('.container').delegate('#frm-quoteForm-postalCode', 'change', function(){
+				$.nette.ajax({
+					url: <?php echo Latte\Runtime\Filters::escapeJs($_control->link("pscChange!")) ?>
+
+				});
+			});
+		});
+	</script>
+	<div class="container">	
 	<div class="row">
 			<div class="panel-primary">
 				<div class="col-md-12">	   
@@ -83,25 +93,28 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 												</div>
 											</div>
 											<div class="col-md-3 column">	
-<?php if ($product['cartSaleActive2']) { ?>												<div class="row offer2">
-													<div class="col-md-12">
-														<span class="steps">Move in for £1 for the first month</span> 
-														<h4>minimum stay 2 months</h4>
-													</div>	
-													
-													<div class="col-md-12">
-														<p>£1 then £<?php echo Latte\Runtime\Filters::escapeHtml($product['productPricePerMonth'], ENT_NOQUOTES) ?> a month</p>
-														<p>(£<?php echo Latte\Runtime\Filters::escapeHtml(round($product['productPricePerMonthSale2']/4, 2), ENT_NOQUOTES) ?> a week)</p>
-														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
+												<div class="row offer2">
+<?php if ($product['cartSaleActive2']) { ?>
+														<div class="col-md-12">
+															<span class="steps">Move in for £1 for the first month</span> 
+															<h4>minimum stay 2 months</h4>
+														</div>	
+														
+														<div class="col-md-12">
+																														<p class="total-price">Total cost £<?php echo Latte\Runtime\Filters::escapeHtml($product["cartPriceTotal2"], ENT_NOQUOTES) ?> for dates selected</p>
 <?php if ($product['productVacancy']<1) { ?>
-															<p class="soldout">sold out</p>
-															<a href="#" class="callus btn-book btn-red">Call us now</a>
+																<p class="soldout">sold out</p>
+																<a href="#" class="callus btn-book btn-red">Call us now</a>
 <?php } else { ?>
-															<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" target="_top" class="btn-book btn-primary">reserve now</a>
+																<a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link("order!", array($cart_id, $product["product_id"], 2)), ENT_COMPAT) ?>" target="_top" class="btn-book btn-primary">reserve now</a>
 <?php } ?>
-													</div>											
+														</div>	
+<?php } else { ?>
+														<div class="col-md-12">
+															<span class="notApplicable">Not Applicable</span> 
+														</div>	
+<?php } ?>
 												</div>
-<?php } ?>
 											</div>
 											
 											<div class="col-md-3 column">

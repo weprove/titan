@@ -64,9 +64,16 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		  return $miles;
 		}
 	}
+	
+	public function handlePscChange($postalCode){
+		
+		if(isset($postalCode)&&!empty($postalCode)) $this->redirect("this", array("values" => array("psc"=>$postalCode)));
+	}
 
 	public function actionDefault($values = array()){
-		if(isset($values['psc'])){
+		$form = $this["quoteForm"];
+		
+		if(isset($values['psc'])&&!empty($values['psc'])){
 			//$this["quoteForm"]->setDefaults(array("postalCode"=>$values['psc']));
 			//mame psc
 			$url ="http://maps.googleapis.com/maps/api/geocode/xml?address=".$values['psc']."&sensor=false";
@@ -91,8 +98,8 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 				$chosenOne = array_keys($distances, min($distances));
 				//$products = $form["store_id"], array($this, "getStoreProducts")
 				//$this["quoteForm"]["main_product_id"]->setDefaultValues($this->backendModel->getMainProductsByStorePairs(end($chosenOne)));
-				$form = $this["quoteForm"];
 				$form->setDefaults(array("store_id"=>end($chosenOne), "postalCode"=>$values['psc']));
+				//$form["store_id"]->setAttribute("readonly", "readonly");
 				//$this->invalidateControl("productsSnippet");
 				/*unset($form["main_product_id"]);
 				
@@ -257,7 +264,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 							"productName" => $product->productName,
 							"productDescription" => $product->productDescription,
 							"productPricePerMonth" => $product->productPricePerMonth,
-							"productStandartPricePerWeek" => round($product->productStandartPricePerWeek, 2),
+							"productStandartPricePerWeek" => number_format(round($product->productStandartPricePerWeek, 2), 2),
 							"productTotal" => $product->productTotal,
 							"productOccupancy" => $product->productOccupancy,
 							"productVacancy" => $product->productVacancy,
@@ -267,12 +274,12 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 							"productVacancy" => $product->productVacancy,
 							"productPricePerMonthSale" => round($pricesArray['cartPriceTotal']/$this->cart->cartLeaseInMonths, 2),
 							"productPricePerMonthSale2" => round($pricesArray['cartPriceTotal2']/$this->cart->cartLeaseInMonths, 2),
-							"standartTotalPrice" => round($product->productPricePerMonth*$this->cart->cartLeaseInMonths, 2),
+							"standartTotalPrice" => number_format(round($product->productPricePerMonth*$this->cart->cartLeaseInMonths, 2), 2),
 							"cartSaleActive" => $pricesArray['cartSaleActive'],
-							"cartPrice" => round($pricesArray['cartPrice'], 2),
-							"cartSale" => round($pricesArray['cartSale'], 2),
-							"cartPriceTotal" => round($pricesArray['cartPriceTotal'], 2),
-							"cartPriceTotal2" => round($pricesArray['cartPriceTotal2'], 2),
+							"cartPrice" => number_format(round($pricesArray['cartPrice'], 2), 2),
+							"cartSale" => number_format(round($pricesArray['cartSale'], 2), 2),
+							"cartPriceTotal" => number_format(round($pricesArray['cartPriceTotal'], 2), 2),
+							"cartPriceTotal2" => number_format(round($pricesArray['cartPriceTotal2'], 2), 2),
 							"cartSaleActive2" => $pricesArray['cartSaleActive2']
 						);
 					}

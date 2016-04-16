@@ -1,4 +1,13 @@
 {block content}
+	<script>
+		$(function(){
+			$('.container').delegate('#frm-quoteForm-postalCode', 'change', function(){
+				$.nette.ajax({
+					url: {link pscChange!}
+				});
+			});
+		});
+	</script>
 	<div class="container">	
 	<div class="row">
 			<div class="panel-primary">
@@ -70,25 +79,31 @@
 												</div>
 											</div>
 											<div class="col-md-3 column">	
-												<div class="row offer2" n:if="$product['cartSaleActive2']">
-													<div class="col-md-12">
-														<span class="steps">Move in for £1 for the first month</span> 
-														<h4>minimum stay 2 months</h4>
-													</div>	
-													
-													<div class="col-md-12">
-														{*
-															<p>£1 then £{$product['productPricePerMonth']} a month</p>
-															<p>(£{round($product['productPricePerMonthSale2']/4, 2)} a week)</p>
-														*}
-														<p class="total-price">Total cost £{$product["cartPriceTotal2"]} for dates selected</p>
-														{if $product['productVacancy']<1}
-															<p class="soldout">sold out</p>
-															<a href="#" class="callus btn-book btn-red">Call us now</a>
-														{else}
-															<a href="{link order!, $cart_id, $product["product_id"], 2}" target="_top" class="btn-book btn-primary">reserve now</a>
-														{/if}
-													</div>											
+												<div class="row offer2">
+													{if $product['cartSaleActive2']}
+														<div class="col-md-12">
+															<span class="steps">Move in for £1 for the first month</span> 
+															<h4>minimum stay 2 months</h4>
+														</div>	
+														
+														<div class="col-md-12">
+															{*
+																<p>£1 then £{$product['productPricePerMonth']} a month</p>
+																<p>(£{round($product['productPricePerMonthSale2']/4, 2)} a week)</p>
+															*}
+															<p class="total-price">Total cost £{$product["cartPriceTotal2"]} for dates selected</p>
+															{if $product['productVacancy']<1}
+																<p class="soldout">sold out</p>
+																<a href="#" class="callus btn-book btn-red">Call us now</a>
+															{else}
+																<a href="{link order!, $cart_id, $product["product_id"], 2}" target="_top" class="btn-book btn-primary">reserve now</a>
+															{/if}
+														</div>	
+													{else}
+														<div class="col-md-12">
+															<span class="notApplicable">Not Applicable</span> 
+														</div>	
+													{/if}
 												</div>
 											</div>
 											
