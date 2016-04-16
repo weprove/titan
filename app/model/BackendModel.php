@@ -74,7 +74,7 @@ class Backend extends Base
 	
 	public function getMiddleProductByMainProduct($main_product_id, $months = NULL){
 		//if months < minreting pro slevu tak NESPLNENO
-		return $this->db->table("product")->select("((7/30)*product.productPricePerMonth) AS productStandartPricePerWeek, (promotion_id.promotionPercentage*promotion_id.promotionValidityPeriod) AS promoIndex, product.*, promotion_id.promotionName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive")
+		return $this->db->table("product")->select("((7/30)*product.productPricePerMonth) AS productStandartPricePerWeek, (promotion_id.promotionPercentage*promotion_id.promotionValidityPeriod) AS promoIndex, product.*, promotion_id.promotionName, promotion_id.promotionPercentage, promotion_id.promotionMinimalRentingPeriod, promotion_id.promotionValidityPeriod, promotion_id.promotionActive, main_product_id.mainProductSize")
 		->order("promoIndex DESC, product.productPricePerMonth ASC")->limit(1)->where("(promotion_id.promotionMinimalRentingPeriod <= ? OR product.productPricePerMonth =  ( SELECT MIN(productPricePerMonth) FROM product WHERE main_product_id = ?)) AND main_product_id = ?", $months, $main_product_id, $main_product_id)->fetch();
 	}
 	
@@ -104,11 +104,11 @@ class Backend extends Base
 	}
 	
 	public function deleteOrder($order_id){
-		return $this->db->query("DELETE FROM order WHERE order_id=?", $order_id);
+		return $this->db->query("DELETE FROM `order` WHERE order_id = ?", $order_id);
 	}
 	
 	public function deleteCart($cart_id){
-		return $this->db->query("DELETE FROM cart WHERE cart_id=?", $cart_id);
+		return $this->db->query("DELETE FROM cart WHERE cart_id = ?", $cart_id);
 	}
 	
 	public function getOrder($order_id){
@@ -143,7 +143,7 @@ class Backend extends Base
 	}
 	
 	public function getCartWDetails($cart_id){
-		return $this->db->table("cart")->select("cart.cartLeaseInMonths, cart.cartPriceTotal, cart.leaseFrom, cart.leaseTo, main_product_id.mainProductSize, product_id.productName, product_id.productDescription, customer_id.customerEmail")->where("cart_id = ?", $cart_id)->fetch();
+		return $this->db->table("cart")->select("cart.cart_id, cart.cartLeaseInMonths, cart.cartPriceTotal, cart.leaseFrom, cart.leaseTo, main_product_id.mainProductSize, product_id.productName, product_id.productDescription, customer_id.customerEmail")->where("cart_id = ?", $cart_id)->fetch();
 	}
 	
 	public function saveCart($values){

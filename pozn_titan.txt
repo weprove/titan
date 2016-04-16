@@ -23,8 +23,11 @@ can: view bookings, chase clients
  
  vypis podle obchodu (bez prepinace, filtrace), pridat razeni podle obchodu bude to pro REZERVACE a CHASE
  
- ---
  
- postcode predvyplnit
- poslat booking na braintree
- user role
+ ------------------------------------------------------------------------------------------------------
+
+ gp advanced search vyhledavat vsechny ne jen couche
+ 
+ gp responsive header sunday
+ 
+ monday  10

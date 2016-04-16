@@ -4,13 +4,13 @@
 						<li n:if="$user->isInRole('admin')">
                             <a href="{link :Admin:Default:viewUsers}">Users</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Store')">
+						<li n:if="$user->isAllowed('Admin:Store', 'default')">
                             <a href="{link :Admin:Store:viewStores}">Stores</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Order')">
+						<li n:if="$user->isAllowed('Admin:Order', 'default')">
                             <a href="{link :Admin:Order:}">Reservations</a>
                         </li>
-						<li n:if="$user->isAllowed('Admin:Chase')">
+						<li n:if="$user->isAllowed('Admin:Chase', 'default')">
                             <a href="{link :Admin:Chase:}">Nurture Quotes</a>
                         </li>
 						<li n:if="$user->isAllowed('Admin:Chase', 'viewEmailTemplates')">

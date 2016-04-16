@@ -27,7 +27,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		
 		parent::startup();
 		$this->getHttpResponse()->setHeader('X-Frame-Options', NULL);
-		$this->autoCanonicalize = FALSE;
+		//$this->autoCanonicalize = FALSE;
 		\Kdyby\Replicator\Container::register();
 		
 		$this->mailer = new \Nette\Mail\SendmailMailer;

@@ -24,13 +24,13 @@ if (empty($_l->extends) && !empty($_control->snippetMode)) {
 <?php if ($user->isInRole('admin')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Default:viewUsers"), ENT_COMPAT) ?>">Users</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Store')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Store', 'default')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Store:viewStores"), ENT_COMPAT) ?>">Stores</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Order')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Order', 'default')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Order:"), ENT_COMPAT) ?>">Reservations</a>
                         </li>
-<?php } if ($user->isAllowed('Admin:Chase')) { ?>						<li>
+<?php } if ($user->isAllowed('Admin:Chase', 'default')) { ?>						<li>
                             <a href="<?php echo Latte\Runtime\Filters::escapeHtml($_control->link(":Admin:Chase:"), ENT_COMPAT) ?>">Nurture Quotes</a>
                         </li>
 <?php } if ($user->isAllowed('Admin:Chase', 'viewEmailTemplates')) { ?>						<li>

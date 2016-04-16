@@ -91,7 +91,17 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 				$chosenOne = array_keys($distances, min($distances));
 				//$products = $form["store_id"], array($this, "getStoreProducts")
 				//$this["quoteForm"]["main_product_id"]->setDefaultValues($this->backendModel->getMainProductsByStorePairs(end($chosenOne)));
-				$this["quoteForm"]->setDefaults(array("store_id"=>end($chosenOne), "postalCode"=>$values['psc']));
+				$form = $this["quoteForm"];
+				$form->setDefaults(array("store_id"=>end($chosenOne), "postalCode"=>$values['psc']));
+				//$this->invalidateControl("productsSnippet");
+				/*unset($form["main_product_id"]);
+				
+				$form->addJSelect("main_product_id", "Select your size", $form["store_id"], array($this, "getStoreProducts"))
+					->setPrompt("select size")
+					->addRule($form::FILLED, "Please choose your size.")
+					->setAttribute('class', 'form-control');*/
+				$form["main_product_id"]->refresh();
+				$this->invalidateControl("productsSnippet");
 			}
 		}
 		if(isset($values['store_id'])&&isset($values['main_product_id'])){
@@ -224,8 +234,8 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 				$subProducts[] = $middle;
 				//Debugger::dump($middle);
 				
-				$prev_main_product_id = $this->backendModel->getSmallerSize($middle->productSizeInSqFt, $this->store_id);
-				$next_main_product_id = $this->backendModel->getBiggerSize($middle->productSizeInSqFt, $this->store_id);
+				$prev_main_product_id = $this->backendModel->getSmallerSize($middle->mainProductSize, $this->store_id);
+				$next_main_product_id = $this->backendModel->getBiggerSize($middle->mainProductSize, $this->store_id);
 				
 				$prev = $this->backendModel->getMiddleProductByMainProduct($prev_main_product_id, $this->cart->cartLeaseInMonths);	
 				array_unshift ($subProducts, $prev);

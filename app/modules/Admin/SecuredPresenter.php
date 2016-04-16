@@ -30,7 +30,7 @@ abstract class SecuredPresenter extends \Base\Presenters\BasePresenter
 			if (!$user->isAllowed($this->name, $this->action)) {
 				$this->flashMessage("[$this->name:$this->action] You don't have permission rights for this page!", 'warning');
 
-				$this->redirect('Default:default');
+				$this->redirect(':Front:Default:default');
 			}
 		
 		}

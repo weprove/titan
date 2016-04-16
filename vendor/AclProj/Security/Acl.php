@@ -41,13 +41,14 @@ class Acl extends Permission
 		$this->allow('guest', 'Admin:Sign', Permission::ALL);
 		
 		//salesman
-		$this->allow('salesman', 'Admin:Order', array('showOrder', 'addOrderNote', 'editOrder'));
-		$this->allow('salesman', 'Admin:Chase', array('showLeftCart', 'chaseClient', 'viewSentEmail'));
+		$this->allow('salesman', 'Admin:Default', Permission::ALL);
+		$this->allow('salesman', 'Admin:Order', array('default', 'showOrder', 'addOrderNote', 'editOrder'));
+		$this->allow('salesman', 'Admin:Chase', array('default', 'showLeftCart', 'chaseClient', 'viewSentEmail'));
 		
 		//store_manager
-		$this->allow('store_manager', 'Admin:Store', array('viewStores', 'viewProducts', 'addProduct', 'editProduct', 'addProductSpecialOffer'));
-		$this->allow('store_manager', 'Admin:Order', array('showOrder', 'addOrderNote', 'editOrder'));
-		$this->allow('store_manager', 'Admin:Chase', array('showLeftCart', 'chaseClient', 'viewSentEmail'));
+		$this->allow('store_manager', 'Admin:Store', array('default', 'viewStores', 'viewProducts', 'addProduct', 'editProduct', 'addProductSpecialOffer'));
+		$this->allow('store_manager', 'Admin:Order', array('default', 'showOrder', 'addOrderNote', 'editOrder'));
+		$this->allow('store_manager', 'Admin:Chase', array('default', 'showLeftCart', 'chaseClient', 'viewSentEmail'));
         
         //Admin
         $this->allow('admin', Permission::ALL, Permission::ALL);

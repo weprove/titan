@@ -83,6 +83,10 @@ class DefaultPresenter extends SecuredPresenter
 			->setAttribute('class', 'form-control');
 			
         $roles = $this->userModel->getRoles();
+		
+		//guest, user
+		unset($roles[1], $roles[2]);
+	
         $prompt = Html::el('option')->setText("Choose role")->class('prompt');
         $form->addSelect('role_id', 'Role', $roles)
 			->addRule(Form::FILLED, 'Please select role')
@@ -101,7 +105,10 @@ class DefaultPresenter extends SecuredPresenter
 		$values['password'] =  sha1($values['password'].$config->salt);
 		$email = $values['email'];
 		
-		$register = $this->userModel->registerUser($values);
+		$role_id = $values["role_id"];
+		unset($values["role_id"]);
+		
+		$register = $this->userModel->registerUser($values, $role_id);
 		
 		if($register){			
 			//mail pro zaslání dodatečných informací
@@ -174,6 +181,8 @@ class DefaultPresenter extends SecuredPresenter
 			->setAttribute('class', 'form-control');
 			
         $roles = $this->userModel->getRoles();
+		//guest, user
+		unset($roles[1], $roles[2]);
         $prompt = Html::el('option')->setText("Choose role")->class('prompt');
         $form->addSelect('role_id', 'Role', $roles)
 			->addRule(Form::FILLED, 'Please select role')

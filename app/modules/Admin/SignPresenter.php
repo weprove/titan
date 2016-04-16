@@ -105,25 +105,17 @@ class SignPresenter extends \Base\Presenters\BasePresenter
         if($form->isSubmitted() && $form->isValid()){
             try {
                 $values = $form->values;
-				$finished = $this->userModel->userHasFinishedRegistration($values['username']);
 				
-				if(isset($finished['activated'])){
-					if(!$finished['activated']){
-						$this->flashMessage('You cannot login at this time because your account is not yet active. Please check your email for the activation link or click the resend activation link on sign in page.', 'warning');
-						$this->redirect('Sign:in');
-					}
+				$this->user->login($values['username'], $values['password']);
+				/*$this->sendResponse(new \Nette\Application\JsonResponse(array(
+						'ok' => 'Nepovedlo se',
+				)));*/
+				if ($values['remember'])
+					$this->user->setExpiration('+ 14 days', FALSE);
+				else
+					$this->user->setExpiration('+ 20 minutes', TRUE);
 					
-					$this->user->login($values['username'], $values['password']);
-					/*$this->sendResponse(new \Nette\Application\JsonResponse(array(
-							'ok' => 'Nepovedlo se',
-					)));*/
-					if ($values['remember'])
-						$this->user->setExpiration('+ 14 days', FALSE);
-					else
-						$this->user->setExpiration('+ 20 minutes', TRUE);
-						
-					$this->redirect(':Admin:Default:');
-				}
+				$this->redirect(':Admin:Default:');
 
             } catch (NS\AuthenticationException $e) {
                     $form->addError($e->getMessage());
@@ -198,13 +190,10 @@ class SignPresenter extends \Base\Presenters\BasePresenter
 				$mail->setFrom($from);
 				$mail->addTo($email);
 				$mail->setSubject('New registration');
-				$mail->setHtmlBody("Thank you for registering with GP+ Networking.\n
+				$mail->setHtmlBody("Thank you for registering.\n
 					Here are your login credentials:\n
 					Login email: $email\n
 					Password: $clearPass\n
-					
-					Please activate your account by clicking this link: <a href='$activationLink'>activate your account</a> and
-					continuing the registration process.
 	 
 					$emailSignature
 				");    
