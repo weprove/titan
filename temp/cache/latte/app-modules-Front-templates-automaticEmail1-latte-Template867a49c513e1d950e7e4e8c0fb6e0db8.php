@@ -1,11 +1,11 @@
 <?php
-// source: C:\xampp\htdocs\titan\app\modules\Front/templates/automaticEmail1.latte
+// source: C:\wamp\www\titan\titan\app\modules\Front/templates/automaticEmail1.latte
 
-class Template87d2d1634f7f96c138bdc93f6e2dbe2d extends Latte\Template {
+class Template867a49c513e1d950e7e4e8c0fb6e0db8 extends Latte\Template {
 function render() {
 foreach ($this->params as $__k => $__v) $$__k = $__v; unset($__k, $__v);
 // prolog Latte\Macros\CoreMacros
-list($_b, $_g, $_l) = $template->initialize('10c4a42892', 'html')
+list($_b, $_g, $_l) = $template->initialize('a696889879', 'html')
 ;
 // prolog Nette\Bridges\ApplicationLatte\UIMacros
 
