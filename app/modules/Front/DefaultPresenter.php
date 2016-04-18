@@ -257,6 +257,8 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 					$pricesArray = array();
 					
 					foreach($subProducts AS $key => $product){
+						if(!isset($product->product_id)) continue;
+						
 						$pricesArray = $this->countProductPrices($product, $this->cart->cartLeaseInMonths);
 						
 						$products[] = array(
@@ -416,7 +418,7 @@ class DefaultPresenter extends \Base\Presenters\BasePresenter
 		
 		$months = $cartLeaseInMonths;
 		
-		if($months > 0){
+		if($months > 0 && isset($productData->productPricePerMonth)){
 			//doba zapujceni je nenulova, muzeme spocitat cenu
 			$cartPrice = $months*$productData->productPricePerMonth;
 			if($productData->promotionActive == '1'){
