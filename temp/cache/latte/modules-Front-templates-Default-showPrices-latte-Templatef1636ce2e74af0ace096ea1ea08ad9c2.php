@@ -66,7 +66,7 @@ if (!function_exists($_b->blocks['content'][] = '_lb9604a74000_content')) { func
 <?php if (isset($cart)&&count($cart)>0) { ?>
 								
 								
-<?php if (isset($products)&&count($products)>0) { $iterations = 0; foreach ($products AS $product) { ?>
+<?php if (isset($products)&&count($products)>0) { $iterations = 0; foreach ($products AS $product) { if (empty($product["productName"]) && empty($product['productPricePerMonth'])) continue ?>
 										<div class="row offer ">
 											<div class="col-md-3 paddingAll30 column">
 												<h2 class="steps"><?php echo Latte\Runtime\Filters::escapeHtml($product["productName"], ENT_NOQUOTES) ?></h2>										
