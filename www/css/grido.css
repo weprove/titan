@@ -306,7 +306,7 @@ th.column {
 	border: none;
 	
 }
-.grid-action-deleteOrder,.grid-action-deleteCart {
+.grid-action-deleteOrder,.grid-action-deleteCart, .grid-action-deleteUser {
 	background: none;
 	color: red;
 	border: none;
@@ -315,7 +315,7 @@ th.column {
 .viewOrderDialogTrigger:hover,.grid-action-addOrderNote:hover,.grid-action-editOrder:hover,.grid-action-deleteOrder:hover,.grid-action-editProducts:hover,
 .grid-action-editSpecialOffers:hover,.chaseClientEmail:hover,.grid-action-editStore:hover,.grid-action-deleteOrder:hover,.grid-action-deleteCart:hover
 ,.grid-action-editProduct:hover,.editOrder:hover,.grid-action-editPromotion:hover ,.grid-action-viewCategories:hover,.viewCartDialogTrigger:hover
-,.grid-action-editUser:hover,.grid-action-editProductCategory:hover {
+,.grid-action-editUser:hover,.grid-action-editProductCategory:hover,.grid-action-deleteUser:hover{
 	background: #fff;
 	border: none;
 	color: #666;

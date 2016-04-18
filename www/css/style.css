@@ -644,3 +644,9 @@ ul#side-menu > li:hover {
 .table-sizeestimator table tbody tr:last-child td { 
 	border-bottom: none; 
 	}
+#cartDetailDialog {
+	overflow: hidden;
+}
+#frm-editUserForm-role_id, #frm-addProductForm-main_product_id, #frm-addProductForm-promotion_id, {
+	border: 1px solid #9C9C9C;
+}
